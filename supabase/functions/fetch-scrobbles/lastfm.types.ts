@@ -12,7 +12,8 @@ interface Artist {
 
 interface Track {
   artist: Artist;
-  date: {
+  // date is present only when the track is not playing right now...
+  date?: {
     uts: number;
     "#text": string;
   };
@@ -26,6 +27,10 @@ interface Track {
     "#text": string;
   };
   loved: string;
+  // present only when it is playing, weird I know
+  "@attr"?: {
+    nowplaying: boolean;
+  };
 }
 
 interface Attributes {
