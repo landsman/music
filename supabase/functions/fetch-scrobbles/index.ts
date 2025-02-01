@@ -1,75 +1,84 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { LastClient } from 'https://esm.sh/@musicorum/lastfm'
-
-const env = {
-    SUPABASE_URL: Deno.env.get("SUPABASE_URL")!,
-    SUPABASE_ANON_KEY: Deno.env.get("SUPABASE_ANON_KEY")!,
-    LASTFM_API_KEY: Deno.env.get("LASTFM_API_KEY")!,
-    LASTFM_USERNAME: Deno.env.get("LASTFM_USERNAME")!,
-}
-
-export async function askLastfm(userName: string, page: number = 1): Promise<any> {
-    const lastfmClient = new LastClient(env.LASTFM_API_KEY)
-    const recentTracks = await lastfmClient.user.getRecentTracksPaginated(userName)
-    return recentTracks.getPage(page)
-}
+import { getRecentTracks } from "./lastfm.ts"
+import { Row, TableListened } from "./table.ts"
+import { env } from "./env.ts"
 
 Deno.serve(async () => {
-    const result = await askLastfm(env.LASTFM_USERNAME, 1);
-    console.log(result);
+    const size = 50
+    const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY)
+    const table = new TableListened(supabaseClient)
+    const startFrom: number | null = await table.getLastListenedDate()
+    let totalPages = 1
+    let total = 0
+    let page = 1
 
-
-    //const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
-    //const scrobble = new Scrobble(supabaseClient);
-
-    //const latestTimestamp = await scrobble.getLatestTimestamp();
-    //console.log("Latest timestamp in DB:", latestTimestamp);
-
-    // deno-lint-ignore prefer-const
-    //let result: ScrobbleRow[] = [];
-
-    let page = 1;
-    let totalPages = 2;
-
-
-
-    while (page <= totalPages) {
-
-        //if (!data) break;
-        // totalPages = parseInt(data.recenttracks["@attr"].totalPages, 10);
-        // console.log(`Fetched page ${page}/${totalPages}`);
-        //
-        // const transformed = scrobble.transformTracks(data.recenttracks.track);
-        //
-        // if (latestTimestamp) {
-        //     const newTracks = transformed.filter(track => {
-        //         const trackTimestamp = Math.floor(new Date(track.timestamp).getTime() / 1000);
-        //         return trackTimestamp > latestTimestamp;
-        //     });
-        //
-        //     if (newTracks.length === 0) {
-        //         break;
-        //     }
-        //
-        //     allScrobbles.push(...newTracks);
-        //
-        //     const lastTrackTimestamp = Math.floor(new Date(newTracks[newTracks.length - 1].timestamp).getTime() / 1000);
-        //     if (lastTrackTimestamp <= latestTimestamp) {
-        //         break;
-        //     }
-        // } else {
-        //     allScrobbles.push(...transformed);
-        // }
-        //
-        // page++;
-        // await delay(500); // Handle rate limiting
+    if (startFrom) {
+        console.log('Starting from last listened date:', new Date(startFrom * 1000).toLocaleString())
+    }
+    else {
+        console.log('Database is empty, starting from the last page')
     }
 
-    // console.log(`Found ${allScrobbles.length} new scrobbles`);
-    //
-    // const result = await scrobble.saveToSupabase(allScrobbles);
+    const fmInitial = await getRecentTracks(env.LASTFM_API_KEY, env.LASTFM_USERNAME, 1, size, startFrom)
+    if (fmInitial === null) {
+        console.error('Fail - No tracks returned from initial api request.')
+        return new Response('error', { headers: { "Content-Type": "text/plain" } })
+    }
+    const paginationInitial = fmInitial.recenttracks["@attr"]
+    totalPages = parseInt(paginationInitial.totalPages)
+    total = parseInt(paginationInitial.total)
+    page = totalPages
 
-    return new Response(JSON.stringify(result), {
-        headers: { "Content-Type": "application/json" },
-    });
-});
+    if (startFrom) {
+        console.log(`Found ${total} new tracks to save! Starting from page ${totalPages}.`)
+    }
+    else {
+        console.log(`Found ${total} tracks in total. Starting from page ${totalPages}.`)
+    }
+
+    let processedPages = 0
+    do {
+        if (processedPages === 10) {
+            console.log(`Already inserted ${processedPages * size} items to db. Stopped. See ya in next cron.`)
+            break
+        }
+
+        const fm = await getRecentTracks(env.LASTFM_API_KEY, env.LASTFM_USERNAME, page, size, startFrom)
+        if (fm === null) {
+            console.error('Fail - No tracks returned from api request.')
+            break
+        }
+        const data = fm.recenttracks
+        const tracks = data.track
+
+        if (total === 0 || tracks.length === 0) {
+            break
+        }
+
+        console.log(`Fetching page ${page}/${totalPages}`)
+
+        const toInsert: Row[] = tracks.map(track => ({
+            created_at: new Date().toISOString(),
+            listened_at: new Date(track.date.uts * 1000).toISOString(),
+            artist_name: track.artist.name,
+            track_name: track.name,
+            album_name: track.album["#text"],
+            lastfm_data: track,
+        }))
+
+        const { error, message } = await table.save(toInsert)
+        if (error) {
+            break
+        }
+
+        if (message) {
+            console.log(message)
+        }
+
+        processedPages++
+        page--
+    }
+    while (page >= 1)
+
+    return new Response('ok1', { headers: { "Content-Type": "text/plain" } })
+})

@@ -1,14 +1,13 @@
--- run this on your postgresql database (supabase)
-
-CREATE TABLE scrobbles
+CREATE TABLE listened
 (
-    id        UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    track     TEXT        NOT NULL,
-    artist    TEXT        NOT NULL,
-    album     TEXT,
-    timestamp TIMESTAMPTZ NOT NULL,
-    url       TEXT
+    id          UUID  DEFAULT gen_random_uuid() PRIMARY KEY,
+    created_at  TIMESTAMPTZ NOT NULL,
+    listened_at TIMESTAMPTZ NOT NULL,
+    artist_name TEXT        NOT NULL,
+    track_name  TEXT        NOT NULL,
+    album_name  TEXT,
+    lastfm_data jsonb DEFAULT NULL
 );
 
--- Optional: Create an index for faster queries
-CREATE INDEX idx_timestamp ON scrobbles (timestamp DESC);
+CREATE INDEX idx_created_at ON listened (created_at DESC);
+CREATE INDEX idx_listened_at ON listened (listened_at DESC);
