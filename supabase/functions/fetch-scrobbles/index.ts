@@ -14,6 +14,7 @@ Sentry.init({
 // Set region and execution_id as custom tags
 Sentry.setTag("region", Deno.env.get("SB_REGION"));
 Sentry.setTag("execution_id", Deno.env.get("SB_EXECUTION_ID"));
+Sentry.setTag("url", env.SUPABASE_URL);
 
 Deno.serve(async () => {
   try {
