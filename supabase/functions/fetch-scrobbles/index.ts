@@ -78,14 +78,16 @@ Deno.serve(async () => {
 
     console.log(`Fetching page ${page}/${totalPages}`);
 
-    const toInsert: Row[] = tracks.map((track) => ({
-      created_at: new Date().toISOString(),
-      listened_at: new Date(track.date.uts * 1000).toISOString(),
-      artist_name: track.artist.name,
-      track_name: track.name,
-      album_name: track.album["#text"],
-      lastfm_data: track,
-    }));
+    const toInsert: Row[] = tracks
+      .filter((track) => !(track["@attr"] && track["@attr"].nowplaying))
+      .map((track) => ({
+        created_at: new Date().toISOString(),
+        listened_at: new Date(track.date!.uts * 1000).toISOString(),
+        artist_name: track.artist.name,
+        track_name: track.name,
+        album_name: track.album["#text"],
+        lastfm_data: track,
+      }));
 
     const { error, message } = await table.save(toInsert);
     if (error) {

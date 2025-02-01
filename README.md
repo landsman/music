@@ -38,3 +38,8 @@ supabase start
 supabase function serve --no-verify-jwt
 ```
 
+**deploy modified function**
+
+```bash
+supabase functions deploy --project-ref xxx
+```
