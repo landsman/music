@@ -1,0 +1,22 @@
+meta {
+  name: artist.getSimilar
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://ws.audioscrobbler.com/2.0/?method=artist.getSimilar&user={{LASTFM_USERNAME}}&api_key={{LASTFM_API_KEY}}&format=json&limit=50&page=1&artist=Dr. Dre
+  body: none
+  auth: none
+}
+
+query {
+  method: artist.getSimilar
+  user: {{LASTFM_USERNAME}}
+  api_key: {{LASTFM_API_KEY}}
+  format: json
+  limit: 50
+  page: 1
+  artist: Dr. Dre
+  ~mbid: 
+}

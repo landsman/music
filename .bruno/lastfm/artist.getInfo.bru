@@ -1,0 +1,23 @@
+meta {
+  name: artist.getInfo
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://ws.audioscrobbler.com/2.0/?method=artist.getInfo&user={{LASTFM_USERNAME}}&api_key={{LASTFM_API_KEY}}&format=json&limit=50&page=1&artist=Dr. Dre
+  body: none
+  auth: none
+}
+
+query {
+  method: artist.getInfo
+  user: {{LASTFM_USERNAME}}
+  api_key: {{LASTFM_API_KEY}}
+  format: json
+  limit: 50
+  page: 1
+  artist: Dr. Dre
+  ~username: Insuit
+  ~mbid: 
+}

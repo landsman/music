@@ -1,0 +1,18 @@
+meta {
+  name: user.getInfo
+  type: http
+  seq: 9
+}
+
+get {
+  url: https://ws.audioscrobbler.com/2.0/?method=user.getInfo&user={{LASTFM_USERNAME}}&api_key={{LASTFM_API_KEY}}&format=json
+  body: none
+  auth: none
+}
+
+query {
+  method: user.getInfo
+  user: {{LASTFM_USERNAME}}
+  api_key: {{LASTFM_API_KEY}}
+  format: json
+}

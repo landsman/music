@@ -1,0 +1,24 @@
+meta {
+  name: track.getTags
+  type: http
+  seq: 8
+}
+
+get {
+  url: https://ws.audioscrobbler.com/2.0/?method=track.getTags&user={{LASTFM_USERNAME}}&api_key={{LASTFM_API_KEY}}&format=json&limit=50&page=1&track=Ms. Fat Booty&artist=Mos Def&autocorrect=0
+  body: none
+  auth: none
+}
+
+query {
+  method: track.getTags
+  user: {{LASTFM_USERNAME}}
+  api_key: {{LASTFM_API_KEY}}
+  format: json
+  limit: 50
+  page: 1
+  track: Ms. Fat Booty
+  artist: Mos Def
+  autocorrect: 0
+  ~mbid: 
+}

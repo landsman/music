@@ -1,0 +1,22 @@
+meta {
+  name: user.getRecentTracks
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user={{LASTFM_USERNAME}}&api_key={{LASTFM_API_KEY}}&format=json&limit=50&page=1&extended=1
+  body: none
+  auth: none
+}
+
+query {
+  method: user.getRecentTracks
+  user: {{LASTFM_USERNAME}}
+  api_key: {{LASTFM_API_KEY}}
+  format: json
+  limit: 50
+  page: 1
+  extended: 1
+  ~from: xxx
+}

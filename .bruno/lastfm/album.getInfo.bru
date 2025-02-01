@@ -1,0 +1,24 @@
+meta {
+  name: album.getInfo
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://ws.audioscrobbler.com/2.0/?method=album.getInfo&user={{LASTFM_USERNAME}}&api_key={{LASTFM_API_KEY}}&format=json&limit=50&page=1&artist=Dr. Dre&album=The Chronic
+  body: none
+  auth: none
+}
+
+query {
+  method: album.getInfo
+  user: {{LASTFM_USERNAME}}
+  api_key: {{LASTFM_API_KEY}}
+  format: json
+  limit: 50
+  page: 1
+  artist: Dr. Dre
+  album: The Chronic
+  ~username: Insuit
+  ~mbid: 
+}
