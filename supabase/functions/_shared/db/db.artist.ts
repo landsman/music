@@ -23,4 +23,21 @@ export class ArtistTable extends BaseTable {
       .upsert(artists, { onConflict: columnName.name })
       .select();
   }
+
+  async findIdByName(name: string): Promise<string | null> {
+    const { data, error } = await this.getSupabase()
+        .from(this.tableName)
+        .select("id")
+        .eq(columnName.name, name)
+        .limit(1)
+        .maybeSingle<{ id: string } | null>();
+
+    if (error) {
+      console.error("Error fetching artist by name:", error);
+      return null;
+    }
+
+    return data ? data.id : null;
+  }
+
 }

@@ -37,7 +37,7 @@ interface Artists {
   "@attr": Attr;
 }
 
-interface Artist {
+export interface Artist {
   tagcount: string;
   image: Image[];
   mbid: string;

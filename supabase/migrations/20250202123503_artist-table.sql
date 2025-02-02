@@ -22,3 +22,17 @@ ALTER TABLE artist
 
 CREATE INDEX idx_artist_created_at ON artist (created_at DESC);
 CREATE INDEX idx_artist_name ON artist (name ASC);
+
+-- pair table user <> artist
+CREATE TABLE hooman_artist
+(
+    id         UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    created_at TIMESTAMPTZ NOT NULL,
+    hooman_id  UUID        NOT NULL,
+    artist_id  UUID        NOT NULL
+);
+
+ALTER TABLE hooman_artist
+    ADD CONSTRAINT uq_hooman_artist_id UNIQUE (hooman_id, artist_id);
+
+CREATE INDEX idx_hooman_artist_hooman_id ON hooman_artist (hooman_id DESC);

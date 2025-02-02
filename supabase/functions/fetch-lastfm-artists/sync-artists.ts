@@ -1,8 +1,10 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { getLibraryArtists } from "../_shared/lastfm/library-artists.ts";
+import {Artist, getLibraryArtists} from "../_shared/lastfm/library-artists.ts";
 import { Variables } from "../_shared/env.ts";
 import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
 import { delay } from "../_shared/utils.ts";
+import {HoomanArtistRow, HoomanArtistTable} from "../_shared/db/db.hooman_artist.ts";
+import {HoomanTable} from "../_shared/db/db.hooman.ts";
 
 /**
  * Sync database of artists with Last.fm
@@ -11,7 +13,11 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
   console.log(`syncArtists - Last.fm user: ${lastFmUser}`);
 
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
-  const artists = new ArtistTable(supabaseClient);
+  const artistsTable = new ArtistTable(supabaseClient);
+
+  const hooman = new HoomanTable(supabaseClient);
+  const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUser);
+  const hoomanArtist = new HoomanArtistTable(supabaseClient);
 
   const size = 100;
   const fmInitial = await getLibraryArtists(
@@ -77,13 +83,13 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     }
 
     const toInsert: ArtistRow[] = fm.artists.artist
-      .map((artist) => ({
+      .map((item) => ({
         created_at: new Date().toISOString(),
-        name: artist.name,
-        lastfm_data: artist,
+        name: item.name,
+        lastfm_data: item,
       }));
 
-    const { message, error } = await artists.sync(toInsert);
+    const { message, error } = await artistsTable.sync(toInsert);
     if (error) {
       console.error(error);
       throw new Error(error.toString());
@@ -93,6 +99,10 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
       console.log(message);
     }
 
+
+    pairArtistWithHooman(artistsTable, hoomanArtist, hoomanId, fm.artists.artist);
+
+
     processedItems = processedItems + toInsert.length;
     console.log("Processed items:", processedItems);
 
@@ -101,4 +111,39 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
   } while (count.page <= count.totalPages);
 
   return "ok";
+}
+
+async function pairArtistWithHooman(
+    artistsTable: ArtistTable,
+    hoomanArtistTable: HoomanArtistTable,
+    hoomanId: string,
+    data: Artist[],
+): Promise<void> {
+
+  const toAssign: HoomanArtistRow[] = data
+      .map(async (item) => {
+        const artistId = await artistsTable.findIdByName(item.name)
+
+        // not found
+        if (artistId === null) {
+          return null;
+        }
+
+        return {
+          created_at: new Date().toISOString(),
+          hooman_id: hoomanId,
+          artist_id: artistId,
+        }
+      });
+
+  const {message, error} = await hoomanArtistTable.pair(toAssign);
+
+  if (error) {
+    console.error(error);
+    throw new Error(error!.toString());
+  }
+
+  if (message) {
+    console.log(message);
+  }
 }
