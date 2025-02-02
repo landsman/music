@@ -9,16 +9,15 @@ import { getRecentTracks } from "../_shared/lastfm/user-recent-tracks.ts";
  */
 export async function syncTracks(
   env: Variables,
-  lastFmUser: string | null = null,
+  lastFmUser: string,
 ): Promise<string> {
-  const lastFmUserToUse = lastFmUser ? lastFmUser : env.LASTFM_USERNAME;
-  console.log(`Last.fm user: ${lastFmUserToUse}`);
+  console.log(`syncTracks - Last.fm user: ${lastFmUser}`);
 
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
   const listened = new ListenedTable(supabaseClient);
 
   const hooman = new HoomanTable(supabaseClient);
-  const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUserToUse);
+  const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUser);
 
   const startFrom: number | null = await listened.getLastListenedDate(hoomanId);
 
@@ -34,7 +33,7 @@ export async function syncTracks(
   const size = 50;
   const fmInitial = await getRecentTracks(
     env.LASTFM_API_KEY,
-    lastFmUserToUse,
+    lastFmUser,
     1,
     size,
     startFrom,
@@ -80,7 +79,7 @@ export async function syncTracks(
 
     const fm = await getRecentTracks(
       env.LASTFM_API_KEY,
-      lastFmUserToUse,
+      lastFmUser,
       count.page,
       size,
       startFrom,

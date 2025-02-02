@@ -8,7 +8,7 @@ sentryHandler.init();
 
 Deno.serve(async (req) => {
   try {
-    const lastFmUser = await getLastFmUser(req);
+    const lastFmUser = await getLastFmUser(req, env.LASTFM_USERNAME);
     const result = await syncArtists(env, lastFmUser);
 
     return new Response(result, {

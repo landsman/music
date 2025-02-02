@@ -2,11 +2,14 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getLibraryArtists } from "../_shared/lastfm/library-artists.ts";
 import { Variables } from "../_shared/env.ts";
 import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
+import {delay} from "../_shared/utils.ts";
 
 /**
  * Sync database of artists with Last.fm
  */
 export async function syncArtists(env: Variables, lastFmUser: string) {
+  console.log(`syncArtists - Last.fm user: ${lastFmUser}`);
+
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
   const artists = new ArtistTable(supabaseClient);
 
@@ -17,6 +20,7 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     size,
     1,
   );
+
   if (fmInitial === null) {
     throw new Error("Fail - No tracks returned from initial api request.");
   }
@@ -30,16 +34,25 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     page: 1,
   };
 
+  console.log("count", count);
+
   if (count.total === 0) {
-    console.log("Nothing new to save.");
+    console.warn("Nothing to save, probably new last.fm account?");
     return "ok";
   }
 
   let processedPages = 0;
   let processedItems = 0;
 
+  if (count.totalPages === 2) {
+    console.log("Only one page. Stopping.")
+    return "ok";
+  }
+
   do {
-    const fm = await getLibraryArtists(
+    console.log(`Processing page ${count.page}/${count.totalPages}`);
+
+    const fm = processedPages === 0 ? fmInitial : await getLibraryArtists(
       env.LASTFM_API_KEY,
       lastFmUser,
       size,
@@ -47,7 +60,7 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     );
 
     if (fm === null) {
-      console.warn("Fail - No artists returned from api request.");
+      console.error("Fail - No artists returned from api request.");
       break;
     }
 
@@ -60,17 +73,24 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
 
     const { message, error } = await artists.sync(toInsert);
     if (error) {
+      console.error(error);
       throw new Error(error.toString());
     }
 
     if (message) {
       console.log(message);
-      processedItems = processedItems + toInsert.length;
     }
+
+    processedItems = processedItems + toInsert.length;
+    console.log("Processed items:", processedItems);
 
     processedPages++;
     count.page++;
-  } while (count.page === count.totalPages);
+
+    // be good to api server
+    await delay(500)
+
+  } while (count.page <= count.totalPages);
 
   return "ok";
 }
