@@ -9,10 +9,7 @@ import { delay } from "../_shared/utils.ts";
 import { HoomanArtistTable } from "../_shared/db/db.hooman_artist.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
 
-export async function syncArtists(
-  env: Variables,
-  lastFmUser: string,
-): Promise<void> {
+export async function syncArtists(env: Variables, lastFmUser: string) {
   console.log(`syncArtists - Last.fm user: ${lastFmUser}`);
 
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
@@ -43,12 +40,12 @@ export async function syncArtists(
 
   if (count.total === 0) {
     console.warn("Nothing to save, probably new last.fm account?");
-    return;
+    return "ok";
   }
 
   if (count.totalPages === 1) {
     console.log("Only one page. Stopping.");
-    return;
+    return "ok";
   }
 
   let processedPages = 0;
@@ -56,7 +53,7 @@ export async function syncArtists(
   do {
     if (processedPages === count.totalPages) {
       console.log("syncArtists - successful!");
-      return;
+      return "ok";
     }
 
     if (processedPages % 2 === 0) {
@@ -106,6 +103,7 @@ export async function syncArtists(
     processedPages++;
     count.page++;
   } while (count.page <= count.totalPages);
+  return "ok";
 }
 
 async function pairArtistWithHooman(
