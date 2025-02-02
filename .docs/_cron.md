@@ -6,12 +6,22 @@ See [Supabase Documentation](https://supabase.com/docs/guides/cron).
 
 You have to run the following commands in SQL Editor of your Supabase project.
 
+## GUI
+
+There is actually a UI where you can manage your jobs very easily.
+
+```
+https://supabase.com/dashboard/project/***/integrations/cron/jobs
+```
+
+*Replace your project ID in the URL*.
+
 ## Create a new job
 
 Or edit already existing.
 Replace CRON name, timing and `$PUBLISHABLE_KEY` with your value, from project settings, in plain text.
 
-```postgresql
+```bash
 select
   cron.schedule(
     'lastfm-tracks',
