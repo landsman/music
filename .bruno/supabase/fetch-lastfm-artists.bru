@@ -1,0 +1,21 @@
+meta {
+  name: fetch-lastfm-artists
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://{{SUPABASE_PROJECT_ID}}.supabase.co/functions/v1/fetch-lastfm-artists
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{SUPABASE_PUBLISHABLE}}
+}
+
+body:json {
+  {
+    "lastFmUser": "{{LASTFM_USERNAME}}"
+  }
+}
