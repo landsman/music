@@ -44,14 +44,27 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
   let processedPages = 0;
   let processedItems = 0;
 
-  if (count.totalPages === 2) {
+  if (count.totalPages === 1) {
     console.log("Only one page. Stopping.");
     return "ok";
   }
 
+
   do {
+    // done
+    if (processedPages === count.totalPages) {
+      console.log("syncArtists - successful!")
+      return "ok"
+    }
+
+    // be good to api server
+    if (processedPages % 2 === 0) {
+      await delay(500);
+    }
+
     console.log(`Processing page ${count.page}/${count.totalPages}`);
 
+    // re-use the first request for the first page
     const fm = processedPages === 0 ? fmInitial : await getLibraryArtists(
       env.LASTFM_API_KEY,
       lastFmUser,
@@ -86,9 +99,6 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
 
     processedPages++;
     count.page++;
-
-    // be good to api server
-    await delay(500);
   } while (count.page <= count.totalPages);
 
   return "ok";
