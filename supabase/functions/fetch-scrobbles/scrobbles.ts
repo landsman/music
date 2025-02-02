@@ -22,11 +22,6 @@ export async function scrobbles(
 
   const startFrom: number | null = await listened.getLastListenedDate(hoomanId);
 
-  const size = 50;
-  let totalPages = 1;
-  let total = 0;
-  let page = 1;
-
   if (startFrom) {
     console.log(
       "Starting from last listened date:",
@@ -36,6 +31,7 @@ export async function scrobbles(
     console.log("Database is empty, starting from the last page");
   }
 
+  const size = 50;
   const fmInitial = await getRecentTracks(
     env.LASTFM_API_KEY,
     lastFmUserToUse,
@@ -46,33 +42,39 @@ export async function scrobbles(
   if (fmInitial === null) {
     throw new Error("Fail - No tracks returned from initial api request.");
   }
-  const paginationInitial = fmInitial.recenttracks["@attr"];
-  totalPages = parseInt(paginationInitial.totalPages);
-  total = parseInt(paginationInitial.total);
-  page = totalPages;
 
-  if (total === 0) {
+  const paginationInitial = fmInitial.recenttracks["@attr"];
+  const totalPages = parseInt(paginationInitial.totalPages);
+
+  // deno-lint-ignore prefer-const
+  let count = {
+    total: parseInt(paginationInitial.total),
+    page: totalPages
+  }
+
+  if (count.total === 0) {
     console.log("Nothing new to save.");
     return "ok";
   }
 
   if (startFrom) {
     console.log(
-      `Found ${total} new tracks to save! Starting from page ${totalPages}.`,
+      `Found ${count.total} new tracks to save! Starting from page ${totalPages}.`,
     );
   } else {
     console.log(
-      `Found ${total} tracks in total. Starting from page ${totalPages}.`,
+      `Found ${count.total} tracks in total. Starting from page ${totalPages}.`,
     );
   }
 
   let processedPages = 0;
+  let processedItems = 0;
   do {
-    if (processedPages === 10) {
+
+    // bee good to api server, download only a few pages and wait for the next invocation
+    if (processedPages === 11) {
       console.log(
-        `Already inserted ${
-          processedPages * size
-        } items to db. Stopped. See ya in next cron.`,
+        `Already inserted ${processedItems} items to db. Stopped. See ya at next cron.`,
       );
       break;
     }
@@ -80,7 +82,7 @@ export async function scrobbles(
     const fm = await getRecentTracks(
       env.LASTFM_API_KEY,
       lastFmUserToUse,
-      page,
+      count.page,
       size,
       startFrom,
     );
@@ -91,11 +93,11 @@ export async function scrobbles(
     const data = fm.recenttracks;
     const tracks = data.track;
 
-    if (total === 0 || tracks.length === 0) {
+    if (count.total === 0 || tracks.length === 0) {
       break;
     }
 
-    console.log(`Fetching page ${page}/${totalPages}`);
+    console.log(`Fetching page ${count.page}/${totalPages}`);
 
     const toInsert: ListenedRow[] = tracks
       .filter((track) => !(track["@attr"] && track["@attr"].nowplaying))
@@ -116,11 +118,12 @@ export async function scrobbles(
 
     if (message) {
       console.log(message);
+      processedItems = processedItems + toInsert.length;
     }
 
     processedPages++;
-    page--;
-  } while (page >= 1);
+    count.page--;
+  } while (count.page >= 1);
 
   return "ok";
 }
