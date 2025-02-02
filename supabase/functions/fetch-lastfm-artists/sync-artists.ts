@@ -19,7 +19,7 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
   const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUser);
   const hoomanArtist = new HoomanArtistTable(supabaseClient);
 
-  const size = 100;
+  const size = 200;
   const fmInitial = await getLibraryArtists(
     env.LASTFM_API_KEY,
     lastFmUser,
