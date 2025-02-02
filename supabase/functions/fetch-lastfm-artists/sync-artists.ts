@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getLibraryArtists } from "../_shared/lastfm/library-artists.ts";
 import { Variables } from "../_shared/env.ts";
 import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
-import {delay} from "../_shared/utils.ts";
+import { delay } from "../_shared/utils.ts";
 
 /**
  * Sync database of artists with Last.fm
@@ -45,7 +45,7 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
   let processedItems = 0;
 
   if (count.totalPages === 2) {
-    console.log("Only one page. Stopping.")
+    console.log("Only one page. Stopping.");
     return "ok";
   }
 
@@ -88,8 +88,7 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     count.page++;
 
     // be good to api server
-    await delay(500)
-
+    await delay(500);
   } while (count.page <= count.totalPages);
 
   return "ok";
