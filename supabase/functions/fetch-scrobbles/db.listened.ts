@@ -1,4 +1,4 @@
-import {DbSupabaseTable} from "../_shared/supabase-table.ts";
+import { DbSupabaseTable } from "../_shared/supabase-table.ts";
 
 export interface ListenedRow {
   created_at: string;
@@ -50,15 +50,17 @@ export class TableListened extends DbSupabaseTable {
    * @param tracks - Array of new scrobbles to save.
    * @returns An object containing a message or error.
    */
-  async save(tracks: ListenedRow[]): Promise<{ message?: string; error?: unknown }> {
+  async save(
+    tracks: ListenedRow[],
+  ): Promise<{ message?: string; error?: unknown }> {
     if (tracks.length === 0) {
       console.log("No new scrobbles to save.");
       return { message: "No new scrobbles" };
     }
 
     const { error } = await this.getSupabase()
-        .from(this.tableName)
-        .insert(tracks);
+      .from(this.tableName)
+      .insert(tracks);
 
     if (error) {
       console.error("Error inserting data:", error);

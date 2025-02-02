@@ -1,13 +1,16 @@
-import {createClient} from "https://esm.sh/@supabase/supabase-js@2";
-import {getRecentTracks} from "./lastfm.ts";
-import {Variables} from "./env.ts";
-import {TableHooman} from "./db.hooman.ts";
-import {ListenedRow, TableListened} from "./db.listened.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { getRecentTracks } from "./lastfm.ts";
+import { Variables } from "./env.ts";
+import { TableHooman } from "./db.hooman.ts";
+import { ListenedRow, TableListened } from "./db.listened.ts";
 
 /**
  * Sync data from Last.fm to Supabase Database.
  */
-export async function scrobbles(env: Variables, lastFmUser: string|null = null): Promise<string> {
+export async function scrobbles(
+  env: Variables,
+  lastFmUser: string | null = null,
+): Promise<string> {
   const size = 50;
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
   const listened = new TableListened(supabaseClient);
