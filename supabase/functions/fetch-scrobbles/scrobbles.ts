@@ -1,13 +1,19 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { getRecentTracks } from "./lastfm.ts";
-import { Row, TableListened } from "./table.ts";
-import { Variables } from "./env.ts";
+import {createClient} from "https://esm.sh/@supabase/supabase-js@2";
+import {getRecentTracks} from "./lastfm.ts";
+import {Variables} from "./env.ts";
+import {TableHooman} from "./db.hooman.ts";
+import {ListenedRow, TableListened} from "./db.listened.ts";
 
-export async function scrobbles(env: Variables): Promise<string> {
+/**
+ * Sync data from Last.fm to Supabase Database.
+ */
+export async function scrobbles(env: Variables, lastFmUser: string|null = null): Promise<string> {
   const size = 50;
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
-  const table = new TableListened(supabaseClient);
-  const startFrom: number | null = await table.getLastListenedDate();
+  const listened = new TableListened(supabaseClient);
+  const hooman = new TableHooman(supabaseClient);
+  const startFrom: number | null = await listened.getLastListenedDate();
+
   let totalPages = 1;
   let total = 0;
   let page = 1;
@@ -21,9 +27,12 @@ export async function scrobbles(env: Variables): Promise<string> {
     console.log("Database is empty, starting from the last page");
   }
 
+  const lastFmUserToUse = lastFmUser ? lastFmUser : env.LASTFM_USERNAME;
+  const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUserToUse);
+
   const fmInitial = await getRecentTracks(
     env.LASTFM_API_KEY,
-    env.LASTFM_USERNAME,
+    lastFmUserToUse,
     1,
     size,
     startFrom,
@@ -64,7 +73,7 @@ export async function scrobbles(env: Variables): Promise<string> {
 
     const fm = await getRecentTracks(
       env.LASTFM_API_KEY,
-      env.LASTFM_USERNAME,
+      lastFmUserToUse,
       page,
       size,
       startFrom,
@@ -82,7 +91,7 @@ export async function scrobbles(env: Variables): Promise<string> {
 
     console.log(`Fetching page ${page}/${totalPages}`);
 
-    const toInsert: Row[] = tracks
+    const toInsert: ListenedRow[] = tracks
       .filter((track) => !(track["@attr"] && track["@attr"].nowplaying))
       .map((track) => ({
         created_at: new Date().toISOString(),
@@ -91,9 +100,10 @@ export async function scrobbles(env: Variables): Promise<string> {
         track_name: track.name,
         album_name: track.album["#text"],
         lastfm_data: track,
+        hooman_id: hoomanId,
       }));
 
-    const { error, message } = await table.save(toInsert);
+    const { error, message } = await listened.save(toInsert);
     if (error) {
       throw new Error(error.toString());
     }

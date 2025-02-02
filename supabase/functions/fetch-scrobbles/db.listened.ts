@@ -1,43 +1,35 @@
-import { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {DbSupabaseTable} from "../_shared/supabase-table.ts";
 
-const tableName = "listened";
-
-export interface Row {
+export interface ListenedRow {
   created_at: string;
   listened_at: string;
   artist_name: string;
   track_name: string;
   album_name: string | null;
   lastfm_data: string | object;
+  hooman_id: string | null;
 }
 
-const columnName: Row = {
+const columnName: ListenedRow = {
   created_at: "created_at",
   listened_at: "listened_at",
   artist_name: "artist_name",
   track_name: "track_name",
   album_name: "album_name",
   lastfm_data: "lastfm_data",
+  hooman_id: "hooman_id",
 };
 
-export class TableListened {
-  private readonly supabase: SupabaseClient | undefined;
-
-  constructor(supabase: SupabaseClient) {
-    this.supabase = supabase;
-  }
+export class TableListened extends DbSupabaseTable {
+  tableName = "listened";
 
   /**
    * Get the latest timestamp from the scrobbles table.
    * @returns The latest timestamp in Unix seconds or null.
    */
   async getLastListenedDate(): Promise<number | null> {
-    if (!this.supabase) {
-      throw new Error("supabase is not initialized");
-    }
-
-    const { data, error } = await this.supabase
-      .from(tableName)
+    const { data, error } = await this.getSupabase()
+      .from(this.tableName)
       .select(columnName.listened_at)
       .order(columnName.listened_at, { ascending: false })
       .limit(1)
@@ -58,17 +50,15 @@ export class TableListened {
    * @param tracks - Array of new scrobbles to save.
    * @returns An object containing a message or error.
    */
-  async save(tracks: Row[]): Promise<{ message?: string; error?: unknown }> {
+  async save(tracks: ListenedRow[]): Promise<{ message?: string; error?: unknown }> {
     if (tracks.length === 0) {
       console.log("No new scrobbles to save.");
       return { message: "No new scrobbles" };
     }
 
-    if (!this.supabase) {
-      throw new Error("supabase is not initialized");
-    }
-
-    const { error } = await this.supabase.from(tableName).insert(tracks);
+    const { error } = await this.getSupabase()
+        .from(this.tableName)
+        .insert(tracks);
 
     if (error) {
       console.error("Error inserting data:", error);

@@ -16,9 +16,16 @@ Sentry.setTag("region", Deno.env.get("SB_REGION"));
 Sentry.setTag("execution_id", Deno.env.get("SB_EXECUTION_ID"));
 Sentry.setTag("url", env.SUPABASE_URL);
 
-Deno.serve(async () => {
+Deno.serve(async (req) => {
   try {
-    const result = await scrobbles(env);
+    const body = await req.json()
+
+    const lastFmUser = typeof body.lastFmUser === 'string'
+        ? body.lastFmUser
+        : null
+
+    const result = await scrobbles(env, lastFmUser);
+
     return new Response(result, {
       status: 200,
       headers: { "Content-Type": "text/plain" },
