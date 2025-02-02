@@ -1,4 +1,4 @@
-import { DbSupabaseTable } from "../_shared/supabase-table.ts";
+import { BaseTable } from "./db.ts";
 
 export interface ListenedRow {
   created_at: string;
@@ -20,8 +20,8 @@ const columnName: ListenedRow = {
   hooman_id: "hooman_id",
 };
 
-export class TableListened extends DbSupabaseTable {
-  tableName = "listened";
+export class ListenedTable extends BaseTable {
+  override tableName = "listened";
 
   /**
    * Get the latest timestamp from the scrobbles table.

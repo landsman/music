@@ -1,7 +1,7 @@
-import { env } from "../_shared/env.ts";
 import { SentryErrorHandler } from "../_shared/sentry.ts";
+import { env } from "../_shared/env.ts";
 import { getLastFmUser } from "../_shared/lastfm/request-fields.ts";
-import { syncTracks } from "./sync-tracks.ts";
+import { syncArtists } from "./sync-artists.ts";
 
 const sentryHandler = new SentryErrorHandler(env.DEVELOPER_MODE);
 sentryHandler.init();
@@ -9,7 +9,7 @@ sentryHandler.init();
 Deno.serve(async (req) => {
   try {
     const lastFmUser = await getLastFmUser(req, env.LASTFM_USERNAME);
-    const result = await syncTracks(env, lastFmUser);
+    const result = await syncArtists(env, lastFmUser);
 
     return new Response(result, {
       status: 200,

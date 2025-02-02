@@ -1,24 +1,23 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { getRecentTracks } from "./lastfm.ts";
-import { Variables } from "./env.ts";
-import { TableHooman } from "./db.hooman.ts";
-import { ListenedRow, TableListened } from "./db.listened.ts";
+import { Variables } from "../_shared/env.ts";
+import { HoomanTable } from "../_shared/db/db.hooman.ts";
+import { ListenedRow, ListenedTable } from "../_shared/db/db.listened.ts";
+import { getRecentTracks } from "../_shared/lastfm/user-recent-tracks.ts";
 
 /**
  * Sync data from Last.fm to Supabase Database.
  */
-export async function scrobbles(
+export async function syncTracks(
   env: Variables,
-  lastFmUser: string | null = null,
+  lastFmUser: string,
 ): Promise<string> {
-  const lastFmUserToUse = lastFmUser ? lastFmUser : env.LASTFM_USERNAME;
-  console.log(`Last.fm user: ${lastFmUserToUse}`);
+  console.log(`syncTracks - Last.fm user: ${lastFmUser}`);
 
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
-  const listened = new TableListened(supabaseClient);
+  const listened = new ListenedTable(supabaseClient);
 
-  const hooman = new TableHooman(supabaseClient);
-  const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUserToUse);
+  const hooman = new HoomanTable(supabaseClient);
+  const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUser);
 
   const startFrom: number | null = await listened.getLastListenedDate(hoomanId);
 
@@ -34,7 +33,7 @@ export async function scrobbles(
   const size = 50;
   const fmInitial = await getRecentTracks(
     env.LASTFM_API_KEY,
-    lastFmUserToUse,
+    lastFmUser,
     1,
     size,
     startFrom,
@@ -80,7 +79,7 @@ export async function scrobbles(
 
     const fm = await getRecentTracks(
       env.LASTFM_API_KEY,
-      lastFmUserToUse,
+      lastFmUser,
       count.page,
       size,
       startFrom,

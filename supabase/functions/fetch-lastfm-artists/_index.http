@@ -1,0 +1,7 @@
+### test request without JWT
+POST http://localhost:54321/functions/v1/fetch-lastfm-artists
+Content-Type: application/json
+
+{
+  "lastFmUser": "Insuit"
+}

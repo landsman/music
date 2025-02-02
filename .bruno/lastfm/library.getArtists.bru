@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: https://ws.audioscrobbler.com/2.0/?method=library.getArtists&user={{LASTFM_USERNAME}}&api_key={{LASTFM_API_KEY}}&format=json&limit=50&page=1
+  url: https://ws.audioscrobbler.com/2.0/?method=library.getArtists&user={{LASTFM_USERNAME}}&api_key={{LASTFM_API_KEY}}&format=json&limit=5&page=1
   body: none
   auth: none
 }
@@ -15,6 +15,6 @@ query {
   user: {{LASTFM_USERNAME}}
   api_key: {{LASTFM_API_KEY}}
   format: json
-  limit: 50
+  limit: 5
   page: 1
 }
