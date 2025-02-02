@@ -46,4 +46,11 @@ FROM artist a
 GROUP BY a.id, a.created_at, a.name
 ORDER BY a.created_at DESC;
 
+CREATE VIEW hooman_artist_count AS
+SELECT h.lastfm_user, COUNT(ha.id) as count
+FROM hooman_artist ha
+         LEFT JOIN hooman h ON ha.hooman_id = h.id
+GROUP BY h.lastfm_user
+ORDER BY count DESC
+
 
