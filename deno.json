@@ -1,5 +1,8 @@
 {
   "tasks": {
     "hook": "deno run --allow-read --allow-run --allow-write https://deno.land/x/deno_hooks@0.1.1/mod.ts"
+  },
+  "imports": {
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.48.1"
   }
 }
