@@ -35,7 +35,7 @@ supabase start
 **run server to allow you to invoke Edge Functions locally**
 
 ```bash
-supabase function serve --no-verify-jwt
+supabase functions serve --no-verify-jwt
 ```
 
 **deploy modified function**
