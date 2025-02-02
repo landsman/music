@@ -37,8 +37,8 @@ export async function scrobbles(env: Variables): Promise<string> {
   page = totalPages;
 
   if (total === 0) {
-    console.log('Nothing new to save.');
-    return 'ok';
+    console.log("Nothing new to save.");
+    return "ok";
   }
 
   if (startFrom) {
