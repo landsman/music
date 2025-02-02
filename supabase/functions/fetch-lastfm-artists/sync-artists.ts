@@ -94,8 +94,8 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
       artistsTable,
       hoomanArtist,
       hoomanId,
-      fm.artists.artist
-    )
+      fm.artists.artist,
+    );
 
     processedItems = processedItems + toInsert.length;
     console.log("Processed items:", processedItems);
