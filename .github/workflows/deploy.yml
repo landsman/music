@@ -22,8 +22,6 @@ jobs:
         with:
           version: latest
 
-      # migrations
-      - run: supabase db push --project-ref $PROJECT_ID
-
-      # functions
-      - run: supabase functions deploy --project-ref $PROJECT_ID
+      - run: supabase link --project-ref $PROJECT_ID
+      - run: supabase db push
+      - run: supabase functions deploy
