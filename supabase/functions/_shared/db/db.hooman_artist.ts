@@ -23,7 +23,7 @@ export class HoomanArtistTable extends BaseTable {
   ): Promise<{ message?: string; error?: unknown }> {
     return await this.getSupabase()
       .from(this.tableName)
-      .upsert(artists, { onConflict: columnName.artist_id })
+      .upsert(artists, { onConflict: `${columnName.hooman_id},${columnName.artist_id}` })
       .select();
   }
 }

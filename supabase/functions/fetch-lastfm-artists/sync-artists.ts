@@ -6,15 +6,9 @@ import {
 import { Variables } from "../_shared/env.ts";
 import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
 import { delay } from "../_shared/utils.ts";
-import {
-  HoomanArtistRow,
-  HoomanArtistTable,
-} from "../_shared/db/db.hooman_artist.ts";
+import { HoomanArtistTable } from "../_shared/db/db.hooman_artist.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
 
-/**
- * Sync database of artists with Last.fm
- */
 export async function syncArtists(env: Variables, lastFmUser: string) {
   console.log(`syncArtists - Last.fm user: ${lastFmUser}`);
 
@@ -32,13 +26,11 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     size,
     1,
   );
-
   if (fmInitial === null) {
     throw new Error("Fail - No tracks returned from initial api request.");
   }
 
   const paginationInitial = fmInitial.artists["@attr"];
-
   // deno-lint-ignore prefer-const
   let count = {
     total: parseInt(paginationInitial.total),
@@ -46,36 +38,30 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     page: 1,
   };
 
-  console.log("count", count);
-
   if (count.total === 0) {
     console.warn("Nothing to save, probably new last.fm account?");
     return "ok";
   }
-
-  let processedPages = 0;
-  let processedItems = 0;
 
   if (count.totalPages === 1) {
     console.log("Only one page. Stopping.");
     return "ok";
   }
 
+  let processedPages = 0;
+  let processedItems = 0;
   do {
-    // done
     if (processedPages === count.totalPages) {
       console.log("syncArtists - successful!");
       return "ok";
     }
 
-    // be good to api server
     if (processedPages % 2 === 0) {
       await delay(500);
     }
 
     console.log(`Processing page ${count.page}/${count.totalPages}`);
 
-    // re-use the first request for the first page
     const fm = processedPages === 0 ? fmInitial : await getLibraryArtists(
       env.LASTFM_API_KEY,
       lastFmUser,
@@ -88,16 +74,15 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
       break;
     }
 
-    const toInsert: ArtistRow[] = fm.artists.artist
-      .map((item) => ({
-        created_at: new Date().toISOString(),
-        name: item.name,
-        lastfm_data: item,
-      }));
+    const toInsert: ArtistRow[] = fm.artists.artist.map((item) => ({
+      created_at: new Date().toISOString(),
+      name: item.name,
+      lastfm_data: item,
+    }));
 
     const { message, error } = await artistsTable.sync(toInsert);
     if (error) {
-      console.error(error);
+      console.error("artist table sync error", error);
       throw new Error(error.toString());
     }
 
@@ -105,12 +90,12 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
       console.log(message);
     }
 
-    pairArtistWithHooman(
+    await pairArtistWithHooman(
       artistsTable,
       hoomanArtist,
       hoomanId,
-      fm.artists.artist,
-    );
+      fm.artists.artist
+    )
 
     processedItems = processedItems + toInsert.length;
     console.log("Processed items:", processedItems);
@@ -118,7 +103,6 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     processedPages++;
     count.page++;
   } while (count.page <= count.totalPages);
-
   return "ok";
 }
 
@@ -128,27 +112,23 @@ async function pairArtistWithHooman(
   hoomanId: string,
   data: Artist[],
 ): Promise<void> {
-  const toAssign: HoomanArtistRow[] = data
-    .map(async (item) => {
-      const artistId = await artistsTable.findIdByName(item.name);
-
-      // not found
-      if (artistId === null) {
-        return null;
-      }
-
-      return {
-        created_at: new Date().toISOString(),
-        hooman_id: hoomanId,
-        artist_id: artistId,
-      };
-    });
+  const mapped = await Promise.all(data.map(async (item) => {
+    const artistId = await artistsTable.findIdByName(item.name);
+    if (artistId === null) {
+      return null;
+    }
+    return {
+      created_at: new Date().toISOString(),
+      hooman_id: hoomanId,
+      artist_id: artistId,
+    };
+  }));
+  const toAssign = mapped.filter((r) => r !== null);
 
   const { message, error } = await hoomanArtistTable.pair(toAssign);
-
   if (error) {
-    console.error(error);
-    throw new Error(error!.toString());
+    console.error("pair hooman to artist error", error);
+    throw new Error(error.toString());
   }
 
   if (message) {

@@ -20,7 +20,7 @@ export class ArtistTable extends BaseTable {
   ): Promise<{ message?: string; error?: unknown }> {
     return await this.getSupabase()
       .from(this.tableName)
-      .upsert(artists, { onConflict: columnName.name })
+      .upsert(artists, { onConflict: columnName.name }) // insert?
       .select();
   }
 
