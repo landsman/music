@@ -20,8 +20,8 @@ const columnName: ListenedRow = {
   hooman_id: "hooman_id",
 };
 
-export class TableListened extends BaseTable {
-  tableName = "listened";
+export class ListenedTable extends BaseTable {
+  override tableName = "listened";
 
   /**
    * Get the latest timestamp from the scrobbles table.

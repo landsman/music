@@ -1,4 +1,4 @@
-import { BaseTable } from "./db.ts";
+import {BaseTable} from "./db.ts";
 
 export interface Row {
   created_at: string;
@@ -10,8 +10,8 @@ const columnName: Row = {
   lastfm_user: "lastfm_user",
 };
 
-export class TableHooman extends BaseTable {
-  tableName = "hooman";
+export class HoomanTable extends BaseTable {
+  override tableName = "hooman";
 
   async findOrCreateByLastFmUser(lastFmUser: string): Promise<string> {
     const { data, error } = await this.getSupabase()
