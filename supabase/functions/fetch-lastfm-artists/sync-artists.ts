@@ -49,12 +49,11 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     return "ok";
   }
 
-
   do {
     // done
     if (processedPages === count.totalPages) {
-      console.log("syncArtists - successful!")
-      return "ok"
+      console.log("syncArtists - successful!");
+      return "ok";
     }
 
     // be good to api server
