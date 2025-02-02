@@ -49,8 +49,8 @@ export async function scrobbles(
   // deno-lint-ignore prefer-const
   let count = {
     total: parseInt(paginationInitial.total),
-    page: totalPages
-  }
+    page: totalPages,
+  };
 
   if (count.total === 0) {
     console.log("Nothing new to save.");
@@ -70,7 +70,6 @@ export async function scrobbles(
   let processedPages = 0;
   let processedItems = 0;
   do {
-
     // bee good to api server, download only a few pages and wait for the next invocation
     if (processedPages === 11) {
       console.log(
