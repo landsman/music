@@ -15,6 +15,7 @@ export class SentryErrorHandler {
     if (!this.isProduction) {
       return;
     }
+    const projectName = Deno.env.get("PROJECT_NAME");
     Sentry.init({
       dsn: Deno.env.get("SENTRY_DSN")!,
       defaultIntegrations: false,
@@ -22,8 +23,16 @@ export class SentryErrorHandler {
       // deno-lint-ignore ban-ts-comment
       // @ts-ignore
       profilesSampleRate: 1.0,
-    });
 
+      // https://docs.sentry.io/platforms/javascript/guides/deno/configuration/integrations/rewriteframes/
+      integrations: [Sentry.rewriteFramesIntegration(
+        {
+          root: `/home/runner/work/${projectName}/${projectName}/`,
+          prefix: "",
+          iteratee: (frame) => frame,
+        },
+      )],
+    });
     // Set region and execution_id as custom tags
     Sentry.setTag("region", Deno.env.get("SB_REGION"));
     Sentry.setTag("execution_id", Deno.env.get("SB_EXECUTION_ID"));
