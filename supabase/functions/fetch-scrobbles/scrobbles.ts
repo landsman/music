@@ -11,12 +11,18 @@ export async function scrobbles(
   env: Variables,
   lastFmUser: string | null = null,
 ): Promise<string> {
-  const size = 50;
+  const lastFmUserToUse = lastFmUser ? lastFmUser : env.LASTFM_USERNAME;
+  console.log(`Last.fm user: ${lastFmUserToUse}`);
+
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
   const listened = new TableListened(supabaseClient);
-  const hooman = new TableHooman(supabaseClient);
-  const startFrom: number | null = await listened.getLastListenedDate();
 
+  const hooman = new TableHooman(supabaseClient);
+  const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUserToUse);
+
+  const startFrom: number | null = await listened.getLastListenedDate(hoomanId);
+
+  const size = 50;
   let totalPages = 1;
   let total = 0;
   let page = 1;
@@ -29,11 +35,6 @@ export async function scrobbles(
   } else {
     console.log("Database is empty, starting from the last page");
   }
-
-  const lastFmUserToUse = lastFmUser ? lastFmUser : env.LASTFM_USERNAME;
-  console.log(`Last.fm user: ${lastFmUserToUse}`);
-
-  const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUserToUse);
 
   const fmInitial = await getRecentTracks(
     env.LASTFM_API_KEY,

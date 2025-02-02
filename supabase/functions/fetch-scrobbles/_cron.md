@@ -1,9 +1,18 @@
 # Cron
 
+You have to allow two extensions: `pg_cron`, `pg_net` for database to make this
+work. See [Documentation](https://supabase.com/docs/guides/cron).
+
+You have to run following commands in SQL Editor of your Supabase project.
+
+## Create a new CRON job
+
+or edit already existing
+
 ```postgresql
 select
   cron.schedule(
-    'last-fm-tracks',
+    'lastfm-tracks',
     '*/5 * * * *', -- every five minutes
     $$
     select
@@ -14,4 +23,10 @@ select
       ) as request_id;
     $$
   );
+```
+
+## Remove existing CRON job
+
+```postgresql
+select cron.unschedule(3);
 ```

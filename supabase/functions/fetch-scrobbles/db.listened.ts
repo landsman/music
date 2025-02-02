@@ -27,10 +27,11 @@ export class TableListened extends DbSupabaseTable {
    * Get the latest timestamp from the scrobbles table.
    * @returns The latest timestamp in Unix seconds or null.
    */
-  async getLastListenedDate(): Promise<number | null> {
+  async getLastListenedDate(hoomanId: string): Promise<number | null> {
     const { data, error } = await this.getSupabase()
       .from(this.tableName)
       .select(columnName.listened_at)
+      .eq(columnName.hooman_id!, hoomanId)
       .order(columnName.listened_at, { ascending: false })
       .limit(1)
       .maybeSingle<{ listened_at: string } | null>();
