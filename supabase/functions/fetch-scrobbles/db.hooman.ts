@@ -25,20 +25,20 @@ export class TableHooman extends DbSupabaseTable {
       throw new Error("Error fetching hooman: " + JSON.stringify(error));
     }
 
-    if (null !== data) {
+    if (data) {
       return data.id;
     }
 
-    const { error: errorCrate } = await this.getSupabase()
+    const { data: insertData, error: insertError } = await this.getSupabase()
       .from(this.tableName)
-      .insert({
-        [columnName.lastfm_user]: lastFmUser,
-      });
+      .insert({ [columnName.lastfm_user]: lastFmUser })
+      .select("id")
+      .maybeSingle<{ id: string }>();
 
-    if (errorCrate) {
-      throw new Error("Error create new hooman: " + JSON.stringify(errorCrate));
+    if (insertError || !insertData) {
+      throw new Error("Error creating hooman: " + JSON.stringify(insertError));
     }
 
-    return this.findOrCreateByLastFmUser(lastFmUser);
+    return insertData.id;
   }
 }
