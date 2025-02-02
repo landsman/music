@@ -36,3 +36,14 @@ ALTER TABLE hooman_artist
     ADD CONSTRAINT uq_hooman_artist_id UNIQUE (hooman_id, artist_id);
 
 CREATE INDEX idx_hooman_artist_hooman_id ON hooman_artist (hooman_id DESC);
+
+-- view for hooman matches based on artists
+CREATE VIEW hooman_artist_match AS
+SELECT a.id, a.created_at, a.name, string_agg(h.lastfm_user, ',') AS lastfm_users
+FROM artist a
+         LEFT JOIN hooman_artist ha ON a.id = ha.artist_id
+         LEFT JOIN hooman h ON h.id = ha.hooman_id
+GROUP BY a.id, a.created_at, a.name
+ORDER BY a.created_at DESC;
+
+
