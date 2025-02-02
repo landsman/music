@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: https://{{SUPABASE_PROJECT_ID}}.supabase.co/functions/v1/fetch-lastfm-artists
+  url: https://{{SUPABASE_PROJECT_ID}}.supabase.co/functions/v1/fetch-lastfm-artists?aa_flag=BRUNO
   body: json
   auth: bearer
+}
+
+query {
+  aa_flag: BRUNO
 }
 
 auth:bearer {

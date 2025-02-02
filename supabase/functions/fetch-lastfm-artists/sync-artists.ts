@@ -19,7 +19,7 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
   const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUser);
   const hoomanArtist = new HoomanArtistTable(supabaseClient);
 
-  const size = 200;
+  const size = 300;
   const fmInitial = await getLibraryArtists(
     env.LASTFM_API_KEY,
     lastFmUser,
@@ -57,7 +57,7 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     }
 
     if (processedPages % 2 === 0) {
-      await delay(500);
+      await delay(100);
     }
 
     console.log(`Processing page ${count.page}/${count.totalPages}`);
