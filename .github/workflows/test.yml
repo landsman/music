@@ -1,7 +1,17 @@
 name: Check
 
 on:
-  - pull_request
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+    paths:
+      - ".github/workflows/test.yml"
+      - "supabase/**"
+      - "!**.md"
+  workflow_dispatch:
 
 jobs:
   qa:

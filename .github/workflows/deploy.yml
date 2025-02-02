@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - dev
+    paths:
+      - ".github/workflows/deploy.yml"
+      - "supabase/**"
+      - "!**.md"
   workflow_dispatch:
 
 jobs:
