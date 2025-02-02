@@ -29,9 +29,14 @@ export class TableHooman extends DbSupabaseTable {
       return data.id;
     }
 
+    console.log(`Creating new user: ${lastFmUser}`);
+
     const { data: insertData, error: insertError } = await this.getSupabase()
       .from(this.tableName)
-      .insert({ [columnName.lastfm_user]: lastFmUser })
+      .insert({
+        [columnName.created_at]: new Date(),
+        [columnName.lastfm_user]: lastFmUser,
+      })
       .select("id")
       .maybeSingle<{ id: string }>();
 
