@@ -1,10 +1,16 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import {Artist, getLibraryArtists} from "../_shared/lastfm/library-artists.ts";
+import {
+  Artist,
+  getLibraryArtists,
+} from "../_shared/lastfm/library-artists.ts";
 import { Variables } from "../_shared/env.ts";
 import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
 import { delay } from "../_shared/utils.ts";
-import {HoomanArtistRow, HoomanArtistTable} from "../_shared/db/db.hooman_artist.ts";
-import {HoomanTable} from "../_shared/db/db.hooman.ts";
+import {
+  HoomanArtistRow,
+  HoomanArtistTable,
+} from "../_shared/db/db.hooman_artist.ts";
+import { HoomanTable } from "../_shared/db/db.hooman.ts";
 
 /**
  * Sync database of artists with Last.fm
@@ -99,9 +105,12 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
       console.log(message);
     }
 
-
-    pairArtistWithHooman(artistsTable, hoomanArtist, hoomanId, fm.artists.artist);
-
+    pairArtistWithHooman(
+      artistsTable,
+      hoomanArtist,
+      hoomanId,
+      fm.artists.artist,
+    );
 
     processedItems = processedItems + toInsert.length;
     console.log("Processed items:", processedItems);
@@ -114,29 +123,28 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
 }
 
 async function pairArtistWithHooman(
-    artistsTable: ArtistTable,
-    hoomanArtistTable: HoomanArtistTable,
-    hoomanId: string,
-    data: Artist[],
+  artistsTable: ArtistTable,
+  hoomanArtistTable: HoomanArtistTable,
+  hoomanId: string,
+  data: Artist[],
 ): Promise<void> {
-
   const toAssign: HoomanArtistRow[] = data
-      .map(async (item) => {
-        const artistId = await artistsTable.findIdByName(item.name)
+    .map(async (item) => {
+      const artistId = await artistsTable.findIdByName(item.name);
 
-        // not found
-        if (artistId === null) {
-          return null;
-        }
+      // not found
+      if (artistId === null) {
+        return null;
+      }
 
-        return {
-          created_at: new Date().toISOString(),
-          hooman_id: hoomanId,
-          artist_id: artistId,
-        }
-      });
+      return {
+        created_at: new Date().toISOString(),
+        hooman_id: hoomanId,
+        artist_id: artistId,
+      };
+    });
 
-  const {message, error} = await hoomanArtistTable.pair(toAssign);
+  const { message, error } = await hoomanArtistTable.pair(toAssign);
 
   if (error) {
     console.error(error);
