@@ -1,3 +1,5 @@
+import { LastFmApiClient } from "./api-client.ts";
+
 /**
  * see https://www.last.fm/api/show/user.getRecentTracks
  */
@@ -9,24 +11,23 @@ export async function getRecentTracks(
   from: number | null = null,
   to: number | null = null,
 ): Promise<RecentTracks | null> {
-  const url = new URL("https://ws.audioscrobbler.com/2.0/");
+  const lastfm = new LastFmApiClient(apiKey);
+  const url = lastfm.buildUrl(
+    lastfm.buildParams({
+      userName: userName,
+      method: lastfm.getMethods().userRecentTracks,
+      methodParams: {
+        limit: limit,
+        page: page,
+        extended: "1",
 
-  const paramsRegular = {
-    api_key: apiKey,
-    format: "json",
-    method: "user.getrecenttracks",
-    user: userName,
-    limit: limit.toString(),
-    page: page.toString(),
-    extended: "1",
-
-    // UNIX timestamp format (integer number of seconds since 00:00:00, January 1st 1970 UTC).
-    // This must be in the UTC time zone.
-    from: from ? from.toString() : "",
-    to: to ? to.toString() : "",
-  };
-
-  url.search = new URLSearchParams(paramsRegular).toString();
+        // UNIX timestamp format (integer number of seconds since 00:00:00, January 1st 1970 UTC).
+        // This must be in the UTC time zone.
+        from: from ? from : "",
+        to: to ? to : "",
+      },
+    }),
+  );
 
   return await fetch(url)
     .then((res) => res.json())

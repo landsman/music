@@ -7,7 +7,7 @@ import { getRecentTracks } from "../_shared/lastfm/user-recent-tracks.ts";
 /**
  * Sync data from Last.fm to Supabase Database.
  */
-export async function scrobbles(
+export async function syncTracks(
   env: Variables,
   lastFmUser: string | null = null,
 ): Promise<string> {
