@@ -1,4 +1,4 @@
-import {BaseTable} from "./db.ts";
+import { BaseTable } from "./db.ts";
 
 export interface Row {
   created_at: string;
