@@ -27,7 +27,7 @@ export class SentryErrorHandler {
       // https://docs.sentry.io/platforms/javascript/guides/deno/configuration/integrations/rewriteframes/
       integrations: [Sentry.rewriteFramesIntegration(
         {
-          root: `/home/runner/work/${projectName}/${projectName}/`,
+          root: `/${projectName}`,
           prefix: "",
           iteratee: (frame) => frame,
         },
