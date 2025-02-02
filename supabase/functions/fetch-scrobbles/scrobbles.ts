@@ -36,6 +36,11 @@ export async function scrobbles(env: Variables): Promise<string> {
   total = parseInt(paginationInitial.total);
   page = totalPages;
 
+  if (total === 0) {
+    console.log('Nothing new to save.');
+    return 'ok';
+  }
+
   if (startFrom) {
     console.log(
       `Found ${total} new tracks to save! Starting from page ${totalPages}.`,
