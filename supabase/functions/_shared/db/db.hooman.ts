@@ -1,4 +1,4 @@
-import { DbSupabaseTable } from "../_shared/supabase-table.ts";
+import { BaseTable } from "./db.ts";
 
 export interface Row {
   created_at: string;
@@ -10,7 +10,7 @@ const columnName: Row = {
   lastfm_user: "lastfm_user",
 };
 
-export class TableHooman extends DbSupabaseTable {
+export class TableHooman extends BaseTable {
   tableName = "hooman";
 
   async findOrCreateByLastFmUser(lastFmUser: string): Promise<string> {

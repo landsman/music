@@ -1,4 +1,4 @@
-import { DbSupabaseTable } from "../_shared/supabase-table.ts";
+import { BaseTable } from "./db.ts";
 
 export interface ListenedRow {
   created_at: string;
@@ -20,7 +20,7 @@ const columnName: ListenedRow = {
   hooman_id: "hooman_id",
 };
 
-export class TableListened extends DbSupabaseTable {
+export class TableListened extends BaseTable {
   tableName = "listened";
 
   /**

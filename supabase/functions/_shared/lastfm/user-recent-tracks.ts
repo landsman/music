@@ -1,5 +1,6 @@
-import { RecentTracks } from "./lastfm.types.ts";
-
+/**
+ * see https://www.last.fm/api/show/user.getRecentTracks
+ */
 export async function getRecentTracks(
   apiKey: string,
   userName: string,
@@ -33,4 +34,54 @@ export async function getRecentTracks(
       console.error(err);
       return null;
     });
+}
+
+type Image = {
+  size: string;
+  "#text": string;
+};
+
+interface Artist {
+  url: string;
+  name: string;
+  image: Image[];
+  mbid: string;
+}
+
+interface Track {
+  artist: Artist;
+  // date is present only when the track is not playing right now...
+  date?: {
+    uts: number;
+    "#text": string;
+  };
+  mbid: string;
+  name: string;
+  image: Image[];
+  url: string;
+  streamable: string;
+  album: {
+    mbid: string;
+    "#text": string;
+  };
+  loved: string;
+  // present only when it is playing, weird I know
+  "@attr"?: {
+    nowplaying: boolean;
+  };
+}
+
+interface Attributes {
+  user: string;
+  totalPages: string;
+  page: string;
+  perPage: string;
+  total: string;
+}
+
+interface RecentTracks {
+  recenttracks: {
+    track: Track[];
+    "@attr": Attributes;
+  };
 }

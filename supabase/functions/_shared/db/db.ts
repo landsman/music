@@ -5,7 +5,10 @@ interface SupabaseTableInterface {
   getSupabase(): SupabaseClient | undefined;
 }
 
-export class DbSupabaseTable implements SupabaseTableInterface {
+/**
+ * Make some order in the database table workflow.
+ */
+export class BaseTable implements SupabaseTableInterface {
   readonly supabase: SupabaseClient | undefined;
 
   constructor(supabase: SupabaseClient) {
@@ -14,7 +17,7 @@ export class DbSupabaseTable implements SupabaseTableInterface {
 
   getSupabase(): SupabaseClient {
     if (!this.supabase) {
-      throw new Error("supabase is not initialized");
+      throw new Error("supabase client is not initialized");
     }
     return this.supabase;
   }

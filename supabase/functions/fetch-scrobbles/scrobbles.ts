@@ -1,8 +1,8 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { getRecentTracks } from "./lastfm.ts";
-import { Variables } from "./env.ts";
-import { TableHooman } from "./db.hooman.ts";
-import { ListenedRow, TableListened } from "./db.listened.ts";
+import { Variables } from "../_shared/env.ts";
+import { TableHooman } from "../_shared/db/db.hooman.ts";
+import { ListenedRow, TableListened } from "../_shared/db/db.listened.ts";
+import { getRecentTracks } from "../_shared/lastfm/user-recent-tracks.ts";
 
 /**
  * Sync data from Last.fm to Supabase Database.
