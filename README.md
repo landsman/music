@@ -17,30 +17,12 @@ which run every 5 minutes and download 500 items.
 
 ## Tools
 
-- [IntelliJ IDEA](https://www.jetbrains.com/idea/)
-- [Docker](https://docs.docker.com/get-started/get-docker/)
+- Read [documentation](.docs/README.md) about localhost setup and cloud configuration
+- [IntelliJ IDEA](https://www.jetbrains.com/idea/) as a code editor
+- [Docker](https://docs.docker.com/get-started/get-docker/) for a localhost studio
 - [Deno](https://deno.com)
-- [Bruno](https://www.usebruno.com)
+- [Bruno](https://www.usebruno.com) for easy debugging
 - [Supabase](https://supabase.com) account
 - [Last.fm](https://www.last.fm/home) account [connected to Spotify](https://www.last.fm/about/trackmymusic), [API key](https://www.last.fm/api/authentication)
 - [Sentry](https://sentry.io/) for error notifications
 
-## Localhost
-
-**start local dev server basd on docker**
-
-```bash
-supabase start
-```
-
-**run server to allow you to invoke Edge Functions locally**
-
-```bash
-supabase functions serve --no-verify-jwt
-```
-
-**deploy modified function**
-
-```bash
-supabase functions deploy --project-ref xxx
-```
