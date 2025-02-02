@@ -23,6 +23,7 @@ which run every 5 minutes and download 500 items.
 - [Bruno](https://www.usebruno.com)
 - [Supabase](https://supabase.com) account
 - [Last.fm](https://www.last.fm/home) account [connected to Spotify](https://www.last.fm/about/trackmymusic), [API key](https://www.last.fm/api/authentication)
+- [Sentry](https://sentry.io/) for error notifications
 
 ## Localhost
 
