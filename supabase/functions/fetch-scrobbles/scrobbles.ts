@@ -31,6 +31,8 @@ export async function scrobbles(
   }
 
   const lastFmUserToUse = lastFmUser ? lastFmUser : env.LASTFM_USERNAME;
+  console.log(`Last.fm user: ${lastFmUserToUse}`);
+
   const hoomanId = await hooman.findOrCreateByLastFmUser(lastFmUserToUse);
 
   const fmInitial = await getRecentTracks(
