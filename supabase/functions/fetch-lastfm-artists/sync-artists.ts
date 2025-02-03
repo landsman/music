@@ -5,7 +5,7 @@ import {
 } from "../_shared/lastfm/library-artists.ts";
 import { Variables } from "../_shared/env.ts";
 import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
-import { delay } from "../_shared/utils.ts";
+import { delay, notEmptyOrNull } from "../_shared/utils.ts";
 import { HoomanArtistTable } from "../_shared/db/db.hooman_artist.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
 
@@ -77,6 +77,7 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
     const toInsert: ArtistRow[] = fm.artists.artist.map((item) => ({
       created_at: new Date().toISOString(),
       name: item.name,
+      lastfm_id: notEmptyOrNull(item.mbid),
       lastfm_data: item,
     }));
 

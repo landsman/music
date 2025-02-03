@@ -3,6 +3,7 @@ import { Variables } from "../_shared/env.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
 import { ListenedRow, ListenedTable } from "../_shared/db/db.listened.ts";
 import { getRecentTracks } from "../_shared/lastfm/user-recent-tracks.ts";
+import { notEmptyOrNull } from "../_shared/utils.ts";
 
 /**
  * Sync data from Last.fm to Supabase Database.
@@ -107,6 +108,7 @@ export async function syncTracks(
         album_name: track.album["#text"],
         lastfm_data: track,
         hooman_id: hoomanId,
+        lastfm_id: notEmptyOrNull(track.mbid),
       }));
 
     const { error, message } = await listened.save(toInsert);

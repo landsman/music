@@ -3,12 +3,17 @@ import { BaseTable } from "./db.ts";
 export interface ArtistRow {
   created_at: string;
   name: string;
+  lastfm_id: string | null;
+  /**
+   * @deprecated
+   */
   lastfm_data: null | string | object;
 }
 
 const columnName: ArtistRow = {
   created_at: "created_at",
   name: "name",
+  lastfm_id: "lastfm_id",
   lastfm_data: "lastfm_data",
 };
 
