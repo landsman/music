@@ -6,10 +6,6 @@ export interface ListenedRow {
   artist_name: string;
   track_name: string;
   album_name: string | null;
-  /**
-   * @deprecated
-   */
-  lastfm_data: string | object;
   hooman_id: string | null;
   lastfm_id: string | null;
 }
@@ -20,7 +16,6 @@ const columnName: ListenedRow = {
   artist_name: "artist_name",
   track_name: "track_name",
   album_name: "album_name",
-  lastfm_data: "lastfm_data",
   hooman_id: "hooman_id",
   lastfm_id: "lastfm_id",
 };
