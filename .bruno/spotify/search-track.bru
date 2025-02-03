@@ -1,0 +1,23 @@
+meta {
+  name: search-track
+  type: http
+  seq: 5
+}
+
+get {
+  url: https://api.spotify.com/v1/search?type=track&market=US&limit=10&offset=5&q=Juicy
+  body: none
+  auth: none
+}
+
+query {
+  type: track
+  market: US
+  limit: 10
+  offset: 5
+  q: Juicy
+}
+
+headers {
+  Authorization: Bearer {{SPOTIFY_ACCESS_TOKEN}}
+}
