@@ -78,7 +78,6 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
       created_at: new Date().toISOString(),
       name: item.name,
       lastfm_id: notEmptyOrNull(item.mbid),
-      lastfm_data: item,
     }));
 
     const { message, error } = await artistsTable.sync(toInsert);

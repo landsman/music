@@ -106,7 +106,6 @@ export async function syncTracks(
         artist_name: track.artist.name,
         track_name: track.name,
         album_name: track.album["#text"],
-        lastfm_data: track,
         hooman_id: hoomanId,
         lastfm_id: notEmptyOrNull(track.mbid),
       }));
