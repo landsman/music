@@ -1,0 +1,23 @@
+meta {
+  name: search-artist
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://api.spotify.com/v1/search?type=artist&market=US&limit=10&offset=5&q=Notorious B.I.G
+  body: none
+  auth: none
+}
+
+query {
+  type: artist
+  market: US
+  limit: 10
+  offset: 5
+  q: Notorious B.I.G
+}
+
+headers {
+  Authorization: Bearer {{SPOTIFY_ACCESS_TOKEN}}
+}

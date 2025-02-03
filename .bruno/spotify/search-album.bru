@@ -1,0 +1,23 @@
+meta {
+  name: search-album
+  type: http
+  seq: 3
+}
+
+get {
+  url: https://api.spotify.com/v1/search?type=album&market=US&limit=10&offset=5&q=Ready to Die
+  body: none
+  auth: none
+}
+
+query {
+  type: album
+  market: US
+  limit: 10
+  offset: 5
+  q: Ready to Die
+}
+
+headers {
+  Authorization: Bearer {{SPOTIFY_ACCESS_TOKEN}}
+}
