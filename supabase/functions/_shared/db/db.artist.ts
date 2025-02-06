@@ -6,29 +6,21 @@ export interface ArtistRow {
   lastfm_id: string | null;
 }
 
-const columnName: ArtistRow = {
-  created_at: "created_at",
-  name: "name",
-  lastfm_id: "lastfm_id",
-};
-
 export class ArtistTable extends BaseTable {
-  override tableName = "artist";
-
   async sync(
     artists: ArtistRow[],
   ): Promise<{ message?: string; error?: unknown }> {
     return await this.getSupabase()
-      .from(this.tableName)
-      .upsert(artists, { onConflict: columnName.name }) // insert?
+      .from("artist")
+      .upsert(artists, { onConflict: "name" }) // insert?
       .select();
   }
 
   async findIdByName(name: string): Promise<string | null> {
     const { data, error } = await this.getSupabase()
-      .from(this.tableName)
+      .from("artist")
       .select("id")
-      .eq(columnName.name, name)
+      .eq("name", name)
       .limit(1)
       .maybeSingle<{ id: string } | null>();
 
