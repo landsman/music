@@ -7,28 +7,41 @@
     "deno": {
       "settings": {
         "deno": {
-          "enable": true
+          "enable": true,
+          "inlayHints": {
+            "parameterNames": {
+              "enabled": "all"
+            },
+            "parameterTypes": {
+              "enabled": true
+            },
+            "variableTypes": {
+              "enabled": true
+            },
+            "propertyDeclarationTypes": {
+              "enabled": true
+            },
+            "functionLikeReturnTypes": {
+              "enabled": true
+            },
+            "enumMemberValues": {
+              "enabled": true
+            }
+          }
         }
       }
     }
   },
+
   "languages": {
     "TypeScript": {
-      "language_servers": [
-        "deno",
-        "!typescript-language-server",
-        "!vtsls",
-        "!eslint"
-      ],
-      "formatter": "language_server"
-    },
-    "TSX": {
-      "language_servers": [
-        "deno",
-        "!typescript-language-server",
-        "!vtsls",
-        "!eslint"
-      ],
+      "language_servers": ["deno"],
+      "inlay_hints": {
+        "enabled": true,
+        "show_type_hints": true,
+        "show_parameter_hints": true,
+        "show_other_hints": true
+      },
       "formatter": "language_server"
     }
   }
