@@ -21,15 +21,13 @@ const columnName: ListenedRow = {
 };
 
 export class ListenedTable extends BaseTable {
-  override tableName = "listened";
-
   /**
    * Get the latest timestamp from the scrobbles table.
    * @returns The latest timestamp in Unix seconds or null.
    */
   async getLastListenedDate(hoomanId: string): Promise<number | null> {
     const { data, error } = await this.getSupabase()
-      .from(this.tableName)
+      .from("listened")
       .select(columnName.listened_at)
       .eq(columnName.hooman_id!, hoomanId)
       .order(columnName.listened_at, { ascending: false })
@@ -60,7 +58,7 @@ export class ListenedTable extends BaseTable {
     }
 
     const { error } = await this.getSupabase()
-      .from(this.tableName)
+      .from("listened")
       .insert(tracks);
 
     if (error) {

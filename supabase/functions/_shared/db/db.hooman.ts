@@ -1,23 +1,11 @@
 import { BaseTable } from "./db.ts";
 
-export interface Row {
-  created_at: string;
-  lastfm_user: string;
-}
-
-const columnName: Row = {
-  created_at: "created_at",
-  lastfm_user: "lastfm_user",
-};
-
 export class HoomanTable extends BaseTable {
-  override tableName = "hooman";
-
   async findOrCreateByLastFmUser(lastFmUser: string): Promise<string> {
     const { data, error } = await this.getSupabase()
-      .from(this.tableName)
+      .from("hooman")
       .select("id")
-      .eq(columnName.lastfm_user, lastFmUser.replace(/\s/g, ""))
+      .eq("lastfm_user", lastFmUser.replace(/\s/g, ""))
       .limit(1)
       .maybeSingle<{ id: string } | null>();
 
@@ -32,10 +20,10 @@ export class HoomanTable extends BaseTable {
     }
 
     const { data: insertData, error: insertError } = await this.getSupabase()
-      .from(this.tableName)
+      .from("hooman")
       .insert({
-        [columnName.created_at]: new Date(),
-        [columnName.lastfm_user]: lastFmUser,
+        "created_at": new Date().toString(),
+        "lastfm_user": lastFmUser,
       })
       .select("id")
       .maybeSingle<{ id: string }>();
