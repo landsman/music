@@ -22,5 +22,5 @@ jobs:
         with:
           deno-version: v2.x
       - run: deno fmt --check supabase/*
-
       - run: deno lint supabase/*
+      - run: deno run tests
