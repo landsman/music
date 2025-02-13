@@ -12,7 +12,10 @@ import { HoomanTable } from "../_shared/db/db.hooman.ts";
 /**
  * main function
  */
-export async function syncArtists(env: Variables, lastFmUser: string): Promise<string> {
+export async function syncArtists(
+  env: Variables,
+  lastFmUser: string,
+): Promise<string> {
   console.log(`syncArtists - Last.fm user: ${lastFmUser}`);
 
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
@@ -111,7 +114,7 @@ export async function syncArtists(env: Variables, lastFmUser: string): Promise<s
 
 /**
  * add user id to the artists
-*/
+ */
 async function pairArtistWithHooman(
   artistsTable: ArtistTable,
   hoomanArtistTable: HoomanArtistTable,
