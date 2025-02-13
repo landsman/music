@@ -1,6 +1,6 @@
-import {getSupabase} from "../../../src/shared/get-supabase.ts";
+import {initClient} from "../../../shared/supabase.ts";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = getSupabase(supabaseUrl, supabaseKey);
+export const supabase = initClient(supabaseUrl, supabaseKey);
