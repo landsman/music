@@ -1,4 +1,4 @@
-import { SupabaseClient, Database } from "../../../../src/shared/db.ts";
+import { Database, SupabaseClient } from "../../../../src/shared/db.ts";
 
 export interface BaseTableInterface {
   readonly supabase: SupabaseClient | undefined;

@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/deno';
+import * as Sentry from "@sentry/deno";
 
 /**
  * Fatal error logging. Sentry will send an email about new errors.
