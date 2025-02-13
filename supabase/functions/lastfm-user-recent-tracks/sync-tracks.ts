@@ -1,4 +1,4 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { initClient } from "../../../src/shared/supabase.ts";
 import { Variables } from "../_shared/env.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
 import { ListenedRow, ListenedTable } from "../_shared/db/db.listened.ts";
@@ -15,7 +15,7 @@ export async function syncTracks(
 ): Promise<string> {
   console.log(`syncTracks - Last.fm user: ${lastFmUser}`);
 
-  const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+  const supabaseClient = initClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
   const listened = new ListenedTable(supabaseClient);
 
   const hooman = new HoomanTable(supabaseClient);

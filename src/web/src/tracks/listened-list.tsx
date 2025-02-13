@@ -1,3 +1,4 @@
+// @deno-types="@types/react"
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase.ts";
 
