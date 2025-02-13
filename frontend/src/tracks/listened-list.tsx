@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase.ts";
 
 interface Item {
-  id: number;
+  id: string;
   artist_name: string;
   track_name: string;
   hooman: {
     id: string;
     lastfm_user: string;
-  }
+  } | null; // todo: get rid of nullable in db
 }
 
 async function fetchItems(): Promise<Item[]> {
@@ -34,7 +34,7 @@ async function fetchItems(): Promise<Item[]> {
   return data;
 }
 
-export function Tracks() {
+export function ListenedList() {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -62,7 +62,9 @@ export function Tracks() {
     <div>
       {items.map((item) => (
           <div key={item.id}>
-            <a href={`https://www.last.fm/user/${item.hooman.lastfm_user}`} target={'_blank'}>{item.hooman.lastfm_user}</a>: {item.artist_name} - {item.track_name}
+            <a href={`https://www.last.fm/user/${item.hooman!.lastfm_user}`} target={'_blank'}>
+              {item.hooman!.lastfm_user}
+            </a>: {item.artist_name} - {item.track_name}
           </div>
       ))}
     </div>
