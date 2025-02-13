@@ -29,3 +29,10 @@ jobs:
       - run: deno fmt --check supabase/*
       - run: deno lint supabase/*
       - run: deno run tests
+
+      - name: 'Generate cron jobs'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cron_jobs.sql
+          path: cron_jobs.sql
+          retention-days: 1

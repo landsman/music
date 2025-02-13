@@ -21,6 +21,15 @@ jobs:
         with:
           version: latest
 
+      - run: deno run tests
+
+      - name: 'Generate cron jobs'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cron_jobs.sql
+          path: cron_jobs.sql
+          retention-days: 2
+
       - name: 'Supabase - Remote Connect'
         env:
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
