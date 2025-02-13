@@ -62,7 +62,7 @@ export function ListenedList() {
     <div>
       {items.map((item) => (
           <div key={item.id}>
-            <a href={`https://www.last.fm/user/${item.hooman!.lastfm_user}`} target={'_blank'}>
+            <a href={`https://www.last.fm/user/${item.hooman!.lastfm_user}`}>
               {item.hooman!.lastfm_user}
             </a>: {item.artist_name} - {item.track_name}
           </div>
