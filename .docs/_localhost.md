@@ -21,3 +21,7 @@ supabase functions serve --no-verify-jwt
 ```bash
 supabase functions deploy --project-ref xxx
 ```
+
+## Troubleshooting
+
+- https://github.com/supabase/cli/issues/1996#issuecomment-2091991560
