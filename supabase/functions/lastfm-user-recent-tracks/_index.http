@@ -1,5 +1,5 @@
 ### test request without JWT
-POST http://localhost:54321/functions/v1/fetch-scrobbles
+POST http://localhost:54321/functions/v1/lastfm-user-recent-tracks
 Content-Type: application/json
 
 {
