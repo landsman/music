@@ -1,5 +1,6 @@
 import "https://deno.land/std/dotenv/load.ts";
 import { lastFmUserRecentTracksCron } from "../lastfm-user-recent-tracks/sync-tracks.ts";
+import { lastFmLibraryArtistsCron } from "../lastfm-library-artists/sync-artists.ts";
 
 const outputFile = "cron_jobs.sql";
 
@@ -31,10 +32,21 @@ Deno.test(async function generateCronJobQuery() {
       env.PROJECT_PUBLISHABLE_KEY,
       "Weinkaa",
     ),
+    lastFmLibraryArtistsCron(
+      env.PROJECT_ID,
+      env.PROJECT_PUBLISHABLE_KEY,
+      "Insuit",
+    ),
+    lastFmLibraryArtistsCron(
+      env.PROJECT_ID,
+      env.PROJECT_PUBLISHABLE_KEY,
+      "Weinkaa",
+    ),
   ];
 
   const output = "--- Here are your CRON jobs, add them to database:\n" +
     cronJobs.join("\n");
+
   Deno.writeTextFile(outputFile, output).then(() => {
     console.log(
       `Open file: ${outputFile} and put CRON job queries to your database.`,
