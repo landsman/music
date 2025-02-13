@@ -4,6 +4,7 @@ import { HoomanTable } from "../_shared/db/db.hooman.ts";
 import { ListenedRow, ListenedTable } from "../_shared/db/db.listened.ts";
 import { getRecentTracks } from "../_shared/lastfm/user-recent-tracks.ts";
 import { notEmptyOrNull } from "../_shared/utils.ts";
+import { buildCron } from "../_shared/cron.ts";
 
 /**
  * Sync data from Last.fm to Supabase Database.
@@ -127,22 +128,19 @@ export async function syncTracks(
   return "ok";
 }
 
+/** cron job for the edge function */
 export const lastFmUserRecentTracksCron = (
   projectId: string,
   publishableKey: string,
   lastFmUser: string,
-) => `
-select
-  cron.schedule(
-    'lastfm_user_recent_tracks_${lastFmUser.toLowerCase()}',
-    '*/5 * * * *', -- every five minutes
-    $$
-    select
-      net.http_post(
-          url:='https://${projectId}.supabase.co/functions/v1/lastfm-user-recent-tracks',
-          headers:='{"Content-Type": "application/json", "Authorization": "Bearer ${publishableKey}"}'::jsonb,
-          body:=concat('{"time": "', now(), '", "lastFmUser": "${lastFmUser}")::jsonb
-      ) as request_id;
-    $$
-  );
-`;
+) =>
+  buildCron({
+    projectId,
+    publishableKey,
+    edgeFunctionFolderName: "lastfm-user-recent-tracks",
+    uniqueCronJobName: `lastfm_user_recent_tracks_${lastFmUser.toLowerCase()}`,
+    cronTabTiming: "*/5 * * * *",
+    body: {
+      lastFmUser: lastFmUser,
+    },
+  });

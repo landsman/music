@@ -8,6 +8,7 @@ import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
 import { delay, notEmptyOrNull } from "../_shared/utils.ts";
 import { HoomanArtistTable } from "../_shared/db/db.hooman_artist.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
+import { buildCron } from "../_shared/cron.ts";
 
 /**
  * main function
@@ -145,22 +146,19 @@ async function pairArtistWithHooman(
   }
 }
 
+/** cron job for the edge function */
 export const lastFmLibraryArtistsCron = (
   projectId: string,
   publishableKey: string,
   lastFmUser: string,
-) => `
-select
-  cron.schedule(
-    'lastfm_library_artists_${lastFmUser.toLowerCase()}',
-    '*/30 * * * *', -- every 30 minutes
-    $$
-    select
-      net.http_post(
-          url:='https://${projectId}.supabase.co/functions/v1/lastfm-library-artists',
-          headers:='{"Content-Type": "application/json", "Authorization": "Bearer ${publishableKey}"}'::jsonb,
-          body:=concat('{"time": "', now(), '", "lastFmUser": "${lastFmUser}")::jsonb
-      ) as request_id;
-    $$
-  );
-`;
+) =>
+  buildCron({
+    projectId,
+    publishableKey,
+    edgeFunctionFolderName: "lastfm-library-artists",
+    uniqueCronJobName: `lastfm_library_artists_${lastFmUser.toLowerCase()}`,
+    cronTabTiming: "*/30 * * * *",
+    body: {
+      lastFmUser: lastFmUser,
+    },
+  });
