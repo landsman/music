@@ -18,27 +18,16 @@ https://supabase.com/dashboard/project/***/integrations/cron/jobs
 
 ## Create a new job
 
-Or edit already existing.
-Replace CRON name, timing and `$PUBLISHABLE_KEY` with your value, from project settings, in plain text.
+Fill out .env file with variables and run tests. Cron will be generated to the file.
 
 ```bash
-select
-  cron.schedule(
-    'lastfm-tracks',
-    '*/5 * * * *', -- every five minutes
-    $$
-    select
-      net.http_post(
-          url:='https://qwvhazhlyjtgnfukdztm.supabase.co/functions/v1/fetch-scrobbles',
-          headers:='{"Content-Type": "application/json", "Authorization": "Bearer $PUBLISHABLE_KEY"}'::jsonb,
-          body:=concat('{"time": "', now(), '"}')::jsonb
-      ) as request_id;
-    $$
-  );
+deno run tests
 ```
 
 ## Remove existing job
 
-```postgresql
+Replace ID by number from your database of already existing cron.
+
+```bash
 select cron.unschedule(3);
 ```

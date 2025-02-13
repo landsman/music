@@ -3,3 +3,4 @@ node_modules
 supabase/functions/.env
 deno.lock
 .env
+cron_jobs.sql

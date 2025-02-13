@@ -135,3 +135,23 @@ async function pairArtistWithHooman(
     console.log(message);
   }
 }
+
+export const lastFmLibraryArtistsCron = (
+  projectId: string,
+  publishableKey: string,
+  lastFmUser: string,
+) => `
+select
+  cron.schedule(
+    'lastfm-tracks',
+    '*/30 * * * *', -- every 30 minutes
+    $$
+    select
+      net.http_post(
+          url:='https://${projectId}.supabase.co/functions/v1/lastfm-library-artists',
+          headers:='{"Content-Type": "application/json", "Authorization": "Bearer ${publishableKey}"}'::jsonb,
+          body:=concat('{"time": "', now(), '", "lastFmUser": "${lastFmUser}")::jsonb
+      ) as request_id;
+    $$
+  );
+`;
