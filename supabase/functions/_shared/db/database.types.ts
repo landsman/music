@@ -92,7 +92,29 @@ export type Database = {
           hooman_id?: string;
           id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "fk_hooman_artist_artist";
+            columns: ["artist_id"];
+            isOneToOne: false;
+            referencedRelation: "artist";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "fk_hooman_artist_artist";
+            columns: ["artist_id"];
+            isOneToOne: false;
+            referencedRelation: "hooman_artist_match";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "fk_hooman_artist_hooman";
+            columns: ["hooman_id"];
+            isOneToOne: false;
+            referencedRelation: "hooman";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       listened: {
         Row: {
