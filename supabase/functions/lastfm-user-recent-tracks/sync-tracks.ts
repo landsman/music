@@ -134,7 +134,7 @@ export const lastFmUserRecentTracksCron = (
 ) => `
 select
   cron.schedule(
-    'lastfm-tracks',
+    'lastfm_user_recent_tracks_${lastFmUser.toLowerCase()}',
     '*/5 * * * *', -- every five minutes
     $$
     select

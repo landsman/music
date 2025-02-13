@@ -9,7 +9,10 @@ import { delay, notEmptyOrNull } from "../_shared/utils.ts";
 import { HoomanArtistTable } from "../_shared/db/db.hooman_artist.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
 
-export async function syncArtists(env: Variables, lastFmUser: string) {
+/**
+ * main function
+ */
+export async function syncArtists(env: Variables, lastFmUser: string): Promise<string> {
   console.log(`syncArtists - Last.fm user: ${lastFmUser}`);
 
   const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
@@ -106,6 +109,9 @@ export async function syncArtists(env: Variables, lastFmUser: string) {
   return "ok";
 }
 
+/**
+ * add user id to the artists
+*/
 async function pairArtistWithHooman(
   artistsTable: ArtistTable,
   hoomanArtistTable: HoomanArtistTable,
@@ -143,7 +149,7 @@ export const lastFmLibraryArtistsCron = (
 ) => `
 select
   cron.schedule(
-    'lastfm-tracks',
+    'lastfm_library_artists_${lastFmUser.toLowerCase()}',
     '*/30 * * * *', -- every 30 minutes
     $$
     select
