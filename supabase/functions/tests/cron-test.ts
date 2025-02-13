@@ -1,8 +1,50 @@
 import "https://deno.land/std/dotenv/load.ts";
+import { assertEquals } from "@std/assert";
+import { buildCron } from "../_shared/cron.ts";
 import { lastFmUserRecentTracksCron } from "../lastfm-user-recent-tracks/sync-tracks.ts";
 import { lastFmLibraryArtistsCron } from "../lastfm-library-artists/sync-artists.ts";
 
-const outputFile = "cron_jobs.sql";
+Deno.test("buildCron should generate correct cron schedule SQL", () => {
+  const props = {
+    projectId: "myProject",
+    publishableKey: "abc123",
+    edgeFunctionFolderName: "myEdgeFunc",
+    uniqueCronJobName: "jobName",
+    cronTabTiming: "*/5 * * * *",
+    body: { lastFmUser: "john" },
+    headers: { "X-Custom": "customValue" },
+  };
+
+  const expectedHeaders = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer abc123",
+    "X-Custom": "customValue",
+  };
+
+  const expectedBody = {
+    time: "', now(),'",
+    lastFmUser: "john",
+  };
+
+  const expected = `
+select
+  cron.schedule(
+    'jobName',
+    '*/5 * * * *',
+    $$
+    select
+      net.http_post(
+          url:='https://myProject.supabase.co/functions/v1/myEdgeFunc',
+          headers:='${JSON.stringify(expectedHeaders)}'::jsonb,
+          body:=concat('${JSON.stringify(expectedBody)}')::jsonb
+      ) as request_id;
+    $$
+  );
+`;
+
+  const result = buildCron(props);
+  assertEquals(result, expected);
+});
 
 /**
  * Use Deno tests to generate us the file.
@@ -46,6 +88,8 @@ Deno.test(async function generateCronJobQuery() {
 
   const output = "--- Here are your CRON jobs, add them to database:\n" +
     cronJobs.join("\n");
+
+  const outputFile = "cron_jobs.sql";
 
   Deno.writeTextFile(outputFile, output).then(() => {
     console.log(
