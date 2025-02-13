@@ -1,5 +1,4 @@
-import { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { Database } from "../../../../src/shared/database.types.ts";
+import { SupabaseClient, Database } from "../../../../src/shared/db.ts";
 
 export interface BaseTableInterface {
   readonly supabase: SupabaseClient | undefined;
