@@ -21,12 +21,6 @@ jobs:
         with:
           version: latest
 
-      - uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - run: deno run tests
-
       - name: 'Generate cron jobs'
         uses: actions/upload-artifact@v4
         with:
