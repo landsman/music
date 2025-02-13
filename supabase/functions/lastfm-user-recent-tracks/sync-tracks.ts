@@ -126,3 +126,23 @@ export async function syncTracks(
 
   return "ok";
 }
+
+export const lastFmUserRecentTracksCron = (
+  projectId: string,
+  publishableKey: string,
+  lastFmUser: string,
+) => `
+select
+  cron.schedule(
+    'lastfm-tracks',
+    '*/5 * * * *', -- every five minutes
+    $$
+    select
+      net.http_post(
+          url:='https://${projectId}.supabase.co/functions/v1/lastfm-user-recent-tracks',
+          headers:='{"Content-Type": "application/json", "Authorization": "Bearer ${publishableKey}"}'::jsonb,
+          body:=concat('{"time": "', now(), '", "lastFmUser": "${lastFmUser}")::jsonb
+      ) as request_id;
+    $$
+  );
+`;
