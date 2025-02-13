@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export interface Database {
+export type Database = {
   graphql_public: {
     Tables: {
       [_ in never]: never;
@@ -92,7 +92,29 @@ export interface Database {
           hooman_id?: string;
           id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "fk_hooman_artist_artist";
+            columns: ["artist_id"];
+            isOneToOne: false;
+            referencedRelation: "artist";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "fk_hooman_artist_artist";
+            columns: ["artist_id"];
+            isOneToOne: false;
+            referencedRelation: "hooman_artist_match";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "fk_hooman_artist_hooman";
+            columns: ["hooman_id"];
+            isOneToOne: false;
+            referencedRelation: "hooman";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       listened: {
         Row: {
@@ -128,7 +150,15 @@ export interface Database {
           listened_at?: string;
           track_name?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "fk_listened_hooman";
+            columns: ["hooman_id"];
+            isOneToOne: false;
+            referencedRelation: "hooman";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: {
@@ -145,6 +175,22 @@ export interface Database {
           hooman_match: string | null;
           id: string | null;
           name: string | null;
+        };
+        Relationships: [];
+      };
+      hooman_artist_most_listened: {
+        Row: {
+          artist: string | null;
+          count: number | null;
+          hooman: string | null;
+        };
+        Relationships: [];
+      };
+      hooman_tracks_most_listened: {
+        Row: {
+          count: number | null;
+          hooman: string | null;
+          track: string | null;
         };
         Relationships: [];
       };
@@ -293,6 +339,7 @@ export interface Database {
           {
             foreignKeyName: "objects_bucketId_fkey";
             columns: ["bucket_id"];
+            isOneToOne: false;
             referencedRelation: "buckets";
             referencedColumns: ["id"];
           },
@@ -336,6 +383,7 @@ export interface Database {
           {
             foreignKeyName: "s3_multipart_uploads_bucket_id_fkey";
             columns: ["bucket_id"];
+            isOneToOne: false;
             referencedRelation: "buckets";
             referencedColumns: ["id"];
           },
@@ -382,12 +430,14 @@ export interface Database {
           {
             foreignKeyName: "s3_multipart_uploads_parts_bucket_id_fkey";
             columns: ["bucket_id"];
+            isOneToOne: false;
             referencedRelation: "buckets";
             referencedColumns: ["id"];
           },
           {
             foreignKeyName: "s3_multipart_uploads_parts_upload_id_fkey";
             columns: ["upload_id"];
+            isOneToOne: false;
             referencedRelation: "s3_multipart_uploads";
             referencedColumns: ["id"];
           },
@@ -423,7 +473,7 @@ export interface Database {
         Args: {
           name: string;
         };
-        Returns: unknown;
+        Returns: string[];
       };
       get_size_by_bucket: {
         Args: Record<PropertyKey, never>;
@@ -495,4 +545,105 @@ export interface Database {
       [_ in never]: never;
     };
   };
-}
+};
+
+type PublicSchema = Database[Extract<keyof Database, "public">];
+
+export type Tables<
+  PublicTableNameOrOptions extends
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (
+      & Database[PublicTableNameOrOptions["schema"]]["Tables"]
+      & Database[PublicTableNameOrOptions["schema"]]["Views"]
+    )
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database } ? (
+    & Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    & Database[PublicTableNameOrOptions["schema"]]["Views"]
+  )[TableName] extends {
+    Row: infer R;
+  } ? R
+  : never
+  : PublicTableNameOrOptions extends keyof (
+    & PublicSchema["Tables"]
+    & PublicSchema["Views"]
+  ) ? (
+      & PublicSchema["Tables"]
+      & PublicSchema["Views"]
+    )[PublicTableNameOrOptions] extends {
+      Row: infer R;
+    } ? R
+    : never
+  : never;
+
+export type TablesInsert<
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+    Insert: infer I;
+  } ? I
+  : never
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+      Insert: infer I;
+    } ? I
+    : never
+  : never;
+
+export type TablesUpdate<
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+    Update: infer U;
+  } ? U
+  : never
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+      Update: infer U;
+    } ? U
+    : never
+  : never;
+
+export type Enums<
+  PublicEnumNameOrOptions extends
+    | keyof PublicSchema["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+  : never;
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database;
+  } ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]][
+      "CompositeTypes"
+    ]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][
+    CompositeTypeName
+  ]
+  : PublicCompositeTypeNameOrOptions extends
+    keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : never;
