@@ -1,4 +1,4 @@
-import { initClient } from "../../../src/shared/supabase.ts";
+import { initClient } from "../_shared/db/db.ts";
 import { Variables } from "../_shared/env.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
 import { ListenedRow, ListenedTable } from "../_shared/db/db.listened.ts";

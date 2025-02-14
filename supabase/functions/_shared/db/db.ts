@@ -1,5 +1,10 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "../../../../src/shared/db.ts";
+import { createClient } from "@supabase/supabase-js";
+
+export function initClient(supabaseUrl: string, supabaseKey: string) {
+  return createClient<Database>(supabaseUrl, supabaseKey);
+}
 
 export interface BaseTableInterface {
   readonly supabase: SupabaseClient | undefined;
