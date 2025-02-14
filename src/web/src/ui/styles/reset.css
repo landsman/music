@@ -28,6 +28,8 @@ a:hover {
     color: #fff;
     background: var(---color-blue-dark);
     text-decoration: none;
+    padding: 2px;
+    border-radius: 4px;
 }
 
 body {

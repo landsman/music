@@ -4,3 +4,6 @@
 /* components */
 @import "./activity/loader.module.css";
 @import "./feed/feed.module.css";
+
+/* views */
+@import "../view/index-view.module.css";
