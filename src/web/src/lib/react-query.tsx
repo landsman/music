@@ -1,17 +1,23 @@
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000, // 1 minute
+      staleTime: 30 * 1000, // 30 seconds
     },
   },
 });
 
 export function ReactQuery({ children }: { children: React.JSX.Element }) {
   return (
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
-  )
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  );
 }
+
+export { useQuery };
