@@ -59,7 +59,7 @@
 }
 
 .user_side {
-  min-width: 75px;
+  min-width: 95px;
 
   display: flex;
   flex-direction: column;
@@ -68,21 +68,14 @@
   align-items: flex-end;
 
   font-size: 80%;
-
-  @media only screen and (max-width: 600px) {
-    font-size: 60%;
-  }
+  line-height: 80%;
 
   .listened_at {
     font-size: 80%;
     text-wrap: balance;
     opacity: 0.6;
 
-    padding-bottom: 10px;
-
-    @media only screen and (max-width: 600px) {
-      font-size: 40%;
-    }
+    padding-bottom: 5px;
   }
 
   .user {
