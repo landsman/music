@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 const speed = 50;
 const padding = 50;
@@ -17,7 +17,7 @@ export function Marquee({ text }: { text: string }) {
 
   function runOrNot() {
     const textEl = textRef.current;
-    if (textEl && window.innerWidth <= 550) {
+    if (textEl && globalThis.innerWidth <= 550) {
       const textWidth = textEl.offsetWidth;
       if (textEl.textContent && textEl.textContent.length >= 25) {
         const distance = textWidth + padding;
@@ -41,39 +41,41 @@ export function Marquee({ text }: { text: string }) {
       if (resizeTimer.current) {
         clearTimeout(resizeTimer.current);
       }
-      resizeTimer.current = window.setTimeout(() => {
+      resizeTimer.current = globalThis.setTimeout(() => {
         runOrNot();
       }, debounceTime);
     };
 
-    window.addEventListener('resize', handleResize);
+    globalThis.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      globalThis.removeEventListener("resize", handleResize);
       if (resizeTimer.current) clearTimeout(resizeTimer.current);
     };
   }, [text]);
 
   return (
-      <div className="marquee-container" ref={containerRef}>
-        {isScrolling ? (
-            <div
-                className="marquee-content"
-                style={{
-                  '--scroll-distance': `${scrollDistance}px`,
-                  '--duration': `${duration}s`,
-                }}
-            >
+    <div className="marquee-container" ref={containerRef}>
+      {isScrolling
+        ? (
+          <div
+            className="marquee-content"
+            style={{
+              "--scroll-distance": `${scrollDistance}px`,
+              "--duration": `${duration}s`,
+            }}
+          >
+            <span className="marquee-text" ref={textRef}>
+              {text}
+            </span>
+            <span className="marquee-gap" style={{ width: padding }} />
+            <span className="marquee-text">{text}</span>
+          </div>
+        )
+        : (
           <span className="marquee-text" ref={textRef}>
             {text}
           </span>
-              <span className="marquee-gap" style={{ width: padding }} />
-              <span className="marquee-text">{text}</span>
-            </div>
-        ) : (
-            <span className="marquee-text" ref={textRef}>
-          {text}
-        </span>
         )}
-      </div>
+    </div>
   );
 }

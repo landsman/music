@@ -1,17 +1,17 @@
-import {Disc} from "lucide-react";
+import { Disc } from "lucide-react";
 
 interface AlbumProps {
-    name: string | null;
+  name: string | null;
 }
 
 export function Album({ name }: AlbumProps) {
-    if (!name) {
-        return null;
-    }
-    return (
-        <div className='artist__album' title={name}>
-            <Disc size={11} />
-            <span>{name}</span>
-        </div>
-    )
+  if (!name) {
+    return null;
+  }
+  return (
+    <div className="artist__album" title={name}>
+      <Disc size={11} />
+      <span>{name}</span>
+    </div>
+  );
 }

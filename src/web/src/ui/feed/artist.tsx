@@ -1,9 +1,7 @@
 interface ArtistProps {
-    name: string;
+  name: string;
 }
 
-export function Artist({name}: ArtistProps) {
-    return (
-        <div className='artist__name'>{name}</div>
-    )
+export function Artist({ name }: ArtistProps) {
+  return <div className="artist__name">{name}</div>;
 }

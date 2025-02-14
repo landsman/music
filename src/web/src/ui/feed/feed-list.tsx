@@ -1,6 +1,6 @@
-import {FeedItem} from "./feed-item.tsx";
-import {ListenedTracks} from "../../data/tracks-api.ts";
-import "./feed.module.css"
+import { FeedItem } from "./feed-item.tsx";
+import { ListenedTracks } from "../../data/tracks-api.ts";
+import "./feed.module.css";
 
 interface FeedListProps {
   data: ListenedTracks[];

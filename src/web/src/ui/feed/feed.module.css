@@ -1,29 +1,26 @@
 @import "feed-item.module.css";
 @import "track.module.css";
 
-.feed {
-
-}
+.feed {}
 
 .feed_row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 
-    padding: 10px 15px;
-    margin-top: 10px;
+  padding: 10px 15px;
+  margin-top: 10px;
 
-    border-radius: 6px;
-    border: 1px solid #2f2f2f;
+  border-radius: 6px;
+  border: 1px solid #2f2f2f;
 
-    &:first-child {
-        margin-top: 0;
-    }
+  &:first-child {
+    margin-top: 0;
+  }
 
-    &:hover {
-        background: #1e1e1e;
-        border-color: #2f2f2f;
-    }
+  &:hover {
+    background: #1e1e1e;
+    border-color: #2f2f2f;
+  }
 }
-

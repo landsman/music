@@ -1,4 +1,8 @@
-import { QueryClientProvider, QueryClient, useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -10,10 +14,10 @@ const queryClient = new QueryClient({
 
 export function ReactQuery({ children }: { children: React.JSX.Element }) {
   return (
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
-  )
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  );
 }
 
-export { useQuery }
+export { useQuery };
