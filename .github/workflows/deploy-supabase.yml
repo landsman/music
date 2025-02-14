@@ -17,9 +17,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: supabase/setup-cli@main
+      - uses: supabase/setup-cli@v1
         with:
-          version: beta
+          version: 2.13.3
 
       - name: 'Supabase - Remote Connect'
         env:
