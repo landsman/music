@@ -6,16 +6,19 @@ import {
 import {i18n} from "../../i18n/i18n.ts";
 import {Marquee} from "./track.tsx";
 import {User} from "./user.tsx";
+import {Album} from "./album.tsx";
+import {Artist} from "./artist.tsx";
 
 interface Props {
   artist: string;
+  album: string | null;
   track: string;
   user: string | undefined;
   listenedAt: string;
 }
 
 export function FeedItem(props: Props) {
-  const { artist, track, user, listenedAt } = props;
+  const { artist, album, track, user, listenedAt } = props;
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
       e.preventDefault();
@@ -33,7 +36,8 @@ export function FeedItem(props: Props) {
             <Marquee text={track} />
         </div>
         <div className="artist">
-          {artist}
+            <Artist name={artist} />
+            <Album name={album} />
         </div>
       </div>
       <div className="user_side">

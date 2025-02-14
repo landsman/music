@@ -20,8 +20,9 @@ export function FeedList(props: FeedListProps) {
       {data.map((item: ListenedTracks) => (
         <FeedItem
           key={item.id}
-          track={item.track_name}
           artist={item.artist_name}
+          album={item.album_name}
+          track={item.track_name}
           listenedAt={item.listened_at}
           user={item.hooman?.lastfm_user}
         />
