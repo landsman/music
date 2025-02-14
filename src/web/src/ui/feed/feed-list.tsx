@@ -1,7 +1,7 @@
 import { FeedItem } from "./feed-item.tsx";
 import { ListenedTracks } from "../../data/tracks-api.ts";
 import "./feed.module.css";
-import {MusicLoader} from "../activity/loader.tsx";
+import { MusicLoader } from "../activity/loader.tsx";
 
 interface FeedListProps {
   data: ListenedTracks[];
@@ -19,9 +19,7 @@ export function FeedList(props: FeedListProps) {
 
   return (
     <div className="feed" data-fetching={isFetching}>
-      {isFetching && (
-          <MusicLoader size={32} className='feed__fetching' />
-      )}
+      {isFetching && <MusicLoader size={32} className="feed__fetching" />}
       {data.map((item: ListenedTracks) => (
         <FeedItem
           key={item.id}

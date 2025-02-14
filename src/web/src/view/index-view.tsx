@@ -8,7 +8,9 @@ import { MusicLoader } from "../ui/activity/loader.tsx";
 import { i18n } from "../i18n/i18n.ts";
 
 export function IndexView() {
-  const { isLoading, isFetching, error, data = [] } = useQuery<ListenedTracks[]>({
+  const { isLoading, isFetching, error, data = [] } = useQuery<
+    ListenedTracks[]
+  >({
     queryKey: ["lastListenedTracks"],
     queryFn: ({ signal }) => getLastListenedTracks(signal),
   });
