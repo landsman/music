@@ -12,7 +12,7 @@ export function IndexView() {
         queryFn: ({ signal }) => getLastListenedTracks(signal),
     });
 
-    if (isLoading) return <Loader />
+    if (isLoading) return <Loader center />
     if (error) return <div>Error: {(error as Error).message}</div>;
 
     return (

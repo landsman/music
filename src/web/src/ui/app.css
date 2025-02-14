@@ -2,4 +2,5 @@
 @import "./styles/layout.css";
 
 /* components */
+@import "./activity/loader.module.css";
 @import "./feed/feed.module.css";
