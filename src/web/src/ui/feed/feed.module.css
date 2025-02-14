@@ -1,0 +1,101 @@
+.feed {
+}
+
+.feed_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    padding: 10px 15px;
+    margin-top: 10px;
+
+    border-radius: 6px;
+    border: 1px solid #2f2f2f;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:hover {
+        background: #1e1e1e;
+        border-color: #2f2f2f;
+    }
+}
+
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee {
+    display: inline-block;
+    /* Adjust duration for slower speed */
+    animation: scroll 10s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.track_side {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .track {
+        text-wrap: balance;
+        padding: 5px 0;
+    }
+
+    .artist {
+        font-size: 90%;
+        opacity: 0.8;
+    }
+}
+
+.user_side {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    font-size: 80%;
+    text-align: right;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 60%;
+    }
+
+    .listened_at {
+        font-size: 80%;
+        text-wrap: balance;
+        opacity: 0.6;
+
+        padding-bottom: 10px;
+
+        @media only screen and (max-width: 600px) {
+            font-size: 40%;
+        }
+    }
+
+    .user {
+        a {
+            margin-right: -2px;
+            padding: 2px;
+            border-radius: 2px;
+
+            color: #656565;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+}

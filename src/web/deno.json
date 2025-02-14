@@ -18,6 +18,7 @@
     "@types/react": "npm:@types/react@^18.3.12",
     "@types/react-dom": "npm:@types/react-dom@^18.3.1",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.4",
+    "lucide-react": "npm:lucide-react@^0.475.0",
     "react": "npm:react@^18.3.1",
     "react-dom": "npm:react-dom@^18.3.1",
     "react-loading-indicators": "npm:react-loading-indicators@^1.0.0",

@@ -1,0 +1,11 @@
+{
+  "headline": "Music",
+  "lastListened": "Last listened",
+  "visitUserProfile": "Visit user profile",
+  "time": {
+    "seconds": "seconds",
+    "minutes": "minutes",
+    "hours": "hours",
+    "days": "days"
+  }
+}
