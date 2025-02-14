@@ -18,10 +18,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-env:
-  VITE_SUPABASE_URL: ${{ env.VITE_SUPABASE_URL }}
-  VITE_SUPABASE_ANON_KEY: ${{ env.VITE_SUPABASE_ANON_KEY }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,6 +29,9 @@ jobs:
           deno-version: v2.x
 
       - name: Build
+        env:
+          VITE_SUPABASE_URL: ${{ env.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ env.VITE_SUPABASE_ANON_KEY }}
         run: |
           cd src/web
           deno task build
