@@ -5,7 +5,7 @@ on:
     branches: ["dev"]
     paths:
       - "src/web/**"
-      - ".github/workflows/deploy-pages.yml"
+      - ".github/workflows/deploy-web.yml"
       - "!**.md"
   workflow_dispatch:
 

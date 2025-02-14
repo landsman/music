@@ -5,7 +5,7 @@ on:
     branches:
       - dev
     paths:
-      - ".github/workflows/deploy.yml"
+      - ".github/workflows/deploy-supabase.yml"
       - "supabase/**"
       - "!**.md"
   workflow_dispatch:

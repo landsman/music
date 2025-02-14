@@ -8,8 +8,8 @@ on:
       - synchronize
       - ready_for_review
     paths:
+      - ".github/workflows/test-web.yml"
       - "src/web/**"
-      - ".github/workflows/deploy-pages.yml"
       - "!**.md"
   workflow_dispatch:
 
