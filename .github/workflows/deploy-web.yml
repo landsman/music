@@ -30,8 +30,8 @@ jobs:
 
       - name: Build
         env:
-          VITE_SUPABASE_URL: ${{ env.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ env.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
         run: |
           cd src/web
           deno task build
