@@ -7,5 +7,6 @@ export default defineConfig({
   plugins: [deno(), react()],
   optimizeDeps: {
     include: ['@tanstack/react-query']
-  }
+  },
+  base: './'
 })
