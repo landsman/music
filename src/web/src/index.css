@@ -70,7 +70,9 @@ button:focus-visible {
 }
 
 #root {
-  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .page {
@@ -90,4 +92,19 @@ button:focus-visible {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+}
+
+.row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.artist_track {
+  text-wrap: balance;
+  padding: 5px 0;
+}
+
+.listened_at {
+  opacity: 0.6;
+  font-size: 80%;
 }
