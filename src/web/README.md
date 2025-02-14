@@ -1,4 +1,11 @@
-# Vite + Deno + React + TypeScript
+# Frontend
+
+## Stack
+
+- Deno
+- Vite
+- React
+- [Lucide Icons](https://lucide.dev)
 
 ## Running
 

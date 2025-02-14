@@ -1,19 +1,22 @@
-import { OrbitProgress } from "npm:react-loading-indicators@1.0.0";
+import {Disc3} from "lucide-react";
+import {cs} from "../../lib/cs.ts";
 
 type LoaderProps = {
+    className?: string;
   center?: boolean;
   paddingTop?: number;
+  size?: number;
 };
 
-export function Loader(
-  { center = false, paddingTop = undefined }: LoaderProps,
-) {
+export function MusicLoader(props: LoaderProps) {
+    const { className, center = false, paddingTop = undefined, size = undefined } = props;
+    const isCentered = center ? "loader__center" : undefined
   return (
     <div
-      className={center ? "loader__center" : undefined}
+      className={cs('loader', className, isCentered)}
       style={{ paddingTop }}
     >
-      <OrbitProgress variant="track-disc" color={"#FFF"} />
+        <Disc3 size={size} strokeWidth={2} />
     </div>
   );
 }

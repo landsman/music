@@ -1,3 +1,25 @@
+.loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Force the svg to be a block element and center its own transform */
+.loader svg {
+  display: block;
+  animation: spin 1.3s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .loader__center {
   width: 100%;
   display: flex;

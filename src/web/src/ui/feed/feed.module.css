@@ -1,7 +1,15 @@
 @import "feed-item.module.css";
 @import "track.module.css";
 
-.feed {}
+.feed {
+  position: relative;
+
+  .feed__fetching {
+    position: absolute;
+    top: -150px;
+    right: 0;
+  }
+}
 
 .feed_row {
   display: flex;
