@@ -1,39 +1,34 @@
-import { supabase, Database } from "../lib/supabase.ts";
+import {Database, supabase} from "../lib/supabase.ts";
 
-// Define type for the database tables
 type Tables = Database['public']['Tables'];
 type Listened = Tables['listened']['Row'];
 type Hooman = Tables['hooman']['Row'];
 
-type JoinedListened = Omit<Listened, 'hooman_id'> & {
-    hooman: Hooman;
+export type ListenedTracks = Omit<Listened, 'hooman_id'> & {
+    hooman: Hooman | null;
 };
 
-export async function getLastListenedTracks(): Promise<JoinedListened[]> {
+export async function getLastListenedTracks(signal: AbortSignal): Promise<ListenedTracks[]> {
     const { data, error } = await supabase
         .from('listened')
-        .select(`
+        .select<string, ListenedTracks>(`
             id, 
             artist_name, 
             track_name,
             album_lastfm_id,
             album_name,
-            created_at,b
+            created_at,
+            listened_at,
+            lastfm_id,
             hooman:hooman_id (
               id,
               lastfm_user
             )
         `)
-        .order("listened_at", { ascending: false })
-        .limit(50);
+        .order("listened_at", {ascending: false})
+        .limit(50)
+        .abortSignal(signal);
 
-    if (error) {
-        throw error;
-    }
-
-    if (!data) {
-        throw new Error("No data returned");
-    }
-
-    return data as JoinedListened[];
+    if (error) throw error;
+    return data ?? [];
 }
