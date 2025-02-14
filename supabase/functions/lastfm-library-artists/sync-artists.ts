@@ -1,4 +1,4 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { initClient } from "../../../src/shared/supabase.ts";
 import {
   Artist,
   getLibraryArtists,
@@ -19,7 +19,7 @@ export async function syncArtists(
 ): Promise<string> {
   console.log(`syncArtists - Last.fm user: ${lastFmUser}`);
 
-  const supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+  const supabaseClient = initClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
   const artistsTable = new ArtistTable(supabaseClient);
 
   const hooman = new HoomanTable(supabaseClient);

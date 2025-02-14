@@ -1,18 +1,25 @@
 {
+  "workspace": [
+    "./src/shared",
+    "./src/web",
+    "./supabase/functions"
+  ],
   "tasks": {
     "hook": "deno run --allow-read --allow-run --allow-write https://deno.land/x/deno_hooks@0.1.1/mod.ts",
     "dev": "supabase start",
     "serve": "supabase functions serve --no-verify-jwt",
     "studio": "open http://localhost:54323",
     "tests": "deno test --allow-all supabase/functions/tests/*",
-    "format": "deno fmt supabase/*",
-    "lint": "deno lint supabase/*",
+    "format": "deno fmt src/shared/* supabase/*",
+    "lint": "deno lint src/shared/* supabase/*",
     "migration": "supabase migration new",
     "migrate": "supabase migration up",
-    "update-types-local": "supabase gen types typescript --local > supabase/functions/_shared/db/database.types.ts",
-    "update-types-linked": "supabase gen types typescript --linked > supabase/functions/_shared/db/database.types.ts"
+    "update-types-local": "supabase gen types typescript --local > src/shared/db.types.ts",
+    "update-types-linked": "supabase gen types typescript --linked > src/shared/db.types.ts"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@1"
+    "@sentry/deno": "npm:@sentry/deno@^9.1.0",
+    "@std/assert": "jsr:@std/assert@1",
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.48.1"
   }
 }

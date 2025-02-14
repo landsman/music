@@ -1,4 +1,4 @@
-name: Check
+name: Check Supabase
 
 on:
   pull_request:
@@ -22,10 +22,11 @@ jobs:
     environment: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+
       - run: deno fmt --check supabase/*
       - run: deno lint supabase/*
       - run: deno run tests
