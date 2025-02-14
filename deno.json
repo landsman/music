@@ -1,4 +1,9 @@
 {
+  "workspace": [
+    "./src/shared",
+    "./src/web",
+    "./supabase/functions"
+  ],
   "tasks": {
     "hook": "deno run --allow-read --allow-run --allow-write https://deno.land/x/deno_hooks@0.1.1/mod.ts",
     "dev": "supabase start",
