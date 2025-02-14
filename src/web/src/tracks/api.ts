@@ -23,7 +23,7 @@ export async function getLastListenedTracks(): Promise<LastListenedTrack[]> {
         )
       `)
         .order("listened_at", { ascending: false })
-        .limit(20)
+        .limit(50)
     ;
 
     if (error) {
