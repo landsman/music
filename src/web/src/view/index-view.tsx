@@ -12,13 +12,16 @@ export function IndexView() {
         queryFn: ({ signal }) => getLastListenedTracks(signal),
     });
 
-    if (isLoading) return <Loader center />
-    if (error) return <div>Error: {(error as Error).message}</div>;
-
     return (
         <div className='index-view'>
             <h2>{i18n.lastListened}</h2>
-            <FeedList data={data} isLoading={isLoading} error={error} />
+            {isLoading && <Loader center paddingTop={40} />}
+            {error && <div>Error: {(error as Error).message}</div>}
+            <FeedList
+                isLoading={isLoading}
+                error={error}
+                data={data}
+            />
         </div>
     )
 }

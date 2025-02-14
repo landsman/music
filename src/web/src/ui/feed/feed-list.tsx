@@ -1,5 +1,4 @@
 import {FeedItem} from "./feed-item.tsx";
-import {OrbitProgress} from "npm:react-loading-indicators@1.0.0";
 import {ListenedTracks} from "../../data/tracks-api.ts";
 import "./feed.module.css"
 
@@ -10,10 +9,11 @@ interface FeedListProps {
 }
 
 export function FeedList(props: FeedListProps) {
-  const { data, error, isLoading } = props;
+  const { data, isLoading } = props;
 
-  if (isLoading) return <OrbitProgress variant="track-disc" color={"#FFF"} />;
-  if (error) return <div>Error: {(error as Error).message}</div>;
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="feed">
