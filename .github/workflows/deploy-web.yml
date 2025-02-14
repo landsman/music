@@ -21,6 +21,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: github-pages
+    env:
+      VITE_SUPABASE_URL: ${{ env.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ env.VITE_SUPABASE_ANON_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: denoland/setup-deno@v2
