@@ -1,67 +1,17 @@
-// @deno-types="@types/react"
-import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase.ts";
+"use client";
 
-interface Item {
-  id: string;
-  artist_name: string;
-  track_name: string;
-  hooman: {
-    id: string;
-    lastfm_user: string;
-  } | null; // todo: get rid of nullable in db
-}
-
-async function fetchItems(): Promise<Item[]> {
-  const { data, error } = await supabase
-      .from("listened")
-      .select(`
-        id, 
-        artist_name, 
-        track_name, 
-        hooman (
-          id,
-          lastfm_user
-        )
-      `)
-      .order("listened_at", { ascending: false })
-      .limit(20)
-  ;
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
-}
+import { useQuery } from '@tanstack/react-query'
+import { getLastListenedTracks } from "./api.ts";
 
 export function ListenedList() {
-  const [items, setItems] = useState<Item[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { isLoading, error, data } = useQuery({ queryKey: ['last_listened'], queryFn: getLastListenedTracks })
 
-  useEffect(() => {
-    async function getItems() {
-      try {
-        const data = await fetchItems();
-        console.log(data);
-        setItems(data)
-      } catch (e) {
-        console.error(e);
-        setError("An error occurred");
-      } finally {
-        setLoading(false);
-      }
-    }
-    getItems()
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
-      {items.map((item) => (
+      {data!.map((item) => (
           <div key={item.id}>
             <a href={`https://www.last.fm/user/${item.hooman!.lastfm_user}`}>
               {item.hooman!.lastfm_user}
