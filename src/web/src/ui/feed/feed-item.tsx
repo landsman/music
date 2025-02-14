@@ -1,10 +1,11 @@
+import toast from "react-hot-toast";
 import {
   localizeDateTimeBrowser,
   localizeRelativeTimeBrowser,
 } from "../../lib/localize-date.ts";
 import {i18n} from "../../i18n/i18n.ts";
 import {Marquee} from "./track.tsx";
-import toast from "react-hot-toast";
+import {User} from "./user.tsx";
 
 interface Props {
   artist: string;
@@ -42,11 +43,7 @@ export function FeedItem(props: Props) {
         >
           {localizeRelativeTimeBrowser(listenedAt, i18n.time)}
         </div>
-          <div className="user">
-              <a href={`https://www.last.fm/user/${user || "unknown"}`} title={i18n.visitUserProfile}>
-                  {user || "Unknown User"}
-              </a>
-          </div>
+          <User name={user} />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { Headphones } from 'lucide-react';
 import {useQuery} from "../lib/react-query.tsx";
 import {getLastListenedTracks, ListenedTracks} from "../data/tracks-api.ts";
 import {FeedList} from "../ui/feed/feed-list.tsx";
@@ -14,7 +15,7 @@ export function IndexView() {
 
     return (
         <div className='index-view'>
-            <h2>{i18n.lastListened}</h2>
+            <h2><Headphones size={24} /> {i18n.lastListened}</h2>
             {isLoading && <Loader center paddingTop={40} />}
             {error && <div>Error: {(error as Error).message}</div>}
             <FeedList
