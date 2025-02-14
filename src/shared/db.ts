@@ -1,2 +1,2 @@
-export * from "./db.types.ts"
-export * from "./supabase.ts"
+export * from "./db.types.ts";
+export * from "./supabase.ts";
