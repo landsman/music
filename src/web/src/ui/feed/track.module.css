@@ -1,23 +1,24 @@
-@keyframes scroll {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
+/* Marquee.css */
 .marquee-container {
     overflow: hidden;
     white-space: nowrap;
+    width: 100%;
 }
 
-.marquee {
-    display: inline-block;
-    /* Adjust duration for slower speed */
-    animation: scroll 20s linear infinite;
+.marquee-content {
+    display: inline-flex;
+    animation: marquee var(--duration) linear infinite;
 }
 
-.repeat {
-    padding-left: 50px;
+.marquee-text {
+    flex-shrink: 0;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-1 * var(--scroll-distance)));
+    }
 }

@@ -3,7 +3,7 @@ import {
   localizeRelativeTimeBrowser,
 } from "../../lib/localize-date.ts";
 import {i18n} from "../../i18n/i18n.ts";
-import {Track} from "./track.tsx";
+import {Marquee} from "./track.tsx";
 
 interface Props {
   artist: string;
@@ -18,7 +18,7 @@ export function FeedItem(props: Props) {
     <div className="feed_row">
       <div className="track_side">
         <div className="track">
-            <Track name={track} />
+            <Marquee text={track} />
         </div>
         <div className="artist">
           {artist}
