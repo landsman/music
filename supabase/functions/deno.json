@@ -1,5 +1,6 @@
 {
   "imports": {
-    "@sentry/deno": "npm:@sentry/deno@^9.1.0"
+    "@sentry/deno": "npm:@sentry/deno@^9.1.0",
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.48.1"
   }
 }
