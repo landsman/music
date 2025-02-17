@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/deno";
+import * as Sentry from "npm:@sentry/deno@^9.1.0";
 
 /**
  * Fatal error logging. Sentry will send an email about new errors.
