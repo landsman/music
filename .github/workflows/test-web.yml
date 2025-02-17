@@ -13,6 +13,9 @@ on:
       - "!**.md"
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+
 jobs:
   qa:
     environment: test
@@ -27,9 +30,27 @@ jobs:
         run: |
           cd src/web
           deno task build
-          deno outdated
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./src/web/dist
+
+      - name: Outdated packages - check
+        run: |
+          EOF=$(deno outdated)
+          {
+            echo "TEST_RESULT<<$EOF"
+            rake test
+            echo "$EOF"
+          } >> "$GITHUB_ENV"
+
+      - name: Outdated packages - post
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          header: test
+          message: |
+            ```
+            ${{ env.TEST_RESULT }}
+            ```
