@@ -39,7 +39,14 @@ jobs:
       - name: Outdated packages - check
         id: outdated
         run: |
-          deno outdated -rq | sed -r 's/\x1B\[[0-9;]*[mK]//g' > outdated.md
+          cd src/web
+          OUTDATED="$(deno outdated -rq)"
+          if [ -z "$OUTDATED" ]; then
+            echo "none" > outdated.md
+          else
+            echo "$OUTDATED" | sed -r 's/\x1B\[[0-9;]*[mK]//g' > outdated.md
+          fi
+          
           echo "result<<EOF" >> "$GITHUB_OUTPUT"
           echo '```text' >> "$GITHUB_OUTPUT"
           cat outdated.md >> "$GITHUB_OUTPUT"
@@ -53,5 +60,5 @@ jobs:
           header: outdated
           message: |
             Outdated Dependencies
-              
+            
             ${{ steps.outdated.outputs.result }}
