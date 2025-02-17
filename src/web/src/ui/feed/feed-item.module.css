@@ -9,7 +9,6 @@
 
   .track {
     max-width: 100%;
-    text-wrap: balance;
     padding: 5px 0;
     overflow: hidden;
   }

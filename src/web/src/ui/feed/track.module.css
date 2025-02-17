@@ -1,11 +1,19 @@
-/* Marquee.css */
 .marquee-container {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
+
+
+  /* shadows on sides */
+  &[data-active="true"] {
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 6.65781%, rgb(0, 0, 0) calc(93.3422%), rgba(0, 0, 0, 0) 100%);
+  }
 }
 
 .marquee-content {
+  --duration: unset;
+  --scroll-distance: unset;
+
   display: inline-flex;
   animation: marquee var(--duration) linear infinite;
 }
