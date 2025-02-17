@@ -15,7 +15,7 @@
     "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.4",
     "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^11.2.0",
     "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.48.1",
-    "@tanstack/react-query": "npm:@tanstack/react-query@^5.66.0",
+    "@tanstack/react-query": "npm:@tanstack/react-query@^5.66.5",
     "@types/react": "npm:@types/react@^18.3.12",
     "@types/react-dom": "npm:@types/react-dom@^18.3.1",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.4",
