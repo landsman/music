@@ -38,7 +38,7 @@ jobs:
 
       - name: Outdated packages - check
         id: outdated
-        run: echo "result='${deno outdated}'" >> "$GITHUB_OUTPUT"
+        run: echo "result=$(deno outdated)" >> "$GITHUB_OUTPUT"
 
       - name: Outdated packages - post
         uses: marocchino/sticky-pull-request-comment@v2
