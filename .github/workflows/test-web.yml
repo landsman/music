@@ -27,6 +27,7 @@ jobs:
         run: |
           cd src/web
           deno task build
+          deno outdated
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
