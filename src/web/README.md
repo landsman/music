@@ -3,9 +3,12 @@
 ## Stack
 
 - Deno
+- Supabase
 - Vite
 - React
+- Vanilla CSS
 - [Lucide Icons](https://lucide.dev)
+- [react-simple-icons](https://github.com/icons-pack/react-simple-icons)
 
 ## Running
 

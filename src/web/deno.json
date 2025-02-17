@@ -13,6 +13,7 @@
   },
   "imports": {
     "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.0",
+    "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^11.2.0",
     "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.48.1",
     "@tanstack/react-query": "npm:@tanstack/react-query@^5.66.0",
     "@types/react": "npm:@types/react@^18.3.12",

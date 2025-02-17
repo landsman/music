@@ -1,3 +1,4 @@
 import en from "./en.json" with { type: "json" };
 
-export const i18n = en;
+export type Translations = typeof en;
+export const i18n: Translations = en;
