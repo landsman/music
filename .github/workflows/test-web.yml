@@ -38,13 +38,14 @@ jobs:
 
       - name: Outdated packages - check
         id: outdated
-        run: echo "RESULT=$(deno outdated -q)" >> $GITHUB_OUTPUT
+        run: |
+          OUTPUT="${deno outdated}"
+          echo "::set-output name=RESULT::$OUTPUT"
 
       - name: Outdated packages - post
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
-          header: test
           message: |
             ```
             ${{ steps.outdated.outputs.RESULT }}
