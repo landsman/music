@@ -39,7 +39,7 @@ jobs:
       - name: Outdated packages - check
         id: outdated
         run: |
-          deno outdated -rq > outdated.md
+          deno outdated -rq | sed -r 's/\x1B\[[0-9;]*[mK]//g' > outdated.md
           echo "result<<EOF" >> "$GITHUB_OUTPUT"
           cat outdated.md >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
