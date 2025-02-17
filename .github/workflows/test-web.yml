@@ -38,12 +38,13 @@ jobs:
 
       - name: Outdated packages - check
         run: |
-          EOF=$(deno outdated)
+          outdated=$(deno outdated -q)
           {
-            echo "TEST_RESULT<<$EOF"
-            rake test
-            echo "$EOF"
+            echo "TEST_RESULT<<EOF"
+            echo "$outdated"
+            echo "EOF"
           } >> "$GITHUB_ENV"
+          rake test
 
       - name: Outdated packages - post
         uses: marocchino/sticky-pull-request-comment@v2
