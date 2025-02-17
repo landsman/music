@@ -39,7 +39,7 @@ jobs:
       - name: Outdated packages - check
         id: outdated
         run: |
-          OUTDATED="$(deno outdated -q)"
+          OUTDATED="$(deno outdated -qr)"
           if [ -z "$OUTDATED" ]; then
             echo "none" > outdated.md
           else
