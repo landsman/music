@@ -54,7 +54,11 @@ export function Marquee({ text }: { text: string }) {
   }, [text]);
 
   return (
-    <div className="marquee-container" ref={containerRef} data-active={isScrolling}>
+    <div
+      className="marquee-container"
+      ref={containerRef}
+      data-active={isScrolling}
+    >
       {isScrolling
         ? (
           <div
