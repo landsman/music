@@ -52,7 +52,7 @@ jobs:
           recreate: true
           header: outdated
           message:
-            **Outdated Dependencies**
+            Outdated Dependencies
               
             ```
             ${{ steps.outdated.outputs.result }}
