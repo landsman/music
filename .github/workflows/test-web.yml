@@ -41,12 +41,13 @@ jobs:
         run: |
           deno outdated -rq | sed -r 's/\x1B\[[0-9;]*[mK]//g' > outdated.md
           echo "result<<EOF" >> "$GITHUB_OUTPUT"
+          echo '```text' >> "$GITHUB_OUTPUT"
           cat outdated.md >> "$GITHUB_OUTPUT"
+          echo '```' >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
 
       - name: Outdated packages - post
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
-          message: |
-            ${{ steps.outdated.outputs.result }}
+          message: ${{ steps.outdated.outputs.result }}
