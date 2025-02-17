@@ -16,7 +16,7 @@
     "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^11.2.0",
     "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.48.1",
     "@tanstack/react-query": "npm:@tanstack/react-query@^5.66.5",
-    "@types/react": "npm:@types/react@19.0.0",
+    "@types/react": "npm:@types/react@19.0.4",
     "@types/react-dom": "npm:@types/react-dom@19.0.0",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.4",
     "lucide-react": "npm:lucide-react@^0.475.0",
