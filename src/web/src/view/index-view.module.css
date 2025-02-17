@@ -8,3 +8,15 @@
     margin-bottom: 50px;
   }
 }
+
+@media (max-width: 800px) {
+  .index-view {
+    h1 {
+      margin: 0;
+      padding: 0;
+    }
+    h2 {
+      margin: 10px 0;
+    }
+  }
+}
