@@ -22,7 +22,7 @@
     "lucide-react": "npm:lucide-react@^0.475.0",
     "react": "npm:react@^18.3.1",
     "react-dom": "npm:react-dom@^18.3.1",
-    "react-hot-toast": "npm:react-hot-toast@^2.5.1",
+    "react-hot-toast": "npm:react-hot-toast@^2.5.2",
     "react-loading-indicators": "npm:react-loading-indicators@^1.0.0",
     "vite": "npm:vite@^6.0.1"
   }
