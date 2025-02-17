@@ -38,9 +38,7 @@ jobs:
 
       - name: Outdated packages - check
         id: outdated
-        run: |
-          OUTPUT="${deno outdated}"
-          echo "::set-output name=RESULT::$OUTPUT"
+        run: deno outdated
 
       - name: Outdated packages - post
         uses: marocchino/sticky-pull-request-comment@v2
@@ -48,5 +46,5 @@ jobs:
           recreate: true
           message: |
             ```
-            ${{ steps.outdated.outputs.RESULT }}
+            ${{ steps.outdated.outputs }}
             ```
