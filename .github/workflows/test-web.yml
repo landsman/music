@@ -51,9 +51,7 @@ jobs:
         with:
           recreate: true
           header: outdated
-          message:
+          message: |
             Outdated Dependencies
               
-            ```
             ${{ steps.outdated.outputs.result }}
-            ```
