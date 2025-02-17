@@ -50,5 +50,10 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
-          header: Deno Outdated
-          message: ${{ steps.outdated.outputs.result }}
+          header: outdated
+          message:
+            **Outdated Dependencies**
+              
+            ```
+            ${{ steps.outdated.outputs.result }}
+            ```
