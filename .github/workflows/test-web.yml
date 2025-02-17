@@ -37,14 +37,8 @@ jobs:
           path: ./src/web/dist
 
       - name: Outdated packages - check
-        run: |
-          outdated=$(deno outdated -q)
-          {
-            echo "TEST_RESULT<<EOF"
-            echo "$outdated"
-            echo "EOF"
-          } >> "$GITHUB_ENV"
-          rake test
+        id: outdated
+        run: echo "RESULT=$(deno outdated -q)" >> $GITHUB_OUTPUT
 
       - name: Outdated packages - post
         uses: marocchino/sticky-pull-request-comment@v2
@@ -53,5 +47,5 @@ jobs:
           header: test
           message: |
             ```
-            ${{ env.TEST_RESULT }}
+            ${{ steps.outdated.outputs.RESULT }}
             ```
