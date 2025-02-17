@@ -1,0 +1,15 @@
+meta {
+  name: artist-detail
+  type: http
+  seq: 1
+}
+
+get {
+  url: https://api.spotify.com/v1/artists/{{SPOTIFY_ARTIST_ID}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{SPOTIFY_ACCESS_TOKEN}}
+}
