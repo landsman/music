@@ -2,6 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 
+type CustomCSSProperties = React.CSSProperties & {
+  "--scroll-distance": string;
+  "--duration": string;
+};
+
 const speed = 50;
 const padding = 50;
 const debounceTime = 200;
@@ -66,7 +71,7 @@ export function Marquee({ text }: { text: string }) {
             style={{
               "--scroll-distance": `${scrollDistance}px`,
               "--duration": `${duration}s`,
-            }}
+            } as CustomCSSProperties}
           >
             <span className="marquee-text" ref={textRef}>
               {text}
