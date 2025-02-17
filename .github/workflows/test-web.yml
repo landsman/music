@@ -39,8 +39,7 @@ jobs:
       - name: Outdated packages - check
         id: outdated
         run: |
-          cd src/web
-          deno outdated -q > outdated.md
+          deno outdated -rq > outdated.md
           echo "result<<EOF" >> "$GITHUB_OUTPUT"
           cat outdated.md >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
@@ -50,6 +49,4 @@ jobs:
         with:
           recreate: true
           message: |
-            ```
             ${{ steps.outdated.outputs.result }}
-            ```
