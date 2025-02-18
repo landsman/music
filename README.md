@@ -1,5 +1,7 @@
 # music
 
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/1skah.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+
 The purpose of this project is to store data about the music I listen to in my own database and to query it using SQL.
 I also want to have fun while learning more about [Supabase](https://supabase.com) native features.
 
@@ -25,4 +27,5 @@ which run every 5 minutes and download 500 items.
 - [Supabase](https://supabase.com) account
 - [Last.fm](https://www.last.fm/home) account [connected to Spotify](https://www.last.fm/about/trackmymusic), [API key](https://www.last.fm/api/authentication)
 - [Sentry](https://sentry.io/) for error notifications
+- [BetterStack] for uptime monitoring
 
