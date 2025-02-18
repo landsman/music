@@ -1,6 +1,6 @@
 # music
 
-[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/1skah.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/1skah.svg)](https://landsman.betteruptime.com)
 
 The purpose of this project is to store data about the music I listen to in my own database and to query it using SQL.
 I also want to have fun while learning more about [Supabase](https://supabase.com) native features.
