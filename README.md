@@ -6,7 +6,7 @@ The purpose of this project is to store data about the music I listen to in my o
 I also want to have fun while learning more about [Supabase](https://supabase.com) native features.
 
 Currently, I am downloading all historical data from my Last.fm profile 
-using its API to PostgresSQL via [Edge Functions](https://supabase.com/docs/guides/functions) and the [built-in cron extension](https://supabase.com/docs/guides/cron),
+using its API to PostgresSQL via [Edge Functions](.docs/_edge_functions.md) and the [built-in cron extension](.docs/_cron.md),
 which run every 5 minutes and download 500 items.
 
 ## Roadmap
