@@ -84,10 +84,6 @@ enable_signup = true
 double_confirm_changes = true
 # If enabled, users need to confirm their email address before signing in.
 enable_confirmations = true
-secure_password_change = false
-max_frequency = "1m0s"
-otp_length = 6
-otp_expiry = 3600
 
 [auth.email.template]
 # Uncomment to customize email template
