@@ -18,7 +18,7 @@
     "update-types-linked": "supabase gen types typescript --linked > src/shared/db.types.ts"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@1",
-    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.48.1"
+    "@std/assert": "jsr:@std/assert@^1.0.12",
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.49.3"
   }
 }
