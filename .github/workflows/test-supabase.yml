@@ -53,8 +53,8 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
-          header: outdated
+          header: outdated_supabase
           message: |
-            Outdated Dependencies:
+            Outdated Supabase Dependencies:
             
             ${{ steps.outdated_supabase.outputs.result }}
