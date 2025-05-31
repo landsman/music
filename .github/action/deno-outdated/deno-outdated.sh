@@ -24,8 +24,10 @@ if [ -n "$GITHUB_OUTPUT" ]; then
     echo "### Outdated dependencies:"
     cat "$TMP_FILE"
     echo "EOF"
+    rm "$TMP_FILE"
   } >> "$GITHUB_OUTPUT"
 else
   echo "Outdated dependencies:"
   cat "$TMP_FILE"
 fi
+
