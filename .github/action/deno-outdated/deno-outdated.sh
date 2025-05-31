@@ -5,6 +5,7 @@
 
 # Check for outdated dependencies with quiet and recursive flags
 OUTDATED="$(deno outdated -qr)"
+echo "$OUTDATED";
 
 # If no outdated dependencies are found, output "none", otherwise format the output
 if [ -z "$OUTDATED" ]; then
