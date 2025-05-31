@@ -1,4 +1,4 @@
-name: Check Pull Request
+name: Check PR:Web
 
 on:
   pull_request:
@@ -38,7 +38,7 @@ jobs:
       # Web
       - name: 'Check Outdated Web packages'
         uses: ./.github/action/deno-outdated
-        id: outdated
+        id: outdated_web
         with:
           working-directory: src/web
 
@@ -59,7 +59,7 @@ jobs:
           header: outdated
           message: |
             ## Outdated Dependencies:
-            
+
             ### Supabase
             ${{ steps.outdated_supabase.outputs.result }}
 
