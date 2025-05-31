@@ -26,6 +26,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.directory }}
       run: |
+        cat deno.json
         bash ${{ github.workspace }}/.github/action/deno-outdated/deno-outdated.sh
 
     - name: 'Outdated packages - post'
