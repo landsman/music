@@ -9,7 +9,6 @@ on:
       - ready_for_review
     paths:
       - ".github/workflows/test-web.yml"
-      - "deno.lock"
       - "src/web/**"
       - "!**.md"
   workflow_dispatch:
