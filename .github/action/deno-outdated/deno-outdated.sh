@@ -1,27 +1,31 @@
 #!/bin/bash
 # deno-outdated.sh
-# This script checks for outdated Deno dependencies and formats the output for GitHub Actions
-# It removes ANSI color codes and formats the result as a code block
-
+# This script checks for outdated Deno dependencies and formats the output
+# It removes ANSI color codes and saves results both for local testing and GitHub Actions
 
 TMP_FILE="outdated_$(date +%s)_$RANDOM.md"
 
 # Check for outdated dependencies with quiet and recursive flags
 OUTDATED="$(deno outdated -qr)"
-echo "$OUTDATED";
+echo "$OUTDATED"
 
 # If no outdated dependencies are found, output "none", otherwise format the output
 if [ -z "$OUTDATED" ]; then
   echo "none" > "$TMP_FILE"
 else
-  echo "yeah"
   # Remove ANSI color codes from the output
   echo "$OUTDATED" | sed -r 's/\x1B\[[0-9;]*[mK]//g' > "$TMP_FILE"
 fi
 
-# Add the result to GitHub Actions output as a code block
-echo "result<<EOF" >> "$GITHUB_OUTPUT"
-echo '```text' >> "$GITHUB_OUTPUT"
-cat "$TMP_FILE" >> "$GITHUB_OUTPUT"
-echo '```' >> "$GITHUB_OUTPUT"
-echo "EOF" >> "$GITHUB_OUTPUT"
+# If running in GitHub Actions, add the result to GitHub Actions output
+if [ -n "$GITHUB_OUTPUT" ]; then
+  {
+    echo "result<<EOF"
+    echo "### Outdated dependencies:"
+    cat "$TMP_FILE"
+    echo "EOF"
+  } >> "$GITHUB_OUTPUT"
+else
+  echo "Outdated dependencies:"
+  cat "$TMP_FILE"
+fi
