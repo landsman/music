@@ -21,7 +21,13 @@ export function FeedItem(props: Props) {
   const { t, i18n } = useLingui();
   const { artist, album, track, user, listenedAt } = props;
 
-  console.log('FeedItem received props:', { artist, album, track, user, listenedAt });
+  console.log("FeedItem received props:", {
+    artist,
+    album,
+    track,
+    user,
+    listenedAt,
+  });
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();

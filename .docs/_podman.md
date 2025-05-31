@@ -1,7 +1,7 @@
 # Podman
 
-If you are switching between Docker Desktop and Podman, you probably got some errors.
-Here is my troubleshooting:
+If you are switching between Docker Desktop and Podman, you probably got some
+errors. Here is my troubleshooting:
 
 ```bash
 docker context ls

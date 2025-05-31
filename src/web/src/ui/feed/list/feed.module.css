@@ -21,7 +21,8 @@
     border-radius: 6px;
     background: color-mix(in oklab, var(--color-neutral-900)55%, transparent);
     color: #fff;
-    border: 1px solid color-mix(in oklab, var(--color-neutral-700)75%, transparent);
+    border: 1px solid
+      color-mix(in oklab, var(--color-neutral-700)75%, transparent);
     cursor: pointer;
     font-size: 14px;
     transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
