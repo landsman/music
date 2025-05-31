@@ -28,21 +28,13 @@ jobs:
         with:
           deno-version: v2.x
 
-      # Supabase
-      - name: 'Check Outdated Supabase packages'
-        uses: ./.github/action/deno-outdated
-        id: outdated_supabase
-        with:
-          working-directory: ./
-
-      # Web
-      - name: 'Check Outdated Web packages'
+      - name: 'Check Outdated packages'
         uses: ./.github/action/deno-outdated
         id: outdated_web
         with:
           working-directory: src/web
 
-      - name: 'Build Web'
+      - name: 'Build'
         run: |
           cd src/web
           deno task build
@@ -58,10 +50,6 @@ jobs:
           recreate: true
           header: outdated
           message: |
-            ## Outdated Dependencies:
+            Outdated Dependencies:
 
-            ### Supabase
-            ${{ steps.outdated_supabase.outputs.result }}
-
-            ### Web
             ${{ steps.outdated_web.outputs.result }}
