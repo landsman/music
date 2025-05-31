@@ -40,6 +40,6 @@ jobs:
       - name: 'Check Outdated packages'
         uses: ./.github/action/deno-outdated
         with:
-          directory: src/web
+          directory: ./src/web
           title: 'Deno Outdated - Web'
 

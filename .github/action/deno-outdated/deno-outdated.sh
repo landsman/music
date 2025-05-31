@@ -1,7 +1,7 @@
 #!/bin/bash
-# deno-outdated.sh
-# This script checks for outdated Deno dependencies and formats the output
-# It removes ANSI color codes and saves results both for local testing and GitHub Actions
+
+set -e  # Exit on error
+set -u  # Exit on undefined variable
 
 TMP_FILE="outdated_$(date +%s)_$RANDOM.md"
 
