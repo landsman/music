@@ -1,5 +1,5 @@
 name: Deno Outdated Check
-description: 'Check for outdated Deno dependencies'
+description: 'Check for outdated Deno dependencies and display them in PR comments'
 
 inputs:
   directory:

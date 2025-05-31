@@ -47,4 +47,3 @@ jobs:
         with:
           directory: ./src/web
           title: 'Deno Outdated - Web'
-

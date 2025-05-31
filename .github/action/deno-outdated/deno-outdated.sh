@@ -5,8 +5,8 @@ set -u  # Exit on undefined variable
 
 TMP_FILE="outdated_$(date +%s)_$$.md"
 
-# Check for outdated dependencies with quiet and recursive flags
-OUTDATED="$(deno outdated -qr)"
+# Check for outdated dependencies with recursive flag (removed quiet flag to show all outdated dependencies)
+OUTDATED="$(deno outdated -r)"
 echo "$OUTDATED"
 
 # If no outdated dependencies are found, output "none", otherwise format the output
