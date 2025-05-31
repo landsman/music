@@ -3,7 +3,7 @@
 set -e  # Exit on error
 set -u  # Exit on undefined variable
 
-TMP_FILE="outdated_$(date +%s)_$RANDOM.md"
+TMP_FILE="outdated_$(date +%s)_$$.md"
 
 # Check for outdated dependencies with quiet and recursive flags
 OUTDATED="$(deno outdated -qr)"
@@ -29,4 +29,3 @@ else
   echo "Outdated dependencies:"
   cat "$TMP_FILE"
 fi
-

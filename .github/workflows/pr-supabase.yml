@@ -47,5 +47,5 @@ jobs:
         uses: ./.github/action/deno-outdated
         id: outdated_supabase
         with:
-          directory: /
+          directory: .
           title: 'Deno Outdated - Supabase'
