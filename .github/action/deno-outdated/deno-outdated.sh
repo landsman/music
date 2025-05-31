@@ -27,13 +27,13 @@ else
     # Print as markdown table row with proper column alignment
     # Skip the first empty column if it exists
     if ($1 == "") {
-      print "|" OFS $2 OFS $3 OFS $4 OFS $5 OFS;
+      print $2 OFS $3 OFS $4 OFS $5;
     } else {
-      print "|" OFS $1 OFS $2 OFS $3 OFS $4 OFS;
+      print $1 OFS $2 OFS $3 OFS $4;
     }
     # Add header separator after the first data row
     if (NR == 2) {
-      print "|---|---|---|---|";
+      print "---|---|---|---";
     }
   }
   ' > "$TMP_FILE"
