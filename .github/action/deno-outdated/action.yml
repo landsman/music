@@ -24,9 +24,9 @@ runs:
     - name: Outdated packages - check
       id: outdated
       shell: bash
+      working-directory: ${{ inputs.directory }}
       run: |
-        cd ${{ inputs.working-directory }}
-        bash ${{ github.workspace }}/.github/action/deno-outdated/deno-outdated.sh
+        sh ${{ github.workspace }}/.github/action/deno-outdated/deno-outdated.sh
 
     - name: 'Outdated packages - post'
       uses: marocchino/sticky-pull-request-comment@v2
