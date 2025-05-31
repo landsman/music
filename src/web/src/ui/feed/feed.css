@@ -1,5 +1,5 @@
-@import "feed-item.module.css";
-@import "track.module.css";
+@import "feed-item.css";
+@import "track.css";
 
 .feed {
   position: relative;
