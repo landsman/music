@@ -33,6 +33,7 @@ jobs:
 
       - run: deno fmt --check
       - run: deno lint
+      - run: deno outdated
 
       - name: 'Build the app'
         run: deno task build
