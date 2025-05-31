@@ -35,4 +35,4 @@ runs:
         header: "outdated_${{ inputs.title }}"
         message: |
           ### ${{ inputs.title }}
-          ${{ steps.outdated_web.outputs.result }}
+          ${{ steps.outdated.outputs.result }}
