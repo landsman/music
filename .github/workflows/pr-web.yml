@@ -1,4 +1,4 @@
-name: Check PR:Web
+name: PR:Web
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
       - synchronize
       - ready_for_review
     paths:
-      - ".github/workflows/test-web.yml"
+      - ".github/workflows/pr-web.yml"
       - "src/web/**"
       - "!**.md"
   workflow_dispatch:
@@ -21,18 +21,23 @@ jobs:
     name: 'QA'
     environment: test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/web
+
     steps:
       - uses: actions/checkout@v4
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
 
-      - name: 'Build'
-        run: |
-          cd src/web
-          deno task build
+      - run: deno fmt --check
+      - run: deno lint
 
-      - name: Upload artifact
+      - name: 'Build the app'
+        run: deno task build
+
+      - name: 'Upload artifact'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./src/web/dist
