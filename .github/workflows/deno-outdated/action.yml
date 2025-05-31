@@ -1,0 +1,31 @@
+name: Deno Outdated Check
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: 'Directory where to run the deno outdated check'
+        required: true
+        type: string
+    outputs:
+      result:
+        description: 'Result of the outdated check'
+        value: ${{ jobs.check.outputs.result }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.outdated.outputs.result }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      
+      - name: Outdated packages - check
+        id: outdated
+        run: |
+          cd ${{ inputs.working-directory }}
+          bash ${{ github.workspace }}/.github/workflows/deno-outdated/deno-outdated.sh
