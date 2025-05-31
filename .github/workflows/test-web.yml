@@ -36,6 +36,7 @@ jobs:
       - name: 'Build'
         run: |
           cd src/web
+          deno outdated
           deno task build
 
       - name: Upload artifact
