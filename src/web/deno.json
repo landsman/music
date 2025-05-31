@@ -13,17 +13,17 @@
   },
   "imports": {
     "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.4",
-    "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^12.3.0",
-    "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.49.3",
-    "@tanstack/react-query": "npm:@tanstack/react-query@^5.69.0",
-    "@types/react": "npm:@types/react@19.0.12",
-    "@types/react-dom": "npm:@types/react-dom@19.0.4",
-    "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.4",
-    "lucide-react": "npm:lucide-react@^0.484.0",
-    "react": "npm:react@19.0.0",
-    "react-dom": "npm:react-dom@19.0.0",
+    "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^12.9.0",
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.49.8",
+    "@tanstack/react-query": "npm:@tanstack/react-query@^5.79.0",
+    "@types/react": "npm:@types/react@19.1.6",
+    "@types/react-dom": "npm:@types/react-dom@19.1.5",
+    "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.5.0",
+    "lucide-react": "npm:lucide-react@^0.511.0",
+    "react": "npm:react@19.1.0",
+    "react-dom": "npm:react-dom@19.1.0",
     "react-hot-toast": "npm:react-hot-toast@^2.5.2",
-    "react-loading-indicators": "npm:react-loading-indicators@^1.0.0",
-    "vite": "npm:vite@^6.2.3"
+    "react-loading-indicators": "npm:react-loading-indicators@^1.0.1",
+    "vite": "npm:vite@^6.3.5"
   }
 }
