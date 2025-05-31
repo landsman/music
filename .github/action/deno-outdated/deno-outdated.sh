@@ -13,8 +13,25 @@ echo "$OUTDATED"
 if [ -z "$OUTDATED" ]; then
   echo "none" > "$TMP_FILE"
 else
-  # Remove ANSI color codes from the output
-  echo "$OUTDATED" | sed -r 's/\x1B\[[0-9;]*[mK]//g' > "$TMP_FILE"
+  # Remove ANSI color codes from the output and convert to markdown table format
+  echo "$OUTDATED" | sed -r 's/\x1B\[[0-9;]*[mK]//g' | awk '
+  BEGIN { FS = "│"; OFS = "|" }
+  /^┌|^└|^├/ { next }  # Skip separator lines
+  /^│/ {  # Process table rows
+    # Remove leading and trailing │ and spaces
+    gsub(/^│|│$/, "");
+    # Convert each cell by trimming spaces
+    for (i=1; i<=NF; i++) {
+      gsub(/^[[:space:]]+|[[:space:]]+$/, "", $i);
+    }
+    # Print as markdown table row
+    print "|" OFS $1 OFS $2 OFS $3 OFS $4 OFS;
+    # Add header separator after the first data row
+    if (NR == 2) {
+      print "|---|---|---|---|";
+    }
+  }
+  ' > "$TMP_FILE"
 fi
 
 # If running in GitHub Actions, add the result to GitHub Actions output
