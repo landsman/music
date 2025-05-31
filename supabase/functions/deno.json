@@ -1,2 +1,5 @@
 {
+  "name": "@scope/functions",
+  "version": "0.0.1",
+  "exports": "./_shared/utils.ts"
 }

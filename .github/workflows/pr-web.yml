@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   qa:
-    name: 'QA'
+    name: "QA"
     environment: test
     runs-on: ubuntu-latest
     defaults:
@@ -36,16 +36,16 @@ jobs:
       - run: deno fmt --check
       - run: deno lint
 
-      - name: 'Build the app'
+      - name: "Build the app"
         run: deno run build
 
-      - name: 'Upload artifact'
+      - name: "Upload artifact"
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./src/web/dist
 
-      - name: 'Check Outdated packages'
+      - name: "Check Outdated packages"
         uses: ./.github/action/deno-outdated
         with:
           directory: ./src/web
-          title: 'Deno Outdated - Web'
+          title: "Deno Outdated - Web"

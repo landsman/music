@@ -35,7 +35,7 @@ jobs:
         run: |
           cd src/web
           deno task build
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
