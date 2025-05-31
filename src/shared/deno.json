@@ -1,6 +1,6 @@
 {
   "exports": "./db.ts",
   "imports": {
-    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.49.9-next.2"
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.48.1"
   }
 }

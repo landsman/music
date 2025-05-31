@@ -37,7 +37,7 @@ jobs:
       - run: deno lint
 
       - name: 'Build the app'
-        run: deno task build
+        run: deno run build
 
       - name: 'Upload artifact'
         uses: actions/upload-pages-artifact@v3
