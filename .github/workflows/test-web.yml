@@ -47,8 +47,8 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
-          header: outdated
+          header: outdated_web
           message: |
-            Outdated Dependencies:
+            Outdated Web Dependencies:
 
             ${{ steps.outdated_web.outputs.result }}
