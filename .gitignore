@@ -27,5 +27,6 @@ dist-ssr
 
 # custom
 supabase/functions/.env
+deno.lock
 .env
 cron_jobs.sql
