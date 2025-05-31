@@ -1,0 +1,51 @@
+name: PR:Web
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+    paths:
+      - ".github/workflows/pr-web.yml"
+      - "src/web/**"
+      - "!**.md"
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+
+jobs:
+  qa:
+    name: 'QA'
+    environment: test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/web
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - run: deno fmt --check
+      - run: deno lint
+
+      - name: 'Build the app'
+        run: deno task build
+
+      - name: 'Upload artifact'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./src/web/dist
+
+      - name: 'Check Outdated packages'
+        uses: ./.github/action/deno-outdated
+        with:
+          directory: ./src/web
+          title: 'Deno Outdated - Web'

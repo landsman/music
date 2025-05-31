@@ -1,0 +1,39 @@
+name: Deno Outdated Check
+description: 'Check for outdated Deno dependencies and display them in PR comments'
+
+inputs:
+  directory:
+    description: 'Directory where to run the deno outdated check'
+    required: true
+  title:
+      description: 'Message title'
+      required: true
+
+outputs:
+  result:
+    description: 'Result of the outdated check'
+    value: ${{ steps.outdated.outputs.result }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: denoland/setup-deno@v2
+      with:
+        deno-version: v2.x
+
+    - name: Outdated packages - check
+      id: outdated
+      shell: bash
+      working-directory: ${{ inputs.directory }}
+      run: |
+        cat deno.json
+        bash ${{ github.workspace }}/.github/action/deno-outdated/deno-outdated.sh
+
+    - name: 'Outdated packages - post'
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        recreate: true
+        header: "outdated_${{ inputs.title }}"
+        message: |
+          ### ${{ inputs.title }}
+          ${{ steps.outdated.outputs.result }}
