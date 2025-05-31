@@ -8,7 +8,8 @@ on:
       - synchronize
       - ready_for_review
     paths:
-      - ".github/workflows/test-web.yml"
+      - ".github/workflows/test-pr.yml"
+      - "deno.lock"
       - "src/web/**"
       - "!**.md"
   workflow_dispatch:
