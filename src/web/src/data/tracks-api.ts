@@ -1,4 +1,4 @@
-import { Database, supabase } from "../lib/supabase.ts";
+import {type Database, supabase} from "../lib/supabase.ts";
 
 type Tables = Database["public"]["Tables"];
 type Listened = Tables["listened"]["Row"];
