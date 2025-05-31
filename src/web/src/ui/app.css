@@ -2,7 +2,7 @@
 @import "./styles/layout.css";
 
 /* components */
-@import "./activity/loader.module.css";
+@import "./activity/loader.css";
 @import "./feed/feed.css";
 
 /* views */
