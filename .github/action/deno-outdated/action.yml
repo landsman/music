@@ -32,7 +32,7 @@ runs:
       uses: marocchino/sticky-pull-request-comment@v2
       with:
         recreate: true
-        header: outdated
+        header: "outdated_${{ inputs.title }}"
         message: |
           ### ${{ inputs.title }}
           ${{ steps.outdated_web.outputs.result }}
