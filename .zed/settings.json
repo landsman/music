@@ -32,7 +32,6 @@
       }
     }
   },
-
   "languages": {
     "TypeScript": {
       "language_servers": ["deno"],
@@ -44,5 +43,8 @@
       },
       "formatter": "language_server"
     }
+  },
+  "features": {
+    "edit_prediction_provider": "zed"
   }
 }
