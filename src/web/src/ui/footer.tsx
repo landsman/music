@@ -1,4 +1,4 @@
-import i18n from "../i18n/en.json";
+import { i18n } from "../i18n/i18n.ts";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 
 export function Footer() {
