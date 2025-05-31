@@ -48,4 +48,4 @@ jobs:
         id: outdated_supabase
         with:
           directory: ./
-          title: 'Outdated Supabase Dependencies'
+          title: 'Deno Outdated - Supabase'

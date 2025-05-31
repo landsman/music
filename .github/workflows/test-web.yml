@@ -41,5 +41,5 @@ jobs:
         uses: ./.github/action/deno-outdated
         with:
           directory: src/web
-          title: 'Outdated Web Dependencies'
+          title: 'Deno Outdated - Web'
 
