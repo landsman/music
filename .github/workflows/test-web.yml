@@ -39,18 +39,7 @@ jobs:
       - name: Outdated packages - check
         id: outdated
         run: |
-          OUTDATED="$(deno outdated -qr)"
-          if [ -z "$OUTDATED" ]; then
-            echo "none" > outdated.md
-          else
-            echo "$OUTDATED" | sed -r 's/\x1B\[[0-9;]*[mK]//g' > outdated.md
-          fi
-          
-          echo "result<<EOF" >> "$GITHUB_OUTPUT"
-          echo '```text' >> "$GITHUB_OUTPUT"
-          cat outdated.md >> "$GITHUB_OUTPUT"
-          echo '```' >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
+          bash .github/workflows/deno-outdated/deno-outdated.sh
 
       - name: Outdated packages - post
         uses: marocchino/sticky-pull-request-comment@v2
@@ -59,5 +48,5 @@ jobs:
           header: outdated
           message: |
             Outdated Dependencies
-            
+
             ${{ steps.outdated.outputs.result }}
