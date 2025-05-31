@@ -1,4 +1,4 @@
-name: Check Supabase
+name: Check PR:Supabase
 
 on:
   pull_request:
@@ -9,6 +9,7 @@ on:
       - ready_for_review
     paths:
       - ".github/workflows/test-supabase.yml"
+      - "deno.lock"
       - "supabase/**"
       - "!**.md"
   workflow_dispatch:
@@ -19,6 +20,7 @@ env:
 
 jobs:
   qa:
+    name: 'QA'
     environment: test
     runs-on: ubuntu-latest
     steps:
@@ -37,3 +39,19 @@ jobs:
           name: cron_jobs.sql
           path: cron_jobs.sql
           retention-days: 1
+
+      - name: 'Check Outdated Packages'
+        uses: ./.github/action/deno-outdated
+        id: outdated_supabase
+        with:
+          working-directory: ./
+
+      - name: 'Check Outdated Packages - Result'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          header: outdated
+          message: |
+            Outdated Dependencies:
+            
+            ${{ steps.outdated_supabase.outputs.result }}
