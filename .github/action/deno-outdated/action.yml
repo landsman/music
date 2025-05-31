@@ -2,10 +2,12 @@ name: Deno Outdated Check
 description: 'Check for outdated Deno dependencies'
 
 inputs:
-  working-directory:
+  directory:
     description: 'Directory where to run the deno outdated check'
     required: true
-    type: string
+  title:
+      description: 'Message title'
+      required: true
 
 outputs:
   result:
@@ -25,3 +27,12 @@ runs:
       run: |
         cd ${{ inputs.working-directory }}
         bash ${{ github.workspace }}/.github/action/deno-outdated/deno-outdated.sh
+
+    - name: 'Outdated packages - post'
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        recreate: true
+        header: outdated
+        message: |
+          ### ${{ inputs.title }}
+          ${{ steps.outdated_web.outputs.result }}

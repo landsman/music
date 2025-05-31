@@ -27,12 +27,6 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: 'Check Outdated packages'
-        uses: ./.github/action/deno-outdated
-        id: outdated_web
-        with:
-          working-directory: src/web
-
       - name: 'Build'
         run: |
           cd src/web
@@ -43,12 +37,9 @@ jobs:
         with:
           path: ./src/web/dist
 
-      - name: 'Outdated packages - post'
-        uses: marocchino/sticky-pull-request-comment@v2
+      - name: 'Check Outdated packages'
+        uses: ./.github/action/deno-outdated
         with:
-          recreate: true
-          header: outdated_web
-          message: |
-            Outdated Web Dependencies:
+          directory: src/web
+          title: 'Outdated Web Dependencies'
 
-            ${{ steps.outdated_web.outputs.result }}

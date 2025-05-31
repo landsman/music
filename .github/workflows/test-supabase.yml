@@ -47,14 +47,5 @@ jobs:
         uses: ./.github/action/deno-outdated
         id: outdated_supabase
         with:
-          working-directory: ./
-
-      - name: 'Check Outdated Packages - Result'
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          recreate: true
-          header: outdated_supabase
-          message: |
-            Outdated Supabase Dependencies:
-            
-            ${{ steps.outdated_supabase.outputs.result }}
+          directory: ./
+          title: 'Outdated Supabase Dependencies'

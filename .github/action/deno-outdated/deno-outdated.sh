@@ -21,7 +21,6 @@ fi
 if [ -n "$GITHUB_OUTPUT" ]; then
   {
     echo "result<<EOF"
-    echo "### Outdated dependencies:"
     cat "$TMP_FILE"
     echo "EOF"
     rm "$TMP_FILE"
