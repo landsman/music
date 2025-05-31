@@ -14,7 +14,7 @@ if [ -z "$OUTDATED" ]; then
   echo "none" > "$TMP_FILE"
 else
   # Remove ANSI color codes from the output and convert to markdown table format
-  echo "$OUTDATED" | awk '
+  echo "$OUTDATED" | sed -r 's/\x1B\[[0-9;]*[mK]//g' | awk '
   BEGIN { FS = "│"; OFS = "|" }
   /^┌|^└|^├/ { next }  # Skip separator lines
   /^│/ {  # Process table rows
@@ -24,8 +24,13 @@ else
     for (i=1; i<=NF; i++) {
       gsub(/^[[:space:]]+|[[:space:]]+$/, "", $i);
     }
-    # Print as markdown table row
-    print "|" OFS $1 OFS $2 OFS $3 OFS $4 OFS;
+    # Print as markdown table row with proper column alignment
+    # Skip the first empty column if it exists
+    if ($1 == "") {
+      print "|" OFS $2 OFS $3 OFS $4 OFS $5 OFS;
+    } else {
+      print "|" OFS $1 OFS $2 OFS $3 OFS $4 OFS;
+    }
     # Add header separator after the first data row
     if (NR == 2) {
       print "|---|---|---|---|";
