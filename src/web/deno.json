@@ -14,7 +14,7 @@
   "imports": {
     "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.4",
     "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^12.9.0",
-    "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.49.8",
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@2.49.8",
     "@tanstack/react-query": "npm:@tanstack/react-query@^5.79.0",
     "@types/react": "npm:@types/react@19.1.6",
     "@types/react-dom": "npm:@types/react-dom@19.1.5",
