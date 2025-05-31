@@ -1,5 +1,5 @@
 import { FeedItem } from "./feed-item.tsx";
-import { ListenedTracks } from "../../data/tracks-api.ts";
+import type { ListenedTracks } from "../../data/tracks-api.ts";
 import "./feed.module.css";
 import { MusicLoader } from "../activity/loader.tsx";
 

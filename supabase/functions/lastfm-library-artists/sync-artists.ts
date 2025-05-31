@@ -1,10 +1,9 @@
-import {
-  Artist,
-  getLibraryArtists,
-} from "../_shared/lastfm/library-artists.ts";
-import { Variables } from "../_shared/env.ts";
+import { getLibraryArtists } from "../_shared/lastfm/library-artists.ts";
+import type { Artist } from "../_shared/lastfm/library-artists.ts";
+import type { Variables } from "../_shared/env.ts";
 import { initClient } from "../_shared/db/db.ts";
-import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
+import type { ArtistRow } from "../_shared/db/db.artist.ts";
+import { ArtistTable } from "../_shared/db/db.artist.ts";
 import { delay, notEmptyOrNull } from "../_shared/utils.ts";
 import { HoomanArtistTable } from "../_shared/db/db.hooman_artist.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";

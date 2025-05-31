@@ -1,7 +1,8 @@
 "use client";
 
 import { useQuery } from "../lib/react-query.tsx";
-import { getLastListenedTracks, ListenedTracks } from "../data/tracks-api.ts";
+import { getLastListenedTracks } from "../data/tracks-api.ts";
+import type { ListenedTracks } from "../data/tracks-api.ts";
 import { FeedList } from "../ui/feed/feed-list.tsx";
 import { MusicLoader } from "../ui/activity/loader.tsx";
 import { Header } from "../ui/header.tsx";

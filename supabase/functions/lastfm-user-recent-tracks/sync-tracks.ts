@@ -1,7 +1,8 @@
 import { initClient } from "../_shared/db/db.ts";
-import { Variables } from "../_shared/env.ts";
+import type { Variables } from "../_shared/env.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
-import { ListenedRow, ListenedTable } from "../_shared/db/db.listened.ts";
+import type { ListenedRow } from "../_shared/db/db.listened.ts";
+import { ListenedTable } from "../_shared/db/db.listened.ts";
 import { getRecentTracks } from "../_shared/lastfm/user-recent-tracks.ts";
 import { notEmptyOrNull } from "../_shared/utils.ts";
 import { buildCron } from "../_shared/cron.ts";
