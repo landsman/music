@@ -19,6 +19,6 @@
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.13",
-    "@supabase/supabase-js": "jsr:@supabase/supabase-js@2.49.8"
+    "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.49.8"
   }
 }
