@@ -30,14 +30,14 @@ jobs:
 
       # Supabase
       - name: 'Check Outdated Supabase packages'
-        uses: ./.github/workflows/deno-outdated/action.yml
+        uses: ./.github/action/deno-outdated
         id: outdated_supabase
         with:
           working-directory: ./
 
       # Web
       - name: 'Check Outdated Web packages'
-        uses: ./.github/workflows/deno-outdated/action.yml
+        uses: ./.github/action/deno-outdated
         id: outdated
         with:
           working-directory: src/web
