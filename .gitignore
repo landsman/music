@@ -30,3 +30,7 @@ supabase/functions/.env
 deno.lock
 .env
 cron_jobs.sql
+
+# web
+src/web/i18n/locales/*.ts
+src/web/i18n/locales/*.js

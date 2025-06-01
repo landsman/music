@@ -3,3 +3,5 @@
 
 deno task format
 deno task lint
+
+cd src/web/ && deno task extract $(git diff --name-only --staged)

@@ -3,7 +3,9 @@
     "dev": "deno run -A --node-modules-dir npm:vite",
     "build": "deno run -A --node-modules-dir npm:vite build",
     "preview": "deno run -A --node-modules-dir npm:vite preview",
-    "serve": "deno run --allow-net --allow-read jsr:@std/http@1/file-server dist/"
+    "serve": "deno run --allow-net --allow-read jsr:@std/http@1/file-server dist/",
+    "extract": "bash ./scripts/lingui-extract.sh",
+    "compile": "bash ./scripts/lingui-compile.sh"
   },
   "compilerOptions": {
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -14,6 +16,10 @@
   "imports": {
     "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.4",
     "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^12.3.0",
+    "@lingui/cli": "npm:@lingui/cli@^5.3.2",
+    "@lingui/core": "npm:@lingui/core@^5.3.2",
+    "@lingui/react": "npm:@lingui/react@^5.3.2",
+    "@lingui/vite-plugin": "npm:@lingui/vite-plugin@^5.3.2",
     "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.49.3",
     "@tanstack/react-query": "npm:@tanstack/react-query@^5.69.0",
     "@types/react": "npm:@types/react@19.0.12",

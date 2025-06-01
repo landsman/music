@@ -1,4 +1,10 @@
-import en from "./en.json" with { type: "json" };
+import { i18n } from "@lingui/core";
+import { en } from "./locales/en.ts";
 
-export type Translations = typeof en;
-export const i18n: Translations = en;
+// Initialize Lingui with English messages
+i18n.load({
+  en: en.messages
+});
+i18n.activate("en");
+
+export { i18n };

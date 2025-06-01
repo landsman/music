@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-10-01 12:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. js-lingui-explicit-id
+#: src/ui/header.tsx:7
+msgid "headline"
+msgstr "headline"
+
+#. js-lingui-explicit-id
+#: src/ui/header.tsx:9
+msgid "lastListened"
+msgstr "lastListened"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/feed-item.tsx:29
+msgid "time.days"
+msgstr "days"
+
+#: src/ui/footer.tsx:3
+#~ msgid "github"
+#~ msgstr "Show code of this project on GitHub"
+
+#: src/ui/header.tsx:2
+#~ msgid "headline"
+#~ msgstr "Music"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/feed-item.tsx:28
+msgid "time.hours"
+msgstr "hours"
+
+#: src/ui/feed/feed-item.tsx:10
+#~ msgid "lastListened"
+#~ msgstr "Last listened"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/feed-item.tsx:27
+msgid "time.minutes"
+msgstr "minutes"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/feed-item.tsx:26
+msgid "time.seconds"
+msgstr "seconds"
+
+#. js-lingui-explicit-id
+#: src/ui/footer.tsx:6
+msgid "github"
+msgstr "Show code of this project on GitHub"
+
+#: src/ui/feed/feed-item.tsx:21
+#~ msgid "time.days"
+#~ msgstr "days"
+
+#: src/ui/feed/feed-item.tsx:19
+#~ msgid "time.hours"
+#~ msgstr "hours"
+
+#: src/ui/feed/feed-item.tsx:17
+#~ msgid "time.minutes"
+#~ msgstr "minutes"
+
+#: src/ui/feed/feed-item.tsx:15
+#~ msgid "time.seconds"
+#~ msgstr "seconds"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/user.tsx:10
+msgid "visitUserProfile"
+msgstr "Visit user profile"
+
+#: src/ui/feed/user.tsx:5
+#~ msgid "visitUserProfile"
+#~ msgstr "Visit user profile"

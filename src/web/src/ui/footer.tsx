@@ -1,11 +1,14 @@
-import i18n from "../i18n/en.json";
 import { SiGithub } from "@icons-pack/react-simple-icons";
+import { useLingui } from "@lingui/react";
 
 export function Footer() {
+  const { i18n } = useLingui();
+  const githubText = i18n._("github", {}, { message: "Show code of this project on GitHub" });
+
   return (
     <footer className="footer">
-      <a href="https://github.com/landsman/music" title={i18n.github}>
-        <SiGithub color="#FFFFFF" size={24} title={i18n.github} />
+      <a href="https://github.com/landsman/music" title={githubText}>
+        <SiGithub color="#FFFFFF" size={24} title={githubText} />
       </a>
     </footer>
   );
