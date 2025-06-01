@@ -1,8 +1,8 @@
-import { FeedItem } from "./feed-item.tsx";
-import { ListenedTracks } from "../../data/tracks-api.ts";
+import { useLingui } from "@lingui/react/macro";
+import { FeedItem } from "../item/feed-item.tsx";
+import { ListenedTracks } from "../../../data/tracks-api.ts";
 import "./feed.module.css";
-import { MusicLoader } from "../activity/loader.tsx";
-import { i18n } from "../../i18n/i18n.ts";
+import { MusicLoader } from "../../activity/loader.tsx";
 
 interface FeedListProps {
   data: ListenedTracks[];
@@ -14,6 +14,7 @@ interface FeedListProps {
 }
 
 export function FeedList(props: FeedListProps) {
+  const { t } = useLingui();
   const {
     data,
     isLoading,
@@ -64,7 +65,7 @@ export function FeedList(props: FeedListProps) {
             disabled={isFetching}
             className="feed__load-more-button"
           >
-            {isFetching ? i18n.loading : i18n.loadMore}
+            {isFetching ? t`loading` : t`loadMore`}
           </button>
         </div>
       )}

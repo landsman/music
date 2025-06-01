@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLingui } from "@lingui/react/macro";
 import { useQuery } from "../lib/react-query.tsx";
 import { getLastListenedTracks, ListenedTracks } from "../data/tracks-api.ts";
-import { FeedList } from "../ui/feed/feed-list.tsx";
+import { FeedList } from "../ui/feed/list/feed-list.tsx";
 import { MusicLoader } from "../ui/activity/loader.tsx";
-import { Header } from "../ui/header.tsx";
-import { i18n } from "../i18n/i18n.ts";
+import { Header } from "../ui/header/header.tsx";
 
 export function IndexView() {
+  const { t } = useLingui();
   const [page, setPage] = useState(0);
   const [allTracks, setAllTracks] = useState<ListenedTracks[]>([]);
 
@@ -22,28 +23,36 @@ export function IndexView() {
   >({
     queryKey: ["lastListenedTracks", page],
     queryFn: ({ signal }) => getLastListenedTracks(signal, page),
-    onSuccess: (newData) => {
-      console.log("Query success, received data:", newData);
-      if (page === 0) {
-        console.log("Setting initial tracks");
-        setAllTracks(newData);
-      } else {
-        console.log("Appending new tracks to existing ones");
-        setAllTracks((prev) => {
-          const updatedTracks = [...prev, ...newData];
-          console.log("Updated tracks array:", updatedTracks);
-          return updatedTracks;
-        });
-      }
-    },
-    onError: (err) => {
-      console.error("Query error:", err);
-    },
     retry: 3, // Retry failed requests 3 times
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false, // Don't refetch when window regains focus
   });
+
+  // Handle data updates with useEffect instead of onSuccess
+  useEffect(() => {
+    if (data && data.length > 0) {
+      console.log("Query success, received data:", data);
+      if (page === 0) {
+        console.log("Setting initial tracks");
+        setAllTracks(data);
+      } else {
+        console.log("Appending new tracks to existing ones");
+        setAllTracks((prev) => {
+          const updatedTracks = [...prev, ...data];
+          console.log("Updated tracks array:", updatedTracks);
+          return updatedTracks;
+        });
+      }
+    }
+  }, [data, page]);
+
+  // Handle errors with useEffect
+  useEffect(() => {
+    if (error) {
+      console.error("Query error:", error);
+    }
+  }, [error]);
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -84,7 +93,9 @@ export function IndexView() {
       {error && (
         <div style={{ textAlign: "center", marginTop: "20px", color: "red" }}>
           <p>Error: {(error as Error).message}</p>
-          <button onClick={retryFetch}>{i18n.retry}</button>
+          <button type="button" onClick={retryFetch}>
+            {t`retry`}
+          </button>
         </div>
       )}
 
@@ -96,7 +107,9 @@ export function IndexView() {
             <li>- Connection issues with Supabase</li>
             <li>- Authentication problems</li>
           </ul>
-          <button onClick={retryFetch}>{i18n.retry}</button>
+          <button type="button" onClick={retryFetch}>
+            {t`retry`}
+          </button>
         </div>
       )}
 
