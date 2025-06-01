@@ -42,10 +42,10 @@ jobs:
       - name: "Upload artifact"
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: apps/frontend/dist
 
       - name: "Check Outdated packages"
         uses: ./.github/action/deno-outdated
         with:
-          directory: ./
+          directory: apps/frontend
           title: "Deno Outdated - Web"
