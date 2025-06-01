@@ -15,7 +15,6 @@ export function User({ name }: UserProps) {
       >
         <UserRound size={12} />
         <span>{name || "Unknown"}</span>
-        {t`visitUserProfile`}
       </a>
     </div>
   );
