@@ -36,9 +36,9 @@ jobs:
       - run: deno fmt --check
       - run: deno lint
 
+      - run: deno run compile
       - name: 'Build the app'
         run: deno run build
-      - run: deno run compile
 
       - name: 'Upload artifact'
         uses: actions/upload-pages-artifact@v3
