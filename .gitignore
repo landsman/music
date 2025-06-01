@@ -32,5 +32,5 @@ deno.lock
 cron_jobs.sql
 
 # web
-packages/web/src/i18n/locales/*/messages.js
-packages/web/src/i18n/locales/*/messages.mjs
+apps/frontend/src/i18n/locales/*/messages.js
+apps/frontend/src/i18n/locales/*/messages.mjs
