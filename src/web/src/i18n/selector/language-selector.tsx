@@ -28,7 +28,7 @@ export function LanguageSelector() {
   // Handle locale change
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value;
-    await dynamicActivate(newLocale);
+    await dynamicActivate(newLocale, true);
     setCurrentLocale(newLocale);
   };
 

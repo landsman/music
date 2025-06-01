@@ -18,7 +18,7 @@ export function LinguiProvider({ children }: LinguiProviderProps) {
   // Set up an effect to activate the locale when the component mounts
   useEffect(() => {
     const userLocale = detectUserLocale();
-    dynamicActivate(userLocale);
+    dynamicActivate(userLocale, false);
   }, []);
 
   return (
