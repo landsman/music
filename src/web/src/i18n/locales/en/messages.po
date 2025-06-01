@@ -46,7 +46,7 @@ msgstr "Music"
 msgid "showCodeOnGitHub"
 msgstr "Show code of this project on GitHub"
 
-#: src/ui/feed/user.tsx:15
-#: src/ui/feed/user.tsx:19
+#: src/ui/feed/user.tsx:14
+#: src/ui/feed/user.tsx:18
 msgid "visitUserProfile"
 msgstr "Visit user profile"
