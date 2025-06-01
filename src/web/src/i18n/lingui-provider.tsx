@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode, useEffect } from "react";
 import { I18nProvider } from "@lingui/react";
 import { detectUserLocale, dynamicActivate, i18n } from "./config.ts";
