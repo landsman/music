@@ -11,11 +11,11 @@ export default {
   format: "po",
   formatOptions: {
     origins: false,
-    lineNumbers: false
+    lineNumbers: false,
   },
-  compileNamespace: "es",  // Use ES modules format
+  compileNamespace: "es", // Use ES modules format
   runtimeConfigModule: {
     target: "@lingui/core",
-    version: "5.3.2"
-  }
+    version: "5.3.2",
+  },
 };
