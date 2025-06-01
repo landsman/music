@@ -4,7 +4,7 @@ on:
   push:
     branches: ["dev"]
     paths:
-      - "../../packages/web/**"
+      - "apps/frontend/**"
       - ".github/workflows/deploy-web.yml"
       - "!**.md"
   workflow_dispatch:
@@ -21,6 +21,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/frontend
     environment: github-pages
     steps:
       - uses: actions/checkout@v4
@@ -33,7 +36,6 @@ jobs:
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
         run: |
-          cd src/web
           deno run compile
           deno task build
 

@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/web
+        working-directory: apps/frontend
 
     steps:
       - uses: actions/checkout@v4
