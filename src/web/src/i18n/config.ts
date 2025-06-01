@@ -44,7 +44,10 @@ async function loadMessages(locale: string) {
   }
 }
 
-export async function dynamicActivate(locale: string, doSave: boolean): Promise<void> {
+export async function dynamicActivate(
+  locale: string,
+  doSave: boolean,
+): Promise<void> {
   try {
     const messages = await loadMessages(locale);
     i18n.load({
