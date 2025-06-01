@@ -18,6 +18,7 @@
     "@babel/core": "npm:@babel/core@^7.27.4",
     "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.4",
     "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^12.3.0",
+    "@lingui/babel-plugin-lingui-macro": "npm:@lingui/babel-plugin-lingui-macro@^5.3.2",
     "@lingui/core": "npm:@lingui/core@^5.3.2",
     "@lingui/detect-locale": "npm:@lingui/detect-locale@^5.3.2",
     "@lingui/react": "npm:@lingui/react@^5.3.2",
