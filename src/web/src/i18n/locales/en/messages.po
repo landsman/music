@@ -22,6 +22,9 @@ msgstr "Error during copy..."
 msgid "copyToClipboard.success"
 msgstr "track copied, I bet you'll like it"
 
+msgid "Error"
+msgstr "Error occurred"
+
 msgid "lastListened"
 msgstr "Last listened"
 

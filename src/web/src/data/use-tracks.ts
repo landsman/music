@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
-import {useQuery} from "../lib/react-query.tsx";
-import {getLastListenedTracks, ListenedTracks} from "./tracks-api.ts";
+import { useEffect, useState } from "react";
+import { useQuery } from "../lib/react-query.tsx";
+import { getLastListenedTracks, ListenedTracks } from "./tracks-api.ts";
 
 export function useTracks() {
   const [page, setPage] = useState(0);
@@ -24,7 +24,7 @@ export function useTracks() {
         setAllTracks(data);
       } else {
         setAllTracks((prev) => {
-            return [...prev, ...data];
+          return [...prev, ...data];
         });
       }
     }

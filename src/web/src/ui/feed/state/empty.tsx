@@ -16,7 +16,7 @@ export function EmptyState({ onRetry }: EmptyStateProps) {
         <li>- Authentication problems</li>
       </ul>
       <button type="button" onClick={onRetry}>
-        {t`Retry`}
+        {t`retry`}
       </button>
     </div>
   );

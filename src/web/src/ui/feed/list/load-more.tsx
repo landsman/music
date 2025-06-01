@@ -7,7 +7,9 @@ interface LoadMoreProps {
   error?: Error | null;
 }
 
-export function LoadMore({ onLoadMore, isFetching, hasMoreData, error }: LoadMoreProps) {
+export function LoadMore(
+  { onLoadMore, isFetching, hasMoreData, error }: LoadMoreProps,
+) {
   const { t } = useLingui();
 
   if (error || !hasMoreData || !onLoadMore) {

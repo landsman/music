@@ -22,6 +22,9 @@ msgstr "Při kopírování nastala chyba..."
 msgid "copyToClipboard.success"
 msgstr "track zkopírován, myslím že se ti bude líbit"
 
+msgid "Error"
+msgstr "Nastala chyba"
+
 msgid "lastListened"
 msgstr "Naposledy posloucháno"
 
