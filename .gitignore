@@ -33,3 +33,4 @@ cron_jobs.sql
 
 # web
 src/web/src/i18n/locales/*/messages.js
+src/web/src/i18n/locales/*/messages.mjs

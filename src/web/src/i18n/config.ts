@@ -15,19 +15,29 @@ const storageKey = "lang";
 i18n.load({});
 
 export function detectUserLocale(): string {
-  return detect(
+  const findings = detect(
     fromUrl(storageKey),
     fromStorage(storageKey),
-    fromNavigator,
+    fromNavigator(),
     defaultLocale,
-  ) || defaultLocale;
+  );
+
+  const short = findings?.slice(0, 2);
+  if (short && supportedLocales.includes(short)) {
+    return short;
+  }
+
+  return defaultLocale;
 }
 
 async function loadMessages(locale: string) {
   try {
-    // Try to load the messages from the compiled messages.js file
-    const module = await import(`./locales/${locale}/messages.js`);
-    return module.default?.messages || module.messages;
+    // Change to use URL-based import for Vite/Deno compatibility
+    const messages = await import(
+      /* @vite-ignore */
+      new URL(`./locales/${locale}/messages.mjs`, import.meta.url).href
+    );
+    return messages.messages || {};
   } catch (error) {
     console.error(`Failed to load messages for locale ${locale}:`, error);
     return {};
@@ -36,12 +46,10 @@ async function loadMessages(locale: string) {
 
 export async function dynamicActivate(locale: string): Promise<void> {
   try {
-    if (locale !== defaultLocale) {
-      const messages = await loadMessages(locale);
-      i18n.load({
-        [locale]: messages,
-      });
-    }
+    const messages = await loadMessages(locale);
+    i18n.load({
+      [locale]: messages,
+    });
 
     i18n.activate(locale);
     localStorage.setItem(storageKey, locale);
