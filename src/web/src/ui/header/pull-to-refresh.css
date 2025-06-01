@@ -1,0 +1,19 @@
+.ptr--ptr {
+  background: transparent;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+.ptr--pull {}
+
+.ptr--box {}
+
+.ptr--content {}
+
+.ptr--icon {
+  color: white !important;
+}
+
+.ptr--text {
+  color: white !important;
+}

@@ -29,8 +29,9 @@
     "@types/react-dom": "npm:@types/react-dom@^19.1.5",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.4",
     "lucide-react": "npm:lucide-react@^0.511.0",
-    "react": "npm:react@^19.1.0",
-    "react-dom": "npm:react-dom@^19.1.0",
+    "pulltorefreshjs": "npm:pulltorefreshjs@^0.1.22",
+    "react": "npm:react@19.1.0",
+    "react-dom": "npm:react-dom@19.1.0",
     "react-hot-toast": "npm:react-hot-toast@^2.5.2",
     "react-loading-indicators": "npm:react-loading-indicators@^1.0.0",
     "vite": "npm:vite@^6.2.3"

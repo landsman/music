@@ -17,6 +17,7 @@
     "update-types-local": "supabase gen types typescript --local > src/shared/db.types.ts",
     "update-types-linked": "supabase gen types typescript --linked > src/shared/db.types.ts && deno run format"
   },
+  "nodeModulesDir": "auto",
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.12",
     "@supabase/supabase-js": "jsr:@supabase/supabase-js@^2.49.3"
