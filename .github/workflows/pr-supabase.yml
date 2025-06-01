@@ -23,7 +23,7 @@ env:
 
 jobs:
   qa:
-    name: 'QA'
+    name: "QA"
     environment: test
     runs-on: ubuntu-latest
     steps:
@@ -38,16 +38,16 @@ jobs:
       - run: deno lint supabase/*
       - run: deno task tests --reload
 
-      - name: 'Generate cron jobs'
+      - name: "Generate cron jobs"
         uses: actions/upload-artifact@v4
         with:
           name: cron_jobs.sql
           path: cron_jobs.sql
           retention-days: 1
 
-      - name: 'Check Outdated Packages'
+      - name: "Check Outdated Packages"
         uses: ./.github/action/deno-outdated
         id: outdated_supabase
         with:
           directory: ./supabase/functions
-          title: 'Deno Outdated - Supabase'
+          title: "Deno Outdated - Supabase"

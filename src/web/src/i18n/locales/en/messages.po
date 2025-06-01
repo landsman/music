@@ -22,11 +22,23 @@ msgstr "Error during copy..."
 msgid "copyToClipboard.success"
 msgstr "track copied, I bet you'll like it"
 
+msgid "Error"
+msgstr "Error occurred"
+
 msgid "lastListened"
 msgstr "Last listened"
 
+msgid "loading"
+msgstr "Loading..."
+
+msgid "loadMore"
+msgstr "Load more"
+
 msgid "projectName"
 msgstr "Music"
+
+msgid "retry"
+msgstr "Retry"
 
 msgid "showCodeOnGitHub"
 msgstr "Show code of this project on GitHub"

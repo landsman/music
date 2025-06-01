@@ -21,7 +21,7 @@ jobs:
         with:
           version: 2.13.3
 
-      - name: 'Supabase - Remote Connect'
+      - name: "Supabase - Remote Connect"
         env:
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}

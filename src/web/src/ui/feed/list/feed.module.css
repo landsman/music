@@ -9,6 +9,19 @@
     top: -150px;
     right: 0;
   }
+
+  .feed__load-more {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+  }
+
+  .feed__load-more-button {
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
 }
 
 .feed_row {
