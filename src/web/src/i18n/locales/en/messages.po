@@ -13,48 +13,35 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/ui/feed/item/feed-item.tsx:27
 msgid "copyToClipboard"
 msgstr "Copy to clipboard..."
 
-#: src/ui/feed/item/feed-item.tsx:29
 msgid "copyToClipboard.error"
 msgstr "Error during copy..."
 
-#: src/ui/feed/item/feed-item.tsx:28
 msgid "copyToClipboard.success"
 msgstr "track copied, I bet you'll like it"
 
-#: src/ui/feed/item/feed-item.tsx:53
 msgid "days"
 msgstr "days"
 
-#: src/ui/feed/item/feed-item.tsx:52
 msgid "hours"
 msgstr "hours"
 
-#: src/ui/header/header.tsx:16
 msgid "lastListened"
 msgstr "Last listened"
 
-#: src/ui/feed/item/feed-item.tsx:51
 msgid "minutes"
 msgstr "minutes"
 
-#: src/ui/header/header.tsx:13
 msgid "projectName"
 msgstr "Music"
 
-#: src/ui/feed/item/feed-item.tsx:50
 msgid "seconds"
 msgstr "seconds"
 
-#: src/ui/footer.tsx:8
-#: src/ui/footer.tsx:9
 msgid "showCodeOnGitHub"
 msgstr "Show code of this project on GitHub"
 
-#: src/ui/user/user.tsx:14
-#: src/ui/user/user.tsx:18
 msgid "visitUserProfile"
 msgstr "Visit user profile"
