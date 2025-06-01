@@ -2,9 +2,9 @@
 
 import { useQuery } from "../lib/react-query.tsx";
 import { getLastListenedTracks, ListenedTracks } from "../data/tracks-api.ts";
-import { FeedList } from "../ui/feed/feed-list.tsx";
+import { FeedList } from "../ui/feed/list/feed-list.tsx";
 import { MusicLoader } from "../ui/activity/loader.tsx";
-import { Header } from "../ui/header.tsx";
+import { Header } from "../ui/header/header.tsx";
 
 export function IndexView() {
   const { isLoading, isFetching, error, data = [] } = useQuery<

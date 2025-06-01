@@ -19,6 +19,7 @@
     "@icons-pack/react-simple-icons": "npm:@icons-pack/react-simple-icons@^12.3.0",
     "@lingui/cli": "npm:@lingui/cli@^5.3.2",
     "@lingui/core": "npm:@lingui/core@^5.3.2",
+    "@lingui/detect-locale": "npm:@lingui/detect-locale@^5.3.2",
     "@lingui/macro": "npm:@lingui/macro@^5.3.2",
     "@lingui/react": "npm:@lingui/react@^5.3.2",
     "@lingui/vite-plugin": "npm:@lingui/vite-plugin@^5.3.2",

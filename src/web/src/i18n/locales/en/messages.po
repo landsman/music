@@ -13,40 +13,48 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#. js-lingui-explicit-id
-#: src/ui/feed/feed-item.tsx:34
-msgid "seconds"
-msgstr "seconds"
+#: src/ui/feed/item/feed-item.tsx:27
+msgid "copyToClipboard"
+msgstr "Copy to clipboard..."
 
-#. js-lingui-explicit-id
-#: src/ui/feed/feed-item.tsx:35
-msgid "minutes"
-msgstr "minutes"
+#: src/ui/feed/item/feed-item.tsx:29
+msgid "copyToClipboard.error"
+msgstr "Error during copy..."
 
-#. js-lingui-explicit-id
-#: src/ui/feed/feed-item.tsx:36
-msgid "hours"
-msgstr "hours"
+#: src/ui/feed/item/feed-item.tsx:28
+msgid "copyToClipboard.success"
+msgstr "track copied, I bet you'll like it"
 
-#. js-lingui-explicit-id
-#: src/ui/feed/feed-item.tsx:37
+#: src/ui/feed/item/feed-item.tsx:53
 msgid "days"
 msgstr "days"
 
-#: src/ui/header.tsx:12
+#: src/ui/feed/item/feed-item.tsx:52
+msgid "hours"
+msgstr "hours"
+
+#: src/ui/header/header.tsx:16
 msgid "lastListened"
 msgstr "Last listened"
 
-#: src/ui/header.tsx:9
+#: src/ui/feed/item/feed-item.tsx:51
+msgid "minutes"
+msgstr "minutes"
+
+#: src/ui/header/header.tsx:13
 msgid "projectName"
 msgstr "Music"
+
+#: src/ui/feed/item/feed-item.tsx:50
+msgid "seconds"
+msgstr "seconds"
 
 #: src/ui/footer.tsx:8
 #: src/ui/footer.tsx:9
 msgid "showCodeOnGitHub"
 msgstr "Show code of this project on GitHub"
 
-#: src/ui/feed/user.tsx:14
-#: src/ui/feed/user.tsx:18
+#: src/ui/user/user.tsx:14
+#: src/ui/user/user.tsx:18
 msgid "visitUserProfile"
 msgstr "Visit user profile"
