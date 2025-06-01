@@ -28,7 +28,7 @@
     "@types/react": "npm:@types/react@^19.1.6",
     "@types/react-dom": "npm:@types/react-dom@^19.1.5",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.4",
-    "lucide-react": "npm:lucide-react@^0.484.0",
+    "lucide-react": "npm:lucide-react@^0.511.0",
     "react": "npm:react@^19.1.0",
     "react-dom": "npm:react-dom@^19.1.0",
     "react-hot-toast": "npm:react-hot-toast@^2.5.2",
