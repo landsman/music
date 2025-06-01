@@ -1,8 +1,8 @@
-import { useLingui } from "@lingui/react/macro";
 import { FeedItem } from "../item/feed-item.tsx";
 import { ListenedTracks } from "../../../data/tracks-api.ts";
-import "./feed.module.css";
 import { MusicLoader } from "../../activity/loader.tsx";
+import { LoadMore } from "./load-more.tsx";
+import "./feed.module.css";
 
 interface FeedListProps {
   data: ListenedTracks[];
@@ -14,7 +14,6 @@ interface FeedListProps {
 }
 
 export function FeedList(props: FeedListProps) {
-  const { t } = useLingui();
   const {
     data,
     isLoading,
@@ -23,9 +22,6 @@ export function FeedList(props: FeedListProps) {
     onLoadMore,
     hasMoreData = false,
   } = props;
-
-  console.log("FeedList received data:", data);
-  console.log("FeedList props:", { isLoading, isFetching, hasMoreData });
 
   if (isLoading) {
     return null;
@@ -49,19 +45,13 @@ export function FeedList(props: FeedListProps) {
         />
       )))}
 
-      {!hasData && !isLoading && !error && <div className="feed__empty"></div>}
-
       {!error && hasMoreData && onLoadMore && (
-        <div className="feed__load-more">
-          <button
-            type="button"
-            onClick={onLoadMore}
-            disabled={isFetching}
-            className="feed__load-more-button"
-          >
-            {isFetching ? t`loading` : t`loadMore`}
-          </button>
-        </div>
+        <LoadMore
+          onLoadMore={onLoadMore}
+          isFetching={isFetching}
+          hasMoreData={hasMoreData}
+          error={error}
+        />
       )}
     </div>
   );
