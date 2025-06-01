@@ -10,7 +10,7 @@ on:
     paths:
       - ".github/workflows/pr-supabase.yml"
       - "deno.lock"
-      - "supabase/**"
+      - "../../packages/supabase/**"
       - "!**.md"
   workflow_dispatch:
 

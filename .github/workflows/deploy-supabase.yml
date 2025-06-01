@@ -6,7 +6,7 @@ on:
       - dev
     paths:
       - ".github/workflows/deploy-supabase.yml"
-      - "supabase/**"
+      - "../../packages/supabase/**"
       - "!**.md"
   workflow_dispatch:
 

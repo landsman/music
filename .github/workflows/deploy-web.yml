@@ -4,7 +4,7 @@ on:
   push:
     branches: ["dev"]
     paths:
-      - "src/web/**"
+      - "../../packages/web/**"
       - ".github/workflows/deploy-web.yml"
       - "!**.md"
   workflow_dispatch:

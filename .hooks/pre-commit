@@ -7,7 +7,8 @@ if [ -d "$(git rev-parse --git-path rebase-merge)" ] || \
   exit 0
 fi
 
+cd apps/frontend/ && deno task extract && deno task compile
+
 deno task format
 deno task lint
 
-cd src/web/ && deno task extract

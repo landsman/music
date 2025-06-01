@@ -26,11 +26,11 @@ dist-ssr
 *.sw?
 
 # custom
-supabase/functions/.env
+apps/backend/functions/.env
 deno.lock
 .env
 cron_jobs.sql
 
 # web
-src/web/src/i18n/locales/*/messages.js
-src/web/src/i18n/locales/*/messages.mjs
+packages/web/src/i18n/locales/*/messages.js
+packages/web/src/i18n/locales/*/messages.mjs

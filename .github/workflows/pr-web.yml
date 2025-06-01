@@ -9,7 +9,7 @@ on:
       - ready_for_review
     paths:
       - ".github/workflows/pr-web.yml"
-      - "src/web/**"
+      - "../../packages/web/**"
       - "!**.md"
   workflow_dispatch:
 

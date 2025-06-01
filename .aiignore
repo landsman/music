@@ -29,13 +29,13 @@ dist-ssr
 .env
 .env.local
 *.env
-supabase/functions/.env
+apps/backend/functions/.env
 cron_jobs.sql
 
 # Generated files
-src/shared/db.types.ts
-src/web/src/i18n/locales/*/messages.js
-src/web/src/i18n/locales/*/messages.mjs
+packages/shared/db.types.ts
+packages/web/src/i18n/locales/*/messages.js
+packages/web/src/i18n/locales/*/messages.mjs
 
 # Logs
 logs
