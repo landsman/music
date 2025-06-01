@@ -8,7 +8,6 @@ import { Marquee } from "../track/track.tsx";
 import { User } from "../../user/user.tsx";
 import { Album } from "../album.tsx";
 import { Artist } from "../artist.tsx";
-import { i18n } from "../../../i18n/config.ts";
 
 interface Props {
   artist: string;
