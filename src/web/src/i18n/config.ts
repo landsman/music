@@ -44,7 +44,10 @@ async function loadMessages(locale: string) {
   }
 }
 
-export async function dynamicActivate(locale: string): Promise<void> {
+export async function dynamicActivate(
+  locale: string,
+  doSave: boolean,
+): Promise<void> {
   try {
     const messages = await loadMessages(locale);
     i18n.load({
@@ -52,12 +55,15 @@ export async function dynamicActivate(locale: string): Promise<void> {
     });
 
     i18n.activate(locale);
-    localStorage.setItem(storageKey, locale);
+    if (doSave) {
+      localStorage.setItem(storageKey, locale);
+    }
+
     document.documentElement.setAttribute("lang", locale);
   } catch (error) {
     console.error(`Failed to activate locale ${locale}:`, error);
     if (locale !== defaultLocale) {
-      await dynamicActivate(defaultLocale);
+      await dynamicActivate(defaultLocale, false);
     }
   }
 }
