@@ -38,6 +38,7 @@ jobs:
 
       - name: 'Build the app'
         run: deno run build
+      - run: deno run compile
 
       - name: 'Upload artifact'
         uses: actions/upload-pages-artifact@v3
