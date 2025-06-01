@@ -26,7 +26,7 @@ export function FeedItem(props: Props) {
     seconds: i18n._("time.seconds", {}, { message: "seconds" }),
     minutes: i18n._("time.minutes", {}, { message: "minutes" }),
     hours: i18n._("time.hours", {}, { message: "hours" }),
-    days: i18n._("time.days", {}, { message: "days" })
+    days: i18n._("time.days", {}, { message: "days" }),
   };
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {

@@ -3,7 +3,9 @@ import { useLingui } from "@lingui/react";
 
 export function Footer() {
   const { i18n } = useLingui();
-  const githubText = i18n._("github", {}, { message: "Show code of this project on GitHub" });
+  const githubText = i18n._("github", {}, {
+    message: "Show code of this project on GitHub",
+  });
 
   return (
     <footer className="footer">

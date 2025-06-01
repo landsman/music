@@ -5,8 +5,8 @@ export default {
     {
       path: "src/i18n/locales/{locale}/messages",
       include: ["src"],
-      exclude: ["**/node_modules/**"]
-    }
+      exclude: ["**/node_modules/**"],
+    },
   ],
-  format: "po"
+  format: "po",
 };

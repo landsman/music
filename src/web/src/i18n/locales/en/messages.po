@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: src/ui/header.tsx:7
+#: src/ui/header.tsx:8
 msgid "headline"
 msgstr "headline"
 
 #. js-lingui-explicit-id
-#: src/ui/header.tsx:9
+#: src/ui/header.tsx:11
 msgid "lastListened"
 msgstr "lastListened"
 

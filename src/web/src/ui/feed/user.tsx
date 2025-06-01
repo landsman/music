@@ -7,7 +7,9 @@ interface UserProps {
 
 export function User({ name }: UserProps) {
   const { i18n } = useLingui();
-  const visitProfileText = i18n._("visitUserProfile", {}, { message: "Visit user profile" });
+  const visitProfileText = i18n._("visitUserProfile", {}, {
+    message: "Visit user profile",
+  });
 
   return (
     <div className="user">
