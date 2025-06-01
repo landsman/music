@@ -1,5 +1,10 @@
 import { i18n } from "@lingui/core";
-import { detect, fromUrl, fromStorage, fromNavigator } from "@lingui/detect-locale";
+import {
+  detect,
+  fromNavigator,
+  fromStorage,
+  fromUrl,
+} from "@lingui/detect-locale";
 import linguiConfig from "../../lingui.config.js";
 
 // Export the supported locales from the config
@@ -7,14 +12,14 @@ export const supportedLocales = linguiConfig.locales;
 export const defaultLocale = linguiConfig.sourceLocale || "en";
 const storageKey = "lang";
 
-i18n.load({ });
+i18n.load({});
 
 export function detectUserLocale(): string {
   return detect(
     fromUrl(storageKey),
     fromStorage(storageKey),
     fromNavigator,
-    defaultLocale
+    defaultLocale,
   ) || defaultLocale;
 }
 

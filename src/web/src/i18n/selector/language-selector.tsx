@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { i18n, supportedLocales, dynamicActivate } from "../config.ts";
+import { dynamicActivate, i18n, supportedLocales } from "../config.ts";
 import "./language-selector.css";
 
 /**
  * LanguageSelector component that allows the user to select a language.
- * 
+ *
  * It displays a dropdown with the supported locales and activates the selected locale.
  */
 export function LanguageSelector() {

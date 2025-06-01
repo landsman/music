@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { I18nProvider } from "@lingui/react";
-import { i18n, detectUserLocale, dynamicActivate } from "./config.ts";
+import { detectUserLocale, dynamicActivate, i18n } from "./config.ts";
 
 interface LinguiProviderProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface LinguiProviderProps {
 
 /**
  * LinguiProvider component that provides the i18n instance to the application.
- * 
+ *
  * It automatically detects the user's preferred locale and activates it.
  * It also sets up an effect to activate the locale when the component mounts.
  */
