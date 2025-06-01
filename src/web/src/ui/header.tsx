@@ -1,16 +1,15 @@
 import { Headphones } from "lucide-react";
-import { useTranslation } from "../i18n/useTranslation";
+import { useLingui } from "@lingui/react/macro";
 
 export function Header() {
-  const t = useTranslation();
-
+  const { t } = useLingui();
   return (
     <header className="header">
       <h1>
-        {t("headline", "Music")}
+        {t`projectName`}
       </h1>
       <h2>
-        <Headphones size={24} /> {t("lastListened", "Last listened")}
+        <Headphones size={24} /> {t`lastListened`}
       </h2>
     </header>
   );

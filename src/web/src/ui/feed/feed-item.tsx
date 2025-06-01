@@ -3,7 +3,7 @@ import {
   localizeDateTimeBrowser,
   localizeRelativeTimeBrowser,
 } from "../../lib/localize-date.ts";
-import { useTranslation } from "../../i18n/useTranslation.ts";
+import { Trans } from "@lingui/react";
 import { Marquee } from "./track.tsx";
 import { User } from "./user.tsx";
 import { Album } from "./album.tsx";
@@ -19,15 +19,24 @@ interface Props {
 
 export function FeedItem(props: Props) {
   const { artist, album, track, user, listenedAt } = props;
-  const t = useTranslation();
 
   // Create time translations object
   const timeTranslations = {
-    seconds: t("time.seconds", "seconds"),
-    minutes: t("time.minutes", "minutes"),
-    hours: t("time.hours", "hours"),
-    days: t("time.days", "days"),
+    seconds: "seconds",
+    minutes: "minutes",
+    hours: "hours",
+    days: "days",
   };
+
+  // Hidden Trans components for extraction
+  const hiddenTranslations = (
+    <div style={{ display: "none" }}>
+      <Trans id="seconds">seconds</Trans>
+      <Trans id="minutes">minutes</Trans>
+      <Trans id="hours">hours</Trans>
+      <Trans id="days">days</Trans>
+    </div>
+  );
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -58,6 +67,7 @@ export function FeedItem(props: Props) {
         </div>
         <User name={user} />
       </div>
+      {hiddenTranslations}
     </div>
   );
 }

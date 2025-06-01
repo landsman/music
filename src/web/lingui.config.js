@@ -1,5 +1,5 @@
 export default {
-  locales: ["en", "cs"],
+  locales: ["en"],
   sourceLocale: "en",
   catalogs: [
     {
