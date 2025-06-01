@@ -3,5 +3,6 @@
   <component name="DenoSettings">
     <option name="useDenoValue" value="ENABLE" />
     <option name="useDenofmt" value="true" />
+    <option name="formatOnSave" value="true" />
   </component>
 </project>
