@@ -32,4 +32,4 @@ deno.lock
 cron_jobs.sql
 
 # web
-src/web/i18n/locales/*/messages.js
+src/web/src/i18n/locales/*/messages.js

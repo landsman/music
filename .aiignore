@@ -27,12 +27,14 @@ dist-ssr
 
 # Sensitive data
 .env
+.env.local
 *.env
 supabase/functions/.env
 cron_jobs.sql
 
 # Generated files
 src/shared/db.types.ts
+src/web/src/i18n/locales/*/messages.js
 
 # Logs
 logs
