@@ -38,27 +38,20 @@ export function FeedList(props: FeedListProps) {
     <div className="feed" data-fetching={isFetching}>
       {isFetching && <MusicLoader size={32} className="feed__fetching" />}
 
-      {hasData
-        ? (
-          // Render items if we have data
-          data.map((item: ListenedTracks) => (
-            <FeedItem
-              key={item.id}
-              artist={item.artist_name}
-              album={item.album_name}
-              track={item.track_name}
-              listenedAt={item.listened_at}
-              user={item.hooman?.lastfm_user}
-            />
-          ))
-        )
-        : (
-          // This will be shown if data is empty but not loading and no error
-          // The main error/empty state handling is in IndexView
-          !isLoading && !error && <div className="feed__empty"></div>
-        )}
+      {hasData && (data.map((item: ListenedTracks) => (
+        <FeedItem
+          key={item.id}
+          artist={item.artist_name}
+          album={item.album_name}
+          track={item.track_name}
+          listenedAt={item.listened_at}
+          user={item.hooman?.lastfm_user}
+        />
+      )))}
 
-      {!error && hasData && hasMoreData && onLoadMore && (
+      {!hasData && !isLoading && !error && <div className="feed__empty"></div>}
+
+      {!error && hasMoreData && onLoadMore && (
         <div className="feed__load-more">
           <button
             type="button"
