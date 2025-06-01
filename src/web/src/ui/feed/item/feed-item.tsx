@@ -1,13 +1,13 @@
 import { toast } from "react-hot-toast";
+import { useLingui } from "@lingui/react/macro";
 import {
   localizeDateTimeBrowser,
   localizeRelativeTimeBrowser,
-} from "../../lib/localize-date.ts";
-import { i18n } from "../../i18n/i18n.ts";
-import { Marquee } from "./track.tsx";
-import { User } from "./user.tsx";
-import { Album } from "./album.tsx";
-import { Artist } from "./artist.tsx";
+} from "../../../lib/localize-date.ts";
+import { Marquee } from "../track/track.tsx";
+import { User } from "../../user/user.tsx";
+import { Album } from "../album.tsx";
+import { Artist } from "../artist.tsx";
 
 interface Props {
   artist: string;
@@ -18,14 +18,15 @@ interface Props {
 }
 
 export function FeedItem(props: Props) {
+  const { t, i18n } = useLingui();
   const { artist, album, track, user, listenedAt } = props;
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
     toast.promise(navigator.clipboard.writeText(`${artist} - ${track}`), {
-      loading: "Copy to clipboard...",
-      success: "track copied, I bet you'll like it",
-      error: "Error during copy...",
+      loading: t`copyToClipboard`,
+      success: t`copyToClipboard.success`,
+      error: t`copyToClipboard.error`,
     });
   }
 
@@ -45,7 +46,14 @@ export function FeedItem(props: Props) {
           className="listened_at"
           title={localizeDateTimeBrowser(listenedAt)}
         >
-          {localizeRelativeTimeBrowser(listenedAt, i18n.time)}
+          {localizeRelativeTimeBrowser(listenedAt, i18n.locale, {
+            seconds: t`time.seconds`,
+            minutes: t`time.minutes`,
+            hours: t`time.hours`,
+            days: t`time.days`,
+            ago: t`time.ago`,
+            in: t`time.in`,
+          })}
         </div>
         <User name={user} />
       </div>

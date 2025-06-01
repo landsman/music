@@ -1,16 +1,17 @@
 import { UserRound } from "lucide-react";
-import { i18n } from "../../i18n/i18n.ts";
+import { useLingui } from "@lingui/react/macro";
 
 interface UserProps {
   name: string | undefined;
 }
 
 export function User({ name }: UserProps) {
+  const { t } = useLingui();
   return (
     <div className="user">
       <a
         href={`https://www.last.fm/user/${name || "unknown"}`}
-        title={i18n.visitUserProfile}
+        title={t`visitUserProfile`}
       >
         <UserRound size={12} />
         <span>{name || "Unknown"}</span>

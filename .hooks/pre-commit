@@ -1,5 +1,13 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/hook.sh"
 
+# Skip hooks during rebase
+if [ -d "$(git rev-parse --git-path rebase-merge)" ] || \
+   [ -d "$(git rev-parse --git-path rebase-apply)" ]; then
+  exit 0
+fi
+
 deno task format
 deno task lint
+
+cd src/web/ && deno task extract
