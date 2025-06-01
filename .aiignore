@@ -47,7 +47,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Editor directories and files
-.idea
+!.idea/deno.xml
+!.idea/icon.png
+!.idea/icon.svg
+
 .DS_Store
 *.suo
 *.ntvs*
