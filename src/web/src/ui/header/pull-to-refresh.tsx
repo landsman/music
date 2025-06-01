@@ -7,8 +7,8 @@ import "./pull-to-refresh.css";
  */
 export function usePullToRefresh() {
   useEffect(() => {
-    const standalone =
-      globalThis.matchMedia("(display-mode: standalone)").matches;
+    // deno-lint-ignore no-window
+    const standalone = window.matchMedia("(display-mode: standalone)").matches;
     if (!standalone) {
       return;
     }
