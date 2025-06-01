@@ -10,8 +10,8 @@ const enMessages = {
     "time.minutes": "minutes",
     "time.hours": "hours",
     "time.days": "days",
-    "github": "Show code of this project on GitHub"
-  }
+    "github": "Show code of this project on GitHub",
+  },
 };
 
 // Initialize Lingui with English messages

@@ -14,19 +14,44 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-#: src/ui/header.tsx:8
-msgid "headline"
-msgstr "headline"
-
-#. js-lingui-explicit-id
-#: src/ui/header.tsx:11
-msgid "lastListened"
-msgstr "lastListened"
-
-#. js-lingui-explicit-id
 #: src/ui/feed/feed-item.tsx:29
-msgid "time.days"
-msgstr "days"
+#~ msgid "time.days"
+#~ msgstr "days"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/feed-item.tsx:28
+#~ msgid "time.hours"
+#~ msgstr "hours"
+
+#. js-lingui-explicit-id
+#: src/ui/header.tsx:7
+#~ msgid "lastListened"
+#~ msgstr "lastListened"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/feed-item.tsx:27
+#~ msgid "time.minutes"
+#~ msgstr "minutes"
+
+#. js-lingui-explicit-id
+#: src/ui/header.tsx:6
+#~ msgid "headline"
+#~ msgstr "headline"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/feed-item.tsx:26
+#~ msgid "time.seconds"
+#~ msgstr "seconds"
+
+#. js-lingui-explicit-id
+#: src/ui/footer.tsx:6
+#~ msgid "github"
+#~ msgstr "Show code of this project on GitHub"
+
+#. js-lingui-explicit-id
+#: src/ui/feed/user.tsx:10
+#~ msgid "visitUserProfile"
+#~ msgstr "Visit user profile"
 
 #: src/ui/footer.tsx:3
 #~ msgid "github"
@@ -36,29 +61,9 @@ msgstr "days"
 #~ msgid "headline"
 #~ msgstr "Music"
 
-#. js-lingui-explicit-id
-#: src/ui/feed/feed-item.tsx:28
-msgid "time.hours"
-msgstr "hours"
-
 #: src/ui/feed/feed-item.tsx:10
 #~ msgid "lastListened"
 #~ msgstr "Last listened"
-
-#. js-lingui-explicit-id
-#: src/ui/feed/feed-item.tsx:27
-msgid "time.minutes"
-msgstr "minutes"
-
-#. js-lingui-explicit-id
-#: src/ui/feed/feed-item.tsx:26
-msgid "time.seconds"
-msgstr "seconds"
-
-#. js-lingui-explicit-id
-#: src/ui/footer.tsx:6
-msgid "github"
-msgstr "Show code of this project on GitHub"
 
 #: src/ui/feed/feed-item.tsx:21
 #~ msgid "time.days"
@@ -75,11 +80,6 @@ msgstr "Show code of this project on GitHub"
 #: src/ui/feed/feed-item.tsx:15
 #~ msgid "time.seconds"
 #~ msgstr "seconds"
-
-#. js-lingui-explicit-id
-#: src/ui/feed/user.tsx:10
-msgid "visitUserProfile"
-msgstr "Visit user profile"
 
 #: src/ui/feed/user.tsx:5
 #~ msgid "visitUserProfile"

@@ -1,15 +1,13 @@
 import { UserRound } from "lucide-react";
-import { useLingui } from "@lingui/react";
+import { useTranslation } from "../../i18n/useTranslation.ts";
 
 interface UserProps {
   name: string | undefined;
 }
 
 export function User({ name }: UserProps) {
-  const { i18n } = useLingui();
-  const visitProfileText = i18n._("visitUserProfile", {}, {
-    message: "Visit user profile",
-  });
+  const t = useTranslation();
+  const visitProfileText = t("visitUserProfile", "Visit user profile");
 
   return (
     <div className="user">

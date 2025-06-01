@@ -1,11 +1,9 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
-import { useLingui } from "@lingui/react";
+import { useTranslation } from "../i18n/useTranslation";
 
 export function Footer() {
-  const { i18n } = useLingui();
-  const githubText = i18n._("github", {}, {
-    message: "Show code of this project on GitHub",
-  });
+  const t = useTranslation();
+  const githubText = t("github", "Show code of this project on GitHub");
 
   return (
     <footer className="footer">

@@ -1,18 +1,16 @@
 import { Headphones } from "lucide-react";
-import { useLingui } from "@lingui/react";
+import { useTranslation } from "../i18n/useTranslation";
 
 export function Header() {
-  const { i18n } = useLingui();
-  const headlineText = i18n._("headline", {}, { message: "Music" });
-  const lastListenedText = i18n._("lastListened", {}, { message: "Last listened" });
+  const t = useTranslation();
 
   return (
     <header className="header">
       <h1>
-        {headlineText}
+        {t("headline", "Music")}
       </h1>
       <h2>
-        <Headphones size={24} /> {lastListenedText}
+        <Headphones size={24} /> {t("lastListened", "Last listened")}
       </h2>
     </header>
   );

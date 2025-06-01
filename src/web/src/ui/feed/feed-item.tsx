@@ -3,7 +3,7 @@ import {
   localizeDateTimeBrowser,
   localizeRelativeTimeBrowser,
 } from "../../lib/localize-date.ts";
-import { useLingui } from "@lingui/react";
+import { useTranslation } from "../../i18n/useTranslation.ts";
 import { Marquee } from "./track.tsx";
 import { User } from "./user.tsx";
 import { Album } from "./album.tsx";
@@ -19,14 +19,14 @@ interface Props {
 
 export function FeedItem(props: Props) {
   const { artist, album, track, user, listenedAt } = props;
-  const { i18n } = useLingui();
+  const t = useTranslation();
 
   // Create time translations object
   const timeTranslations = {
-    seconds: i18n._("time.seconds", {}, { message: "seconds" }),
-    minutes: i18n._("time.minutes", {}, { message: "minutes" }),
-    hours: i18n._("time.hours", {}, { message: "hours" }),
-    days: i18n._("time.days", {}, { message: "days" }),
+    seconds: t("time.seconds", "seconds"),
+    minutes: t("time.minutes", "minutes"),
+    hours: t("time.hours", "hours"),
+    days: t("time.days", "days"),
   };
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
