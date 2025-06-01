@@ -16,6 +16,8 @@ const enMessages = {
 
 // Initialize Lingui with English messages
 i18n.load({
+  cs: enMessages.messages,
+  fr: enMessages.messages,
   en: enMessages.messages,
 });
 i18n.activate("en");

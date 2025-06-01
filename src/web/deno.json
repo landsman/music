@@ -5,7 +5,8 @@
     "preview": "deno run -A --node-modules-dir npm:vite preview",
     "serve": "deno run --allow-net --allow-read jsr:@std/http@1/file-server dist/",
     "extract": "bash ./scripts/lingui-extract.sh",
-    "compile": "bash ./scripts/lingui-compile.sh"
+    "compile": "bash ./scripts/lingui-compile.sh",
+    "add-language": "bash ./scripts/lingui-add-language.sh"
   },
   "compilerOptions": {
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
