@@ -8,6 +8,7 @@ import { Marquee } from "../track/track.tsx";
 import { User } from "../../user/user.tsx";
 import { Album } from "../album.tsx";
 import { Artist } from "../artist.tsx";
+import { i18n } from "../../../i18n/config.ts";
 
 interface Props {
   artist: string;
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export function FeedItem(props: Props) {
-  const { t } = useLingui();
+  const { t, i18n } = useLingui();
   const { artist, album, track, user, listenedAt } = props;
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
@@ -46,11 +47,13 @@ export function FeedItem(props: Props) {
           className="listened_at"
           title={localizeDateTimeBrowser(listenedAt)}
         >
-          {localizeRelativeTimeBrowser(listenedAt, {
-            seconds: t`seconds`,
-            minutes: t`minutes`,
-            hours: t`hours`,
-            days: t`days`,
+          {localizeRelativeTimeBrowser(listenedAt, i18n.locale, {
+            seconds: t`time.seconds`,
+            minutes: t`time.minutes`,
+            hours: t`time.hours`,
+            days: t`time.days`,
+            ago: t`time.ago`,
+            in: t`time.in`,
           })}
         </div>
         <User name={user} />

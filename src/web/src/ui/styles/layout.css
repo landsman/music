@@ -12,23 +12,32 @@
 }
 
 .footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
   padding-top: 20px;
   padding-bottom: 50px;
   text-align: center;
 
-  opacity: 0.6;
   font-size: 80%;
 
-  transition: opacity 0.5s ease-in-out;
-
-  &:hover {
-    opacity: 1;
+  & > * {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
   }
 
   a {
+    opacity: 0.6;
+    transition: opacity 0.5s ease-in-out;
+
     &:hover {
+      opacity: 1;
       color: inherit;
       background: inherit;
+      padding: inherit;
     }
   }
 }

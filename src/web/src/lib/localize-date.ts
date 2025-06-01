@@ -31,6 +31,8 @@ type LocalizeDate = {
   minutes: string;
   hours: string;
   days: string;
+  ago: string;
+  in: string;
 };
 
 export function localizeRelativeTime(
@@ -46,33 +48,66 @@ export function localizeRelativeTime(
   const days = hours / 24;
 
   let value: number;
-  let unit: string;
+  let unit: Intl.RelativeTimeFormatUnit;
 
   if (Math.abs(seconds) < 60) {
     value = seconds;
-    unit = i18n.seconds;
+    unit = "second";
   } else if (Math.abs(minutes) < 60) {
     value = minutes;
-    unit = i18n.minutes;
+    unit = "minute";
   } else if (Math.abs(hours) < 24) {
     value = hours;
-    unit = i18n.hours;
+    unit = "hour";
   } else {
     value = days;
-    unit = i18n.days;
+    unit = "day";
   }
 
-  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "always" });
-  return rtf.format(Math.round(value), unit as Intl.RelativeTimeFormatUnit);
+  // Use RTF directly for English
+  if (locale.startsWith("en")) {
+    const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "always" });
+    return rtf.format(Math.round(value), unit);
+  }
+
+  // Custom formatting for Czech
+  const roundedValue = Math.round(Math.abs(value));
+  let localizedUnit = "";
+
+  switch (unit) {
+    case "second":
+      localizedUnit = i18n.seconds;
+      break;
+    case "minute":
+      localizedUnit = i18n.minutes;
+      break;
+    case "hour":
+      localizedUnit = i18n.hours;
+      break;
+    case "day":
+      localizedUnit = i18n.days;
+      break;
+  }
+
+  // For past time (negative values)
+  if (value < 0) {
+    // Czech grammar: "před X [jednotkami]"
+    return `${i18n.ago} ${roundedValue} ${localizedUnit}`;
+  }
+
+  // For future time (positive values)
+  // Czech grammar: "za X [jednotkami]"
+  return `${i18n.in} ${roundedValue} ${localizedUnit}`;
 }
 
 export function localizeRelativeTimeBrowser(
   dateTime: string,
+  locale: string,
   localization: LocalizeDate,
 ): string {
   return localizeRelativeTime(
     new Date(dateTime),
-    navigator.language,
+    locale,
     localization,
   );
 }

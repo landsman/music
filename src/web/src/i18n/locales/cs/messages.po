@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2025-06-01 15:53+0000\n"
+"POT-Creation-Date: 2025-06-01 18:20+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: en\n"
+"Language: cs\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: \n"
@@ -14,40 +14,40 @@ msgstr ""
 "Plural-Forms: \n"
 
 msgid "copyToClipboard"
-msgstr "Copy to clipboard..."
+msgstr "Zkopírovat do schránky..."
 
 msgid "copyToClipboard.error"
-msgstr "Error during copy..."
+msgstr "Při kopírování nastala chyba..."
 
 msgid "copyToClipboard.success"
-msgstr "track copied, I bet you'll like it"
+msgstr "track zkopírován, myslím že se ti bude líbit"
 
 msgid "lastListened"
-msgstr "Last listened"
+msgstr "Naposledy posloucháno"
 
 msgid "projectName"
-msgstr "Music"
+msgstr "Hudba"
 
 msgid "showCodeOnGitHub"
-msgstr "Show code of this project on GitHub"
+msgstr "Zobrazit zdrojový kód tohoto projektu na GitHub"
 
 msgid "time.ago"
-msgstr "ago"
+msgstr "před"
 
 msgid "time.days"
-msgstr "days"
+msgstr "dny"
 
 msgid "time.hours"
-msgstr "hours"
+msgstr "hodiny"
 
 msgid "time.in"
-msgstr "in"
+msgstr "za"
 
 msgid "time.minutes"
-msgstr "minutes"
+msgstr "minuty"
 
 msgid "time.seconds"
-msgstr "seconds"
+msgstr "sekundy"
 
 msgid "visitUserProfile"
-msgstr "Visit user profile"
+msgstr "Navštívit profil uživatele"
