@@ -31,7 +31,7 @@ backend_build: ## Build backend application
 	@cd $(BACKEND_DIR) && deno task build
 
 backend_test: ## Run backend tests
-	@cd $(BACKEND_DIR) && deno test
+	@cd $(BACKEND_DIR) && deno task test
 
 backend_lint: ## Lint backend code
 	@cd $(BACKEND_DIR) && deno lint

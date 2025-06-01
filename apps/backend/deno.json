@@ -3,7 +3,7 @@
     "dev": "supabase start",
     "serve": "supabase functions serve --no-verify-jwt",
     "studio": "open http://localhost:54323",
-    "tests": "deno test --allow-all functions/tests/*",
+    "test": "deno test --allow-all functions/tests/*",
     "format": "deno fmt functions/*",
     "lint": "deno lint functions/*",
     "migration": "supabase migration new",
