@@ -5,7 +5,15 @@ import { lingui } from "@lingui/vite-plugin";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [deno(), react(), lingui()],
+  plugins: [
+    deno(),
+    react({
+      babel: {
+        plugins: ["@lingui/babel-plugin-lingui-macro"],
+      },
+    }),
+    lingui(),
+  ],
   optimizeDeps: {
     include: ["@tanstack/react-query"],
   },
