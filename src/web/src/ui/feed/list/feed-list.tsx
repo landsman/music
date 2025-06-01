@@ -61,6 +61,7 @@ export function FeedList(props: FeedListProps) {
       {!error && hasData && hasMoreData && onLoadMore && (
         <div className="feed__load-more">
           <button
+            type="button"
             onClick={onLoadMore}
             disabled={isFetching}
             className="feed__load-more-button"

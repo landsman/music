@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLingui } from "@lingui/react/macro";
 import { useQuery } from "../lib/react-query.tsx";
 import { getLastListenedTracks, ListenedTracks } from "../data/tracks-api.ts";
