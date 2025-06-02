@@ -10,6 +10,8 @@ import { Album } from "../album.tsx";
 import { Artist } from "../artist.tsx";
 
 interface Props {
+  isOpen: boolean;
+  onClick: (e: React.MouseEvent<HTMLElement>) => void;
   artist: string;
   album: string | null;
   track: string;
@@ -19,7 +21,7 @@ interface Props {
 
 export function FeedItem(props: Props) {
   const { t, i18n } = useLingui();
-  const { artist, album, track, user, listenedAt } = props;
+  const { isOpen, onClick, artist, album, track, user, listenedAt } = props;
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -28,34 +30,43 @@ export function FeedItem(props: Props) {
       success: t`copyToClipboard.success`,
       error: t`copyToClipboard.error`,
     });
+    alert("clicked");
   }
 
   return (
-    <div className="feed_row">
-      <div className="track_side" onClick={handleOnClick}>
-        <div className="track">
-          <Marquee text={track} />
+    <div
+      className={`feed_row ${isOpen ? "isOpen" : ""}`}
+      onClick={(e) => {
+        handleOnClick(e);
+        onClick(e);
+      }}
+    >
+      <div className="track_item">
+        <div className="track_side">
+          <div className="track">
+            <Marquee text={track} />
+          </div>
+          <div className="artist">
+            <Artist name={artist} />
+            <Album name={album} />
+          </div>
         </div>
-        <div className="artist">
-          <Artist name={artist} />
-          <Album name={album} />
+        <div className="user_side">
+          <div
+            className="listened_at"
+            title={localizeDateTimeBrowser(listenedAt)}
+          >
+            {localizeRelativeTimeBrowser(listenedAt, i18n.locale, {
+              seconds: t`time.seconds`,
+              minutes: t`time.minutes`,
+              hours: t`time.hours`,
+              days: t`time.days`,
+              ago: t`time.ago`,
+              in: t`time.in`,
+            })}
+          </div>
+          <User name={user} />
         </div>
-      </div>
-      <div className="user_side">
-        <div
-          className="listened_at"
-          title={localizeDateTimeBrowser(listenedAt)}
-        >
-          {localizeRelativeTimeBrowser(listenedAt, i18n.locale, {
-            seconds: t`time.seconds`,
-            minutes: t`time.minutes`,
-            hours: t`time.hours`,
-            days: t`time.days`,
-            ago: t`time.ago`,
-            in: t`time.in`,
-          })}
-        </div>
-        <User name={user} />
       </div>
     </div>
   );

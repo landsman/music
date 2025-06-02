@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FeedItem } from "../item/feed-item.tsx";
 import { ListenedTracks } from "../../../data/tracks-api.ts";
 import { MusicLoader } from "../../activity/loader.tsx";
@@ -14,6 +15,8 @@ interface FeedListProps {
 }
 
 export function FeedList(props: FeedListProps) {
+  const [trackIsOpen, setTrackIsOpen] = useState<string | null>(null);
+
   const {
     data,
     isLoading,
@@ -37,6 +40,8 @@ export function FeedList(props: FeedListProps) {
       {hasData && (data.map((item: ListenedTracks) => (
         <FeedItem
           key={item.id}
+          isOpen={trackIsOpen === item.id}
+          onClick={() => setTrackIsOpen(item.id)}
           artist={item.artist_name}
           album={item.album_name}
           track={item.track_name}
