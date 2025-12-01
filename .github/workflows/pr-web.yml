@@ -26,7 +26,7 @@ jobs:
         working-directory: src/web
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - uses: denoland/setup-deno@v2
