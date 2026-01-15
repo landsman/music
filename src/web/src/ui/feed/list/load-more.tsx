@@ -1,5 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
-import {usePlaySound} from "../../../lib/use-play-sound.ts";
+import { usePlaySound } from "../../../lib/use-play-sound.ts";
 
 interface LoadMoreProps {
   onLoadMore: () => void;

@@ -9,7 +9,7 @@ import { Marquee } from "../track/track.tsx";
 import { User } from "../../user/user.tsx";
 import { Album } from "../album.tsx";
 import { Artist } from "../artist.tsx";
-import {usePlaySound} from "../../../lib/use-play-sound.ts";
+import { usePlaySound } from "../../../lib/use-play-sound.ts";
 
 interface Props {
   index: number;
