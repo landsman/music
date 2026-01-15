@@ -88,20 +88,20 @@ export function useSound() {
 
   const play = useCallback(
     async (sound: SoundType) => {
-      console.log("[useSound] play called:", sound, {
+      console.debug("[useSound] play called:", sound, {
         isEnabled,
         prefersReducedMotion,
       });
 
       // Skip if sounds are disabled or user prefers reduced motion
       if (!isEnabled || prefersReducedMotion) {
-        console.log("[useSound] skipping - disabled or reduced motion");
+        console.debug("[useSound] skipping - disabled or reduced motion");
         return;
       }
 
       try {
         const ctx = getAudioContext();
-        console.log("[useSound] AudioContext state:", ctx.state);
+        console.debug("[useSound] AudioContext state:", ctx.state);
         const config = SOUND_CONFIGS[sound];
 
         // Resume context if suspended (browser autoplay policy)
