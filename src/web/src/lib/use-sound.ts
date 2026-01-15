@@ -88,7 +88,10 @@ export function useSound() {
 
   const play = useCallback(
     async (sound: SoundType) => {
-      console.log("[useSound] play called:", sound, { isEnabled, prefersReducedMotion });
+      console.log("[useSound] play called:", sound, {
+        isEnabled,
+        prefersReducedMotion,
+      });
 
       // Skip if sounds are disabled or user prefers reduced motion
       if (!isEnabled || prefersReducedMotion) {
