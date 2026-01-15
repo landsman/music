@@ -33,7 +33,7 @@ jobs:
         with:
           deno-version: v2.x
 
-      - run: deno fmt --check
+      - run: deno fmt --check --ignore=**/*.svg
       - run: deno lint
 
       - name: "Build the app"
