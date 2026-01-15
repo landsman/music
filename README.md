@@ -34,4 +34,4 @@ download 500 items.
   [connected to Spotify](https://www.last.fm/about/trackmymusic),
   [API key](https://www.last.fm/api/authentication)
 - [Sentry](https://sentry.io/) for error notifications
-- [BetterStack] for uptime monitoring
+- [BetterStack](https://betterstack.com/uptime) for uptime monitoring
