@@ -1,4 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
+import { useSound } from "../../../lib/use-sound.ts";
 
 interface LoadMoreProps {
   onLoadMore: () => void;
@@ -11,16 +12,22 @@ export function LoadMore(
   { onLoadMore, isFetching, hasMoreData, error }: LoadMoreProps,
 ) {
   const { t } = useLingui();
+  const { playClick } = useSound();
 
   if (error || !hasMoreData || !onLoadMore) {
     return null;
+  }
+
+  function handleClick() {
+    playClick();
+    onLoadMore();
   }
 
   return (
     <div className="feed__load-more">
       <button
         type="button"
-        onClick={onLoadMore}
+        onClick={handleClick}
         disabled={isFetching}
         className="feed__load-more-button"
       >

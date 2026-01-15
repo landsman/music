@@ -4,6 +4,7 @@ import {
   localizeDateTimeBrowser,
   localizeRelativeTimeBrowser,
 } from "../../../lib/localize-date.ts";
+import { useSound } from "../../../lib/use-sound.ts";
 import { Marquee } from "../track/track.tsx";
 import { User } from "../../user/user.tsx";
 import { Album } from "../album.tsx";
@@ -22,16 +23,25 @@ interface Props {
 
 export function FeedItem(props: Props) {
   const { t, i18n } = useLingui();
+  const { playSuccess, playError } = useSound();
   const { index, isOpen, onClick, artist, album, track, user, listenedAt } =
     props;
 
-  function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
+  async function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
-    toast.promise(navigator.clipboard.writeText(`${artist} - ${track}`), {
-      loading: t`copyToClipboard`,
-      success: t`copyToClipboard.success`,
-      error: t`copyToClipboard.error`,
-    });
+    try {
+      await toast.promise(
+        navigator.clipboard.writeText(`${artist} - ${track}`),
+        {
+          loading: t`copyToClipboard`,
+          success: t`copyToClipboard.success`,
+          error: t`copyToClipboard.error`,
+        },
+      );
+      playSuccess();
+    } catch {
+      playError();
+    }
   }
 
   return (
