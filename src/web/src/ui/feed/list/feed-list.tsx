@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 import { FeedItem } from "../item/feed-item.tsx";
 import { ListenedTracks } from "../../../data/tracks-api.ts";
 import { MusicLoader } from "../../activity/loader.tsx";
@@ -16,6 +17,9 @@ interface FeedListProps {
 
 export function FeedList(props: FeedListProps) {
   const [trackIsOpen, setTrackIsOpen] = useState<string | null>(null);
+  const feedRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(feedRef, () => setTrackIsOpen(null));
 
   const {
     data,
@@ -34,12 +38,13 @@ export function FeedList(props: FeedListProps) {
   const hasData = data && data.length > 0;
 
   return (
-    <div className="feed" data-fetching={isFetching}>
+    <div ref={feedRef} className="feed" data-fetching={isFetching}>
       {isFetching && <MusicLoader size={32} className="feed__fetching" />}
 
-      {hasData && (data.map((item: ListenedTracks) => (
+      {hasData && (data.map((item: ListenedTracks, index: number) => (
         <FeedItem
           key={item.id}
+          index={index}
           isOpen={trackIsOpen === item.id}
           onClick={() => setTrackIsOpen(item.id)}
           artist={item.artist_name}
@@ -52,7 +57,10 @@ export function FeedList(props: FeedListProps) {
 
       {!error && hasMoreData && onLoadMore && (
         <LoadMore
-          onLoadMore={onLoadMore}
+          onLoadMore={() => {
+            setTrackIsOpen(null);
+            onLoadMore();
+          }}
           isFetching={isFetching}
           hasMoreData={hasMoreData}
           error={error}
