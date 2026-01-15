@@ -30,7 +30,6 @@ export function FeedItem(props: Props) {
       success: t`copyToClipboard.success`,
       error: t`copyToClipboard.error`,
     });
-    alert("clicked");
   }
 
   return (
