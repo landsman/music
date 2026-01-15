@@ -37,9 +37,10 @@ export function FeedList(props: FeedListProps) {
     <div className="feed" data-fetching={isFetching}>
       {isFetching && <MusicLoader size={32} className="feed__fetching" />}
 
-      {hasData && (data.map((item: ListenedTracks) => (
+      {hasData && (data.map((item: ListenedTracks, index: number) => (
         <FeedItem
           key={item.id}
+          index={index}
           isOpen={trackIsOpen === item.id}
           onClick={() => setTrackIsOpen(item.id)}
           artist={item.artist_name}

@@ -10,6 +10,7 @@ import { Album } from "../album.tsx";
 import { Artist } from "../artist.tsx";
 
 interface Props {
+  index: number;
   isOpen: boolean;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
   artist: string;
@@ -21,7 +22,8 @@ interface Props {
 
 export function FeedItem(props: Props) {
   const { t, i18n } = useLingui();
-  const { isOpen, onClick, artist, album, track, user, listenedAt } = props;
+  const { index, isOpen, onClick, artist, album, track, user, listenedAt } =
+    props;
 
   function handleOnClick(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -35,6 +37,7 @@ export function FeedItem(props: Props) {
   return (
     <div
       className={`feed_row ${isOpen ? "isOpen" : ""}`}
+      style={{ "--animation-order": index } as React.CSSProperties}
       onClick={(e) => {
         handleOnClick(e);
         onClick(e);

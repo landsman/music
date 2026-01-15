@@ -1,6 +1,17 @@
 @import "../item/feed-item.module.css";
 @import "../track/track.module.css";
 
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .feed {
   position: relative;
 
@@ -27,6 +38,9 @@
 .feed_row {
   padding-top: 10px;
   background: transparent;
+
+  animation: fadeSlideIn 0.3s ease-out both;
+  animation-delay: calc(min(var(--animation-order, 0), 10) * 30ms);
 
   transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 
