@@ -4,11 +4,12 @@ import {
   localizeDateTimeBrowser,
   localizeRelativeTimeBrowser,
 } from "../../../lib/localize-date.ts";
-import { useSound } from "../../../lib/use-sound.ts";
+
 import { Marquee } from "../track/track.tsx";
 import { User } from "../../user/user.tsx";
 import { Album } from "../album.tsx";
 import { Artist } from "../artist.tsx";
+import {usePlaySound} from "../../../lib/use-play-sound.ts";
 
 interface Props {
   index: number;
@@ -23,7 +24,7 @@ interface Props {
 
 export function FeedItem(props: Props) {
   const { t, i18n } = useLingui();
-  const { playSuccess, playError } = useSound();
+  const { playSuccess, playError } = usePlaySound();
   const { index, isOpen, onClick, artist, album, track, user, listenedAt } =
     props;
 

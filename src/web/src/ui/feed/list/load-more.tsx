@@ -1,5 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
-import { useSound } from "../../../lib/use-sound.ts";
+import {usePlaySound} from "../../../lib/use-play-sound.ts";
 
 interface LoadMoreProps {
   onLoadMore: () => void;
@@ -12,7 +12,7 @@ export function LoadMore(
   { onLoadMore, isFetching, hasMoreData, error }: LoadMoreProps,
 ) {
   const { t } = useLingui();
-  const { playClick } = useSound();
+  const { playClick } = usePlaySound();
 
   if (error || !hasMoreData || !onLoadMore) {
     return null;
