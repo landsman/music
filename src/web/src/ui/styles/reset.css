@@ -66,7 +66,8 @@ h2 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid
+    color-mix(in oklab, var(--color-neutral-700) 75%, transparent);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -74,14 +75,18 @@ button {
   color: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: #636363;
+}
+
+button:active {
+  background-color: #0f0f0f;
 }
 
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
 }
