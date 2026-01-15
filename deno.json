@@ -6,7 +6,8 @@
   ],
   "tasks": {
     "hook": "deno run --allow-read --allow-run --allow-write https://deno.land/x/deno_hooks@0.1.1/mod.ts",
-    "dev": "supabase start",
+    "start": "supabase start",
+    "down": "supabase stop",
     "serve": "supabase functions serve --no-verify-jwt",
     "studio": "open http://localhost:54323",
     "tests": "deno test --allow-all supabase/functions/tests/*",
