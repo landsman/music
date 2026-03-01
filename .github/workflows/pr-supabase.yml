@@ -39,7 +39,7 @@ jobs:
       - run: deno task tests --reload
 
       - name: "Generate cron jobs"
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: cron_jobs.sql
           path: cron_jobs.sql
