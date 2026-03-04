@@ -1,5 +1,7 @@
 {
   "imports": {
-    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.49.8"
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.49.8",
+    "@sentry/deno": "npm:@sentry/deno@^9.1.0",
+    "@std/dotenv/load": "jsr:@std/dotenv@^0.225.3/load"
   }
 }

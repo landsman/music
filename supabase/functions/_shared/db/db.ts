@@ -1,7 +1,4 @@
-import {
-  createClient,
-  SupabaseClient,
-} from "https://esm.sh/@supabase/supabase-js@2.49.8";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "../../../../src/shared/db.ts";
 
 export function initClient(supabaseUrl: string, supabaseKey: string) {

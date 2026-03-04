@@ -1,17 +1,17 @@
-import "https://deno.land/std/dotenv/load.ts";
+import "@std/dotenv/load";
 import { lastFmUserRecentTracksCron } from "../lastfm-user-recent-tracks/sync-tracks.ts";
 import { lastFmLibraryArtistsCron } from "../lastfm-library-artists/sync-artists.ts";
 
 /**
  * Use Deno tests to generate us the file.
  */
-Deno.test(async function generateCronJobQuery() {
+Deno.test(async function generateCronJobQuery(t) {
   const env = {
     PROJECT_ID: Deno.env.get("PROJECT_ID")!,
     PROJECT_PUBLISHABLE_KEY: Deno.env.get("PROJECT_PUBLISHABLE_KEY")!,
   };
 
-  Deno.test("verify env variables exist", () =>
+  await t.step("verify env variables exist", () =>
     Object.keys(env).forEach(
       (key) =>
         Deno.env.get(key) || (() => {
