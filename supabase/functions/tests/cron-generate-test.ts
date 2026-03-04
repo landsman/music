@@ -1,4 +1,4 @@
-import "https://deno.land/std/dotenv/load.ts";
+import "@std/dotenv/load";
 import { lastFmUserRecentTracksCron } from "../lastfm-user-recent-tracks/sync-tracks.ts";
 import { lastFmLibraryArtistsCron } from "../lastfm-library-artists/sync-artists.ts";
 
