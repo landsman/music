@@ -5,13 +5,13 @@ import { lastFmLibraryArtistsCron } from "../lastfm-library-artists/sync-artists
 /**
  * Use Deno tests to generate us the file.
  */
-Deno.test(async function generateCronJobQuery() {
+Deno.test(async function generateCronJobQuery(t) {
   const env = {
     PROJECT_ID: Deno.env.get("PROJECT_ID")!,
     PROJECT_PUBLISHABLE_KEY: Deno.env.get("PROJECT_PUBLISHABLE_KEY")!,
   };
 
-  Deno.test("verify env variables exist", () =>
+  await t.step("verify env variables exist", () =>
     Object.keys(env).forEach(
       (key) =>
         Deno.env.get(key) || (() => {
