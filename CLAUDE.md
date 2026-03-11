@@ -2,6 +2,18 @@
 
 This file provides guidance for Claude Code when working with this repository.
 
+## Supabase MCP
+
+This project has Supabase MCP configured (`.mcp.json`). Use it for database-related tasks:
+- Exploring schema, tables, and data
+- Running SQL queries against the production database
+- Inspecting Edge Function logs and configurations
+- Reviewing migrations and RLS policies
+
+**Prefer MCP tools over raw SQL commands** when querying or inspecting the database. On first use, Claude Code will prompt you to authenticate with your Supabase account via browser.
+
+For local Supabase (when running `deno task start`), the MCP endpoint is `http://localhost:54321/mcp`.
+
 ## Development Setup Notes
 
 **Local Supabase is NOT required for most frontend work.** The web app can connect directly to the production Supabase API in read-only mode, which is sufficient for the majority of frontend development and testing.
