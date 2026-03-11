@@ -1,5 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
-import { useUsers } from "../../data/use-users.ts";
+import { useUsers } from "../../data/use-users";
 
 interface UserFilterProps {
   value: string;

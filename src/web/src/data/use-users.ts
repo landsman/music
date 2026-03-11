@@ -1,5 +1,5 @@
-import { useQuery } from "../lib/react-query.tsx";
-import { getUsers, User } from "./users-api.ts";
+import { useQuery } from "../lib/react-query";
+import { getUsers, User } from "./users-api";
 
 export function useUsers() {
   return useQuery<User[]>({
