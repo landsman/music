@@ -11,6 +11,7 @@ export type ListenedTracks = Omit<Listened, "hooman_id"> & {
 export async function getLastListenedTracks(
   signal: AbortSignal,
   page: number = 0,
+  hoomanId?: string,
 ): Promise<ListenedTracks[]> {
   const limit = 50;
   const offset = page * limit;
@@ -25,11 +26,11 @@ export async function getLastListenedTracks(
     console.log("Supabase health check:", healthCheck);
 
     // Now perform the actual query
-    const { data, error } = await supabase
+    let query = supabase
       .from("listened")
       .select<string, ListenedTracks>(`
-              id, 
-              artist_name, 
+              id,
+              artist_name,
               track_name,
               album_lastfm_id,
               album_name,
@@ -44,6 +45,12 @@ export async function getLastListenedTracks(
       .order("listened_at", { ascending: false })
       .range(offset, offset + limit - 1)
       .abortSignal(signal);
+
+    if (hoomanId) {
+      query = query.eq("hooman_id", hoomanId);
+    }
+
+    const { data, error } = await query;
 
     console.log("Supabase response:", {
       dataReceived: !!data,

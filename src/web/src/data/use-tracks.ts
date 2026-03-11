@@ -2,15 +2,21 @@ import { useEffect, useState } from "react";
 import { useQuery } from "../lib/react-query.tsx";
 import { getLastListenedTracks, ListenedTracks } from "./tracks-api.ts";
 
-export function useTracks() {
+export function useTracks(hoomanId?: string) {
   const [page, setPage] = useState(0);
   const [allTracks, setAllTracks] = useState<ListenedTracks[]>([]);
+
+  // Reset when user filter changes
+  useEffect(() => {
+    setPage(0);
+    setAllTracks([]);
+  }, [hoomanId]);
 
   const { isLoading, isFetching, error, data = [], refetch } = useQuery<
     ListenedTracks[]
   >({
-    queryKey: ["lastListenedTracks", page],
-    queryFn: ({ signal }) => getLastListenedTracks(signal, page),
+    queryKey: ["lastListenedTracks", page, hoomanId],
+    queryFn: ({ signal }) => getLastListenedTracks(signal, page, hoomanId),
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     staleTime: 5 * 60 * 1000,

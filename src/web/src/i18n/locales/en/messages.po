@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "allUsers"
+msgstr "Hoomans"
+
 msgid "copyToClipboard"
 msgstr "Copy to clipboard..."
 
