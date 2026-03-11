@@ -19,7 +19,7 @@ export async function syncArtists(
 ): Promise<string> {
   console.log(`syncArtists - Last.fm user: ${lastFmUser}`);
 
-  const supabaseClient = initClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+  const supabaseClient = initClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
   const artistsTable = new ArtistTable(supabaseClient);
 
   const hooman = new HoomanTable(supabaseClient);

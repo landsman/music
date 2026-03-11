@@ -15,7 +15,7 @@ export async function syncTracks(
 ): Promise<string> {
   console.log(`syncTracks - Last.fm user: ${lastFmUser}`);
 
-  const supabaseClient = initClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+  const supabaseClient = initClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
   const listened = new ListenedTable(supabaseClient);
 
   const hooman = new HoomanTable(supabaseClient);
