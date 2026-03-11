@@ -135,3 +135,7 @@ Required in `.env` or Supabase secrets:
 - Deno formatting: 2-space indent, double quotes, semicolons
 - Run `deno task format` before committing
 - Run `deno task lint` to check for issues
+
+## Git
+
+When creating new files, always stage them with `git add <file>` after creating them.
