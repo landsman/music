@@ -36,6 +36,8 @@
     "react-loading-indicators": "npm:react-loading-indicators@^1.0.0",
     "use-sound": "npm:use-sound@^5.0.0",
     "usehooks-ts": "npm:usehooks-ts@^3.1.1",
-    "vite": "npm:vite@^7.3.1"
+    "vite": "npm:vite@^7.3.1",
+    "@sentry/react": "npm:@sentry/react@^9.0.0",
+    "@sentry/vite-plugin": "npm:@sentry/vite-plugin@^3.0.0"
   }
 }
