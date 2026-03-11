@@ -114,7 +114,8 @@
       "Bash(du *)",
       "Bash(df *)",
 
-      "Bash(BASH_ENV=\"\" bash -c *)"
+      "Bash(BASH_ENV=\"\" bash -c *)",
+      "mcp__supabase__*"
     ],
     "deny": [
       "Bash(git push*)",
