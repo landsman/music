@@ -23,8 +23,9 @@ export async function getRecentTracks(
 
         // UNIX timestamp format (integer number of seconds since 00:00:00, January 1st 1970 UTC).
         // This must be in the UTC time zone.
-        from: from ? from : "",
-        to: to ? to : "",
+        // Omit entirely when null — sending from= (empty string) causes Last.fm to return an error response.
+        ...(from ? { from } : {}),
+        ...(to ? { to } : {}),
       },
     }),
   );
