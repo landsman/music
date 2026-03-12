@@ -22,7 +22,6 @@
     "@lingui/core": "npm:@lingui/core@^5.9.2",
     "@lingui/detect-locale": "npm:@lingui/detect-locale@^5.9.2",
     "@lingui/react": "npm:@lingui/react@^5.9.2",
-    "@lingui/vite-plugin": "npm:@lingui/vite-plugin@^5.9.2",
     "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.49.3",
     "@tanstack/react-query": "npm:@tanstack/react-query@^5.69.0",
     "@types/react": "npm:@types/react@^19.1.6",
