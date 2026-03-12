@@ -19,6 +19,8 @@ export class SentryErrorHandler {
     Sentry.init({
       dsn: Deno.env.get("SENTRY_DSN")!,
       defaultIntegrations: false,
+      release: Deno.env.get("SENTRY_RELEASE"),
+      environment: "production",
       tracesSampleRate: 1.0,
       // deno-lint-ignore ban-ts-comment
       // @ts-ignore

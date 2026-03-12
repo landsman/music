@@ -17,9 +17,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - uses: supabase/setup-cli@v1
         with:
           version: 2.24.3
+
+      - name: "Sentry - Create release"
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
+        run: |
+          npx @sentry/cli releases new ${{ github.sha }}
+          npx @sentry/cli releases set-commits ${{ github.sha }} --auto
+          npx @sentry/cli releases deploys ${{ github.sha }} new -e production
 
       - name: "Supabase - Remote Connect"
         env:
@@ -30,4 +42,12 @@ jobs:
         run: |
           supabase link --project-ref $PROJECT_ID
           supabase db push
+          supabase secrets set SENTRY_RELEASE=${{ github.sha }}
           supabase functions deploy --use-api
+
+      - name: "Sentry - Finalize release"
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
+        run: npx @sentry/cli releases finalize ${{ github.sha }}
