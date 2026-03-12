@@ -22,6 +22,16 @@ export async function getLibraryArtists(
   );
   return await fetch(url)
     .then((res) => res.json())
+    .then((data) => {
+      if (!data?.artists) {
+        console.error(
+          "getLibraryArtists - unexpected response:",
+          JSON.stringify(data),
+        );
+        return null;
+      }
+      return data as ArtistsResponse;
+    })
     .catch((err) => {
       console.error(err);
       return null;
