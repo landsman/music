@@ -15,3 +15,17 @@ export const env: Variables = {
   LASTFM_API_KEY: Deno.env.get("LASTFM_API_KEY")!,
   LASTFM_USERNAME: Deno.env.get("LASTFM_USERNAME")!,
 };
+
+const REQUIRED_KEYS: (keyof Variables)[] = [
+  "SUPABASE_URL",
+  "SUPABASE_ANON_KEY",
+  "SUPABASE_SERVICE_ROLE_KEY",
+  "LASTFM_API_KEY",
+  "LASTFM_USERNAME",
+];
+
+for (const key of REQUIRED_KEYS) {
+  if (!env[key]) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+}
