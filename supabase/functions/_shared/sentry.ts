@@ -47,4 +47,20 @@ export class SentryErrorHandler {
     }
     console.error(e);
   }
+
+  /**
+   * Wraps a cron job function with Sentry Cron Monitoring check-ins.
+   * Reports in_progress at start, ok on success, error on failure.
+   * In non-production mode, the function runs without any Sentry calls.
+   */
+  withCronMonitor<T>(
+    monitorSlug: string,
+    monitorConfig: Sentry.MonitorConfig,
+    fn: () => Promise<T>,
+  ): Promise<T> {
+    if (!this.isProduction) {
+      return fn();
+    }
+    return Sentry.withMonitor(monitorSlug, fn, monitorConfig);
+  }
 }

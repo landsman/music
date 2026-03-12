@@ -9,7 +9,18 @@ sentryHandler.init();
 Deno.serve(async (req) => {
   try {
     const lastFmUser = await getLastFmUser(req, env.LASTFM_USERNAME);
-    const result = await syncArtists(env, lastFmUser);
+    const monitorSlug = `lastfm_library_artists_${lastFmUser.toLowerCase()}`;
+
+    const result = await sentryHandler.withCronMonitor(
+      monitorSlug,
+      {
+        schedule: { type: "crontab", value: "*/30 * * * *" },
+        checkinMargin: 10,
+        maxRuntime: 25,
+        timezone: "UTC",
+      },
+      () => syncArtists(env, lastFmUser),
+    );
 
     return new Response(result, {
       status: 200,
