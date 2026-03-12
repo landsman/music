@@ -9,7 +9,18 @@ sentryHandler.init();
 Deno.serve(async (req) => {
   try {
     const lastFmUser = await getLastFmUser(req, env.LASTFM_USERNAME);
-    const result = await syncTracks(env, lastFmUser);
+    const monitorSlug = `lastfm_user_recent_tracks_${lastFmUser.toLowerCase()}`;
+
+    const result = await sentryHandler.withCronMonitor(
+      monitorSlug,
+      {
+        schedule: { type: "crontab", value: "*/5 * * * *" },
+        checkinMargin: 5,
+        maxRuntime: 4,
+        timezone: "UTC",
+      },
+      () => syncTracks(env, lastFmUser),
+    );
 
     return new Response(result, {
       status: 200,
