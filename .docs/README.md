@@ -2,3 +2,4 @@
 
 - [Localhost](_localhost.md)
 - [CRON](_cron.md)
+- [IntelliJ IDEA](_intellij.md)
