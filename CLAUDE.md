@@ -136,10 +136,6 @@ Required in `.env` or Supabase secrets:
 - Run `deno task format` before committing
 - Run `deno task lint` to check for issues
 
-## Caveats
-
-Read `CAVEATS.md` at the project root before working on dependencies or the build setup. It documents known workarounds and temporary hacks that should be revisited when upgrading packages.
-
 ## Git
 
 When creating new files, always stage them with `git add <file>` after creating them.

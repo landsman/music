@@ -2,6 +2,7 @@ import process from "node:process";
 import { defineConfig } from "vite";
 import deno from "@deno/vite-plugin";
 import react from "@vitejs/plugin-react";
+import { lingui } from "@lingui/vite-plugin";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vite.dev/config/
@@ -13,6 +14,7 @@ export default defineConfig({
         plugins: ["@lingui/babel-plugin-lingui-macro"],
       },
     }),
+    lingui(),
     sentryVitePlugin({
       org: process.env.SENTRY_ORG,
       project: process.env.SENTRY_PROJECT,
