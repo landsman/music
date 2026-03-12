@@ -33,7 +33,10 @@ export async function getRecentTracks(
     .then((res) => res.json())
     .then((data) => {
       if (!data?.recenttracks) {
-        console.error("getRecentTracks - unexpected response:", JSON.stringify(data));
+        console.error(
+          "getRecentTracks - unexpected response:",
+          JSON.stringify(data),
+        );
         return null;
       }
       return data as RecentTracks;
