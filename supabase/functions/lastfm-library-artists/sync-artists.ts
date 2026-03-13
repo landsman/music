@@ -93,7 +93,10 @@ export async function syncArtists(
     const { message, error } = await artistsTable.sync(toInsert);
     if (error) {
       console.error("artist table sync error", error);
-      throw new Error(error.toString());
+      const errorMessage = error instanceof Error
+        ? error.message
+        : (error as { message?: string }).message ?? JSON.stringify(error);
+      throw new Error(`artist table sync error: ${errorMessage}`);
     }
 
     if (message) {
@@ -141,7 +144,10 @@ async function pairArtistWithHooman(
   const { message, error } = await hoomanArtistTable.pair(toAssign);
   if (error) {
     console.error("pair hooman to artist error", error);
-    throw new Error(error.toString());
+    const errorMessage = error instanceof Error
+      ? error.message
+      : (error as { message?: string }).message ?? JSON.stringify(error);
+    throw new Error(`pair hooman to artist error: ${errorMessage}`);
   }
 
   if (message) {

@@ -116,7 +116,10 @@ export async function syncTracks(
 
     const { error, message } = await listened.save(toInsert);
     if (error) {
-      throw new Error(error.toString());
+      const errorMessage = error instanceof Error
+        ? error.message
+        : (error as { message?: string }).message ?? JSON.stringify(error);
+      throw new Error(`listened save error: ${errorMessage}`);
     }
 
     if (message) {
