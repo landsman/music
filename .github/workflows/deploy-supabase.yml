@@ -13,7 +13,9 @@ on:
 jobs:
   deploy:
     environment: production
-    runs-on: ubuntu-latest
+    # Self-hosted runner on Raspberry Pi 5
+    # Runner setup: https://github.com/landsman/raspberry-pi/tree/main/github-runner
+    runs-on: [self-hosted, pi5]
 
     steps:
       - uses: actions/checkout@v6
