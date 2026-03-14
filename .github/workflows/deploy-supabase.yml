@@ -10,10 +10,15 @@ on:
       - "!**.md"
   workflow_dispatch:
 
+# Limit GITHUB_TOKEN to read-only — all write operations use explicit secrets above
+permissions:
+  contents: read
+
 jobs:
   deploy:
     environment: production
-    runs-on: ubuntu-latest
+    # Self-hosted runner on Raspberry Pi 5 — see .docs/_self-hosted-runner.md
+    runs-on: [self-hosted, pi5]
 
     steps:
       - uses: actions/checkout@v6
