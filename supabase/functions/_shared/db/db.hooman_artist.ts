@@ -17,7 +17,6 @@ export class HoomanArtistTable extends BaseTable {
       .from("hooman_artist")
       .upsert(artists, {
         onConflict: `"hooman_id","artist_id"`,
-      })
-      .select();
+      });
   }
 }
