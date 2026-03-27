@@ -2,6 +2,16 @@
 
 This file provides guidance for Claude Code when working with this repository.
 
+## First-time Setup
+
+Run once after cloning:
+
+```bash
+make setup
+```
+
+This copies `.claude/settings.template.json` → `.claude/settings.local.json`. Then run `/mcp` inside Claude Code to authenticate with Supabase via browser (one-time OAuth).
+
 ## Supabase MCP
 
 This project has Supabase MCP configured (`.mcp.json`). Use it for database-related tasks:
@@ -10,7 +20,7 @@ This project has Supabase MCP configured (`.mcp.json`). Use it for database-rela
 - Inspecting Edge Function logs and configurations
 - Reviewing migrations and RLS policies
 
-**Prefer MCP tools over raw SQL commands** when querying or inspecting the database. On first use, Claude Code will prompt you to authenticate with your Supabase account via browser.
+**Prefer MCP tools over raw SQL commands** when querying or inspecting the database.
 
 For local Supabase (when running `deno task start`), the MCP endpoint is `http://localhost:54321/mcp`.
 

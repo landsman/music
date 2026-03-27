@@ -1,7 +1,25 @@
 WEB := src/web
+GREEN := \033[0;32m
+END := \033[0m
 
 -include .env
 export
+
+##
+## Setup
+##
+.PHONY: setup
+
+setup: ## First-time project setup: copy Claude Code settings template
+	@if [ -f .claude/settings.local.json ]; then \
+		echo "$(GREEN).claude/settings.local.json already exists, skipping$(END)"; \
+	else \
+		cp .claude/settings.template.json .claude/settings.local.json; \
+		echo "$(GREEN)Created .claude/settings.local.json from template$(END)"; \
+	fi
+	@echo ""
+	@echo "Next: in Claude Code, run /mcp to authenticate with Supabase via browser (one-time OAuth)."
+
 
 guard-DATABASE_URL:
 	@[ -n "$(DATABASE_URL)" ] || { echo "Error: DATABASE_URL is not set. Add it to .env or export it."; exit 1; }
