@@ -134,6 +134,8 @@ export async function syncTracks(
   return "ok";
 }
 
+export const RECENT_TRACKS_CRON_SCHEDULE = "*/5 * * * *";
+
 /** cron job for the edge function */
 export const lastFmUserRecentTracksCron = (
   projectId: string,
@@ -145,7 +147,7 @@ export const lastFmUserRecentTracksCron = (
     publishableKey,
     edgeFunctionFolderName: "lastfm-user-recent-tracks",
     uniqueCronJobName: `lastfm_user_recent_tracks_${lastFmUser.toLowerCase()}`,
-    cronTabTiming: "*/5 * * * *",
+    cronTabTiming: RECENT_TRACKS_CRON_SCHEDULE,
     body: {
       lastFmUser: lastFmUser,
     },

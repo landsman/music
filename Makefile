@@ -44,7 +44,12 @@ decision: ## Create a new decision record (usage: make decision, or make decisio
 	echo "- [$${next}]($$basename) — $$title" >> .docs/decision-records/README.md; \
 	git add "$$file" .docs/decision-records/README.md; \
 	echo "$(GREEN)Created: $$file$(END)"; \
-	if [ -z "$(TITLE)" ]; then open "$$file"; fi
+	if [ -z "$(TITLE)" ]; then \
+		case "$$(uname)" in \
+			Darwin) open "$$file" ;; \
+			Linux) xdg-open "$$file" ;; \
+		esac; \
+	fi
 
 
 ##
@@ -52,7 +57,7 @@ decision: ## Create a new decision record (usage: make decision, or make decisio
 ##
 DIAG := supabase/diagnostics/egress
 
-.PHONY: diag-check diag-rows diag-avg-rows diag-tables diag-seq-scans diag-active diag-egress
+.PHONY: diag-check diag-rows diag-avg-rows diag-tables diag-seq-scans diag-active
 
 diag-check: guard-DATABASE_URL ## Check pg_stat_statements extension is enabled
 	psql $(DATABASE_URL) -f $(DIAG)/00_check_pg_stat_statements.sql
@@ -71,9 +76,6 @@ diag-seq-scans: guard-DATABASE_URL ## Tables being full-scanned without index us
 
 diag-active: guard-DATABASE_URL ## Live view of currently running queries
 	psql $(DATABASE_URL) -f $(DIAG)/05_active_queries.sql
-
-diag-egress: guard-DATABASE_URL ## Estimated egress (MB) per query
-	psql $(DATABASE_URL) -f $(DIAG)/06_estimated_egress_per_query.sql
 
 
 ##

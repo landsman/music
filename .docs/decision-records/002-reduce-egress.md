@@ -128,7 +128,7 @@ SELECT
   calls,
   rows,
   round(total_exec_time::numeric, 2) AS total_ms,
-  round((total_exec_time / calls)::numeric, 2) AS avg_ms
+  round(mean_exec_time::numeric, 2) AS avg_ms
 FROM pg_stat_statements
 WHERE query NOT LIKE '%pg_stat%'
 ORDER BY rows DESC

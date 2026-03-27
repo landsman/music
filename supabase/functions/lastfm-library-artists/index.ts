@@ -1,7 +1,7 @@
 import { SentryErrorHandler } from "../_shared/sentry.ts";
 import { env } from "../_shared/env.ts";
 import { getLastFmUser } from "../_shared/lastfm/request-fields.ts";
-import { syncArtists } from "./sync-artists.ts";
+import { LIBRARY_ARTISTS_CRON_SCHEDULE, syncArtists } from "./sync-artists.ts";
 
 const sentryHandler = new SentryErrorHandler(env.DEVELOPER_MODE);
 sentryHandler.init();
@@ -14,7 +14,7 @@ Deno.serve(async (req) => {
     const result = await sentryHandler.withCronMonitor(
       monitorSlug,
       {
-        schedule: { type: "crontab", value: "0 */2 * * *" },
+        schedule: { type: "crontab", value: LIBRARY_ARTISTS_CRON_SCHEDULE },
         checkinMargin: 10,
         maxRuntime: 25,
         timezone: "UTC",
@@ -28,7 +28,7 @@ Deno.serve(async (req) => {
     });
   } catch (e) {
     sentryHandler.logFatalError(e);
-    return new Response("error occured, please check sentry/supabase logs", {
+    return new Response("error occurred, please check sentry/supabase logs", {
       status: 500,
       headers: { "Content-Type": "text/plain" },
     });

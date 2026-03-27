@@ -157,6 +157,8 @@ async function pairArtistWithHooman(
   }
 }
 
+export const LIBRARY_ARTISTS_CRON_SCHEDULE = "0 */2 * * *";
+
 /** cron job for the edge function */
 export const lastFmLibraryArtistsCron = (
   projectId: string,
@@ -168,7 +170,7 @@ export const lastFmLibraryArtistsCron = (
     publishableKey,
     edgeFunctionFolderName: "lastfm-library-artists",
     uniqueCronJobName: `lastfm_library_artists_${lastFmUser.toLowerCase()}`,
-    cronTabTiming: "0 */2 * * *",
+    cronTabTiming: LIBRARY_ARTISTS_CRON_SCHEDULE,
     body: {
       lastFmUser: lastFmUser,
     },
