@@ -1,6 +1,11 @@
+# Paths
 WEB := src/web
-GREEN := \033[0;32m
-END := \033[0m
+
+# Colors
+RESET  := \033[0m
+CYAN   := \033[36m
+GREEN  := \033[1;32m
+GRAY   := \033[90m
 
 -include .env
 export
