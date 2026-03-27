@@ -19,13 +19,6 @@ export async function getLastListenedTracks(
   console.log("Fetching tracks with page:", page, "offset:", offset);
 
   try {
-    // First, check if we can connect to Supabase at all
-    const healthCheck = await supabase.from("listened").select("count()", {
-      count: "exact",
-    });
-    console.log("Supabase health check:", healthCheck);
-
-    // Now perform the actual query
     let query = supabase
       .from("listened")
       .select<string, ListenedTracks>(`
