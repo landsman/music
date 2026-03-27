@@ -8,7 +8,7 @@ import { ArtistRow, ArtistTable } from "../_shared/db/db.artist.ts";
 import { delay, notEmptyOrNull } from "../_shared/utils.ts";
 import { HoomanArtistTable } from "../_shared/db/db.hooman_artist.ts";
 import { HoomanTable } from "../_shared/db/db.hooman.ts";
-import { buildCron } from "../_shared/cron.ts";
+import type { CronDefinition } from "../_shared/cron.ts";
 
 /**
  * main function
@@ -157,21 +157,9 @@ async function pairArtistWithHooman(
   }
 }
 
-export const LIBRARY_ARTISTS_CRON_SCHEDULE = "0 */2 * * *";
-
-/** cron job for the edge function */
-export const lastFmLibraryArtistsCron = (
-  projectId: string,
-  publishableKey: string,
-  lastFmUser: string,
-) =>
-  buildCron({
-    projectId,
-    publishableKey,
-    edgeFunctionFolderName: "lastfm-library-artists",
-    uniqueCronJobName: `lastfm_library_artists_${lastFmUser.toLowerCase()}`,
-    cronTabTiming: LIBRARY_ARTISTS_CRON_SCHEDULE,
-    body: {
-      lastFmUser: lastFmUser,
-    },
-  });
+export const libraryArtistsCron: CronDefinition = {
+  schedule: "0 */2 * * *",
+  jobName: (user) => `lastfm_library_artists_${user.toLowerCase()}`,
+  edgeFunctionFolderName: "lastfm-library-artists",
+  body: (user) => ({ lastFmUser: user }),
+};

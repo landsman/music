@@ -38,6 +38,29 @@ jobs:
           npx @sentry/cli releases set-commits ${{ github.sha }} --auto
           npx @sentry/cli releases deploys ${{ github.sha }} new -e production
 
+      - name: "Supabase - Upsert vault secrets"
+        env:
+          PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        shell: bash
+        run: |
+          ANON_KEY=$(supabase projects api-keys --project-ref "$PROJECT_ID" --output json | jq -r '.[] | select(.name == "anon") | .api_key')
+          DATABASE_URL="postgresql://postgres:${SUPABASE_DB_PASSWORD}@db.${PROJECT_ID}.supabase.co:5432/postgres"
+          psql "$DATABASE_URL" <<EOF
+          DO \$\$
+          DECLARE
+            v_id uuid;
+          BEGIN
+            SELECT id INTO v_id FROM vault.secrets WHERE name = 'supabase_anon_key' LIMIT 1;
+            IF v_id IS NOT NULL THEN
+              PERFORM vault.update_secret(v_id, '${ANON_KEY}');
+            ELSE
+              PERFORM vault.create_secret('${ANON_KEY}', 'supabase_anon_key', 'Supabase anon key for pg_cron HTTP requests');
+            END IF;
+          END \$\$;
+          EOF
+
       - name: "Supabase - Remote Connect"
         env:
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}

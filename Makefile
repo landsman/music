@@ -117,10 +117,15 @@ tests:
 	deno task tests
 
 # Database
-.PHONY: migration migrate update-types-local update-types-linked
+.PHONY: migration migration-crons migrate update-types-local update-types-linked
 
 migration:
 	deno task migration $(name)
+
+migration-crons: ## Generate cron migration from source (requires PROJECT_ID in .env)
+	@file=$$(deno run --allow-all scripts/generate-crons.ts); \
+	git add "$$file"; \
+	echo "$(GREEN)Created: $$file$(END)"
 
 migrate:
 	deno task migrate

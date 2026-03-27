@@ -3,32 +3,46 @@
 You have to allow two extensions: `pg_cron`, `pg_net` for a database to make
 this work. See [Supabase Documentation](https://supabase.com/docs/guides/cron).
 
-You have to run the following commands in SQL Editor of your Supabase project.
+## How cron jobs are deployed
 
-## Generate cron tab
+Cron jobs are defined in code and deployed automatically as SQL migrations via
+`supabase db push` in CI. No manual SQL editor steps required.
 
-1. Fill out root `.env` file with variables
-2. run tests: `deno run tests`
-3. cron install queries will be generated into the file `cron_jobs.sql` in the
-   root
-4. visit supabase dashboard and run these queries in SQL editor
+The anon key is **never stored in the repository**. It is fetched from the
+Supabase Management API at deploy time and stored in Supabase Vault
+(`vault.secrets`), where pg_cron reads it at runtime.
+
+See [decision record 003](decision-records/003-cron-vault-secrets.md) for full details.
+
+## Adding or changing a cron job
+
+1. Edit the `CronDefinition` in the relevant Edge Function:
+   - `supabase/functions/lastfm-user-recent-tracks/sync-tracks.ts` → `recentTracksCron`
+   - `supabase/functions/lastfm-library-artists/sync-artists.ts` → `libraryArtistsCron`
+2. Add or remove users in `supabase/functions/_shared/users.ts` → `LASTFM_USERS`
+3. Generate and stage the migration:
+   ```bash
+   make migration-crons
+   ```
+4. Commit and push — CI applies it via `supabase db push`
+
+## Local development
+
+Seed the vault secret once after starting local Supabase:
+
+```bash
+# Get the local anon key from:
+deno task start  # then check output of: supabase status
+
+psql $DATABASE_URL -c "SELECT vault.create_secret('<local-anon-key>', 'supabase_anon_key', 'Supabase anon key for cron HTTP requests');"
+```
 
 ## GUI
 
-There is actually a UI where you can manage your jobs very easily.
+Jobs can also be inspected and managed via the Supabase dashboard:
 
 ```
 https://supabase.com/dashboard/project/***/integrations/cron/jobs
 ```
 
-_Replace your project ID in the URL_.
-
-## Remove existing job
-
-Replace ID by number from your database of already existing cron.
-
-```bash
-select cron.unschedule(3);
-```
-
-Or you can do this via GUI as well.
+_Replace your project ID in the URL._

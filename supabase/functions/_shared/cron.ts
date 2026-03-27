@@ -1,50 +1,54 @@
-interface CronProps {
-  projectId: string;
-  publishableKey: string;
+import type { LastFmUser } from "./users.ts";
+
+export interface CronDefinition {
+  schedule: string;
+  jobName: (user: LastFmUser) => string;
   edgeFunctionFolderName: string;
-  uniqueCronJobName: string;
-  cronTabTiming: string;
-  body?: object;
-  headers?: object;
+  body: (user: LastFmUser) => object;
 }
 
 /**
- * Util to easily build type-safe cron syntax.
+ * Generates SQL to safely remove a cron job if it exists.
+ * Uses jobid lookup so it is a no-op when the job is not present.
  */
-export function buildCron(props: CronProps): string {
-  const {
-    projectId,
-    publishableKey,
-    edgeFunctionFolderName,
-    uniqueCronJobName,
-    cronTabTiming,
-    body,
-    headers,
-  } = props;
+export function buildUnschedule(
+  def: CronDefinition,
+  user: LastFmUser,
+): string {
+  return `select cron.unschedule(jobid) from cron.job where jobname = '${
+    def.jobName(user)
+  }';\n`;
+}
 
-  const finalHeaders = {
-    ...{
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${publishableKey}`,
-    },
-    ...headers,
-  };
+/**
+ * Generates cron schedule SQL for a given definition and user.
+ *
+ * The anon key is never inlined — it is read at runtime from Supabase Vault
+ * (vault.decrypted_secrets WHERE name = 'supabase_anon_key'), so the
+ * generated SQL is safe to commit to a public repository.
+ */
+export function buildCron(
+  def: CronDefinition,
+  projectId: string,
+  user: LastFmUser,
+): string {
   const finalBody = {
-    ...{
-      time: "', now(),'",
-    },
-    ...body,
+    time: "', now(),'",
+    ...def.body(user),
   };
   return `
 select
   cron.schedule(
-    '${uniqueCronJobName}',
-    '${cronTabTiming}',
+    '${def.jobName(user)}',
+    '${def.schedule}',
     $$
     select
       net.http_post(
-          url:='https://${projectId}.supabase.co/functions/v1/${edgeFunctionFolderName}',
-          headers:='${JSON.stringify(finalHeaders)}'::jsonb,
+          url:='https://${projectId}.supabase.co/functions/v1/${def.edgeFunctionFolderName}',
+          headers:=jsonb_build_object(
+            'Content-Type', 'application/json',
+            'Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = 'supabase_anon_key')
+          ),
           body:=concat('${JSON.stringify(finalBody)}')::jsonb
       ) as request_id;
     $$
