@@ -123,7 +123,7 @@ migration:
 	deno task migration $(name)
 
 migration-crons: ## Generate cron migration from source (requires PROJECT_ID in .env)
-	@file=$$(deno run --allow-all scripts/generate-crons.ts); \
+	@file=$$(deno run --allow-read=.env --allow-write=supabase/migrations --allow-env=PROJECT_ID scripts/generate-crons.ts); \
 	git add "$$file"; \
 	echo "$(GREEN)Created: $$file$(END)"
 
