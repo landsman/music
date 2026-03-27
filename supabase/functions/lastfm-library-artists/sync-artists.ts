@@ -128,18 +128,20 @@ async function pairArtistWithHooman(
   hoomanId: string,
   data: Artist[],
 ): Promise<void> {
-  const mapped = await Promise.all(data.map(async (item) => {
-    const artistId = await artistsTable.findIdByName(item.name);
-    if (artistId === null) {
-      return null;
-    }
-    return {
-      created_at: new Date().toISOString(),
-      hooman_id: hoomanId,
-      artist_id: artistId,
-    };
-  }));
-  const toAssign = mapped.filter((r) => r !== null);
+  const names = data.map((item) => item.name);
+  const nameToId = await artistsTable.findIdsByNames(names);
+
+  const toAssign = data
+    .map((item) => {
+      const artistId = nameToId.get(item.name);
+      if (!artistId) return null;
+      return {
+        created_at: new Date().toISOString(),
+        hooman_id: hoomanId,
+        artist_id: artistId,
+      };
+    })
+    .filter((r) => r !== null);
 
   const { message, error } = await hoomanArtistTable.pair(toAssign);
   if (error) {
@@ -166,7 +168,7 @@ export const lastFmLibraryArtistsCron = (
     publishableKey,
     edgeFunctionFolderName: "lastfm-library-artists",
     uniqueCronJobName: `lastfm_library_artists_${lastFmUser.toLowerCase()}`,
-    cronTabTiming: "*/30 * * * *",
+    cronTabTiming: "0 */2 * * *",
     body: {
       lastFmUser: lastFmUser,
     },

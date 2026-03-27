@@ -14,7 +14,7 @@ Deno.serve(async (req) => {
     const result = await sentryHandler.withCronMonitor(
       monitorSlug,
       {
-        schedule: { type: "crontab", value: "*/30 * * * *" },
+        schedule: { type: "crontab", value: "0 */2 * * *" },
         checkinMargin: 10,
         maxRuntime: 25,
         timezone: "UTC",
