@@ -10,7 +10,7 @@ Queries `01`, `02`, and `06` require the `pg_stat_statements` extension. Run
 ## Queries
 
 | File                                                                          | Description                                         |
-|-------------------------------------------------------------------------------|-----------------------------------------------------|
+| ----------------------------------------------------------------------------- | --------------------------------------------------- |
 | [00_check_pg_stat_statements.sql](egress/00_check_pg_stat_statements.sql)     | Verify `pg_stat_statements` extension is available  |
 | [01_top_queries_by_rows.sql](egress/01_top_queries_by_rows.sql)               | Top queries by total rows returned across all calls |
 | [02_queries_by_avg_rows.sql](egress/02_queries_by_avg_rows.sql)               | Queries with the largest result sets per call       |
