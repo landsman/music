@@ -12,23 +12,22 @@ export class ArtistTable extends BaseTable {
   ): Promise<{ message?: string; error?: unknown }> {
     return await this.getSupabase()
       .from("artist")
-      .upsert(artists, { onConflict: "name" }) // insert?
-      .select();
+      .upsert(artists, { onConflict: "name" });
   }
 
-  async findIdByName(name: string): Promise<string | null> {
+  async findIdsByNames(names: string[]): Promise<Map<string, string>> {
     const { data, error } = await this.getSupabase()
       .from("artist")
-      .select("id")
-      .eq("name", name)
-      .limit(1)
-      .maybeSingle<{ id: string } | null>();
+      .select("id, name")
+      .in("name", names);
 
-    if (error) {
-      console.error("Error fetching artist by name:", error);
-      return null;
+    if (error || !data) {
+      console.error("Error fetching artists by names:", error);
+      return new Map();
     }
 
-    return data ? data.id : null;
+    return new Map(
+      data.flatMap((r) => r.id ? [[r.name, r.id] as [string, string]] : []),
+    );
   }
 }
