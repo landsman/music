@@ -45,6 +45,7 @@ lint:
 # DOC
 #
 .PHONY: decision
+DOC_DECISIONS_FOLDER := .docs/decision-records
 
 decision: ## Create a new decision record (usage: make decision, or make decision TITLE="my title")
 	@if [ -n "$(TITLE)" ]; then \
@@ -58,14 +59,12 @@ decision: ## Create a new decision record (usage: make decision, or make decisio
 		sed 's/[^a-z0-9 -]//g' | \
 		tr ' ' '-' | \
 		sed 's/-\{2,\}/-/g; s/^-//; s/-$$//'); \
-	last=$$(ls .docs/decision-records/[0-9][0-9][0-9]-*.md 2>/dev/null | sort | tail -1); \
-	if [ -z "$$last" ]; then next="001"; \
-	else next=$$(basename "$$last" | sed 's/-.*//' | awk '{printf "%03d", $$1 + 1}'); fi; \
-	file=".docs/decision-records/$${next}-$${slug}.md"; \
-	cp .docs/decision-records/000-TEMPLATE.md "$$file"; \
+	next=$$(date +%Y%m%d-%H%M); \
+	file="$(DOC_DECISIONS_FOLDER)/$${next}-$${slug}.md"; \
+	cp $(DOC_DECISIONS_FOLDER)/000-TEMPLATE.md "$$file"; \
 	basename=$$(basename "$$file"); \
-	echo "- [$${next}]($$basename) — $$title" >> .docs/decision-records/README.md; \
-	git add "$$file" .docs/decision-records/README.md; \
+	echo "- [$${next}]($$basename) — $$title" >> $(DOC_DECISIONS_FOLDER)/README.md; \
+	git add "$$file" $(DOC_DECISIONS_FOLDER)/README.md; \
 	echo "$(GREEN)Created: $$file$(END)"; \
 	if [ -z "$(TITLE)" ]; then \
 		case "$$(uname)" in \
