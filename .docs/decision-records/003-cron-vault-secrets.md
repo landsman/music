@@ -53,7 +53,7 @@ Cron definitions live in `CronDefinition` objects in each Edge Function's sync f
 After any change, generate and stage a new migration:
 
 ```bash
-make migration-crons
+make cron
 ```
 
 This runs `scripts/generate-crons.ts`, which writes a timestamped migration to `supabase/migrations/` and prints the path. The Makefile stages it with `git add`. Every generated migration unschedules all existing jobs first, then reschedules them — so no stale jobs can accumulate.

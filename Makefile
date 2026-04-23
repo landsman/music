@@ -121,15 +121,15 @@ tests:
 	deno task tests
 
 # Database
-.PHONY: migration migration-crons migrate update-types-local update-types-linked
+.PHONY: migration cron migrate update-types-local update-types-linked
 
 migration:
 	deno task migration $(name)
 
-migration-crons: ## Generate cron migration from source (requires PROJECT_ID in .env)
-	@file=$$(deno run --allow-read=.env --allow-write=supabase/migrations --allow-env=PROJECT_ID scripts/generate-crons.ts); \
+cron: ## Generate cron migration from source (requires PROJECT_ID in .env)
+	@file=$$(deno run --allow-write=supabase/migrations --allow-env=PROJECT_ID scripts/generate-crons.ts); \
 	git add "$$file"; \
-	echo "$(GREEN)Created: $$file$(END)"
+	echo "$(GREEN)Created:$(RESET) file://$(CURDIR)/$$file"
 
 migrate:
 	deno task migrate

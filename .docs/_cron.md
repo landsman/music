@@ -22,7 +22,7 @@ See [decision record 003](decision-records/003-cron-vault-secrets.md) for full d
 2. Add or remove users in `supabase/functions/_shared/users.ts` → `LASTFM_USERS`
 3. Generate and stage the migration:
    ```bash
-   make migration-crons
+   make cron
    ```
 4. Commit and push — CI applies it via `supabase db push`
 
