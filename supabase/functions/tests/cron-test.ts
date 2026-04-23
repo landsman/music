@@ -1,44 +1,51 @@
 import { assertEquals } from "@std/assert";
-import { buildCron } from "../_shared/cron.ts";
+import { buildCron, buildUnschedule, CronDefinition } from "../_shared/cron.ts";
 
-Deno.test("buildCron should generate correct cron schedule SQL", () => {
-  const props = {
-    projectId: "myProject",
-    publishableKey: "abc123",
-    edgeFunctionFolderName: "myEdgeFunc",
-    uniqueCronJobName: "jobName",
-    cronTabTiming: "*/5 * * * *",
-    body: { lastFmUser: "john" },
-    headers: { "X-Custom": "customValue" },
-  };
+const testCron: CronDefinition = {
+  schedule: "*/5 * * * *",
+  jobName: (user) => `test_job_${user.toLowerCase()}`,
+  edgeFunctionFolderName: "my-edge-func",
+  body: (user) => ({ lastFmUser: user }),
+};
 
-  const expectedHeaders = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer abc123",
-    "X-Custom": "customValue",
-  };
+Deno.test("buildCron generates correct cron schedule SQL", () => {
+  const result = buildCron(testCron, "myProject", "Insuit");
 
-  const expectedBody = {
-    time: "', now(),'",
-    lastFmUser: "john",
-  };
+  const expectedBody = { time: "', now(),'", lastFmUser: "Insuit" };
 
   const expected = `
 select
   cron.schedule(
-    'jobName',
+    'test_job_insuit',
     '*/5 * * * *',
     $$
     select
       net.http_post(
-          url:='https://myProject.supabase.co/functions/v1/myEdgeFunc',
-          headers:='${JSON.stringify(expectedHeaders)}'::jsonb,
+          url:='https://myProject.supabase.co/functions/v1/my-edge-func',
+          headers:=jsonb_build_object(
+            'Content-Type', 'application/json',
+            'Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = 'supabase_anon_key')
+          ),
           body:=concat('${JSON.stringify(expectedBody)}')::jsonb
       ) as request_id;
     $$
   );
 `;
 
-  const result = buildCron(props);
   assertEquals(result, expected);
+});
+
+Deno.test("buildCron lowercases user in job name", () => {
+  const lower = buildCron(testCron, "myProject", "Insuit");
+  const upper = buildCron(testCron, "myProject", "Insuit");
+  assertEquals(lower, upper);
+  assertEquals(lower.includes("test_job_insuit"), true);
+});
+
+Deno.test("buildUnschedule generates safe no-op SQL", () => {
+  const result = buildUnschedule(testCron, "Insuit");
+  assertEquals(
+    result,
+    "select cron.unschedule(jobid) from cron.job where jobname = 'test_job_insuit';\n",
+  );
 });

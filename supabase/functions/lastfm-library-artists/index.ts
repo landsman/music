@@ -1,7 +1,7 @@
 import { SentryErrorHandler } from "../_shared/sentry.ts";
 import { env } from "../_shared/env.ts";
 import { getLastFmUser } from "../_shared/lastfm/request-fields.ts";
-import { LIBRARY_ARTISTS_CRON_SCHEDULE, syncArtists } from "./sync-artists.ts";
+import { libraryArtistsCron, syncArtists } from "./sync-artists.ts";
 
 const sentryHandler = new SentryErrorHandler(env.DEVELOPER_MODE);
 sentryHandler.init();
@@ -9,12 +9,10 @@ sentryHandler.init();
 Deno.serve(async (req) => {
   try {
     const lastFmUser = await getLastFmUser(req, env.LASTFM_USERNAME);
-    const monitorSlug = `lastfm_library_artists_${lastFmUser.toLowerCase()}`;
-
     const result = await sentryHandler.withCronMonitor(
-      monitorSlug,
+      libraryArtistsCron.jobName(lastFmUser),
       {
-        schedule: { type: "crontab", value: LIBRARY_ARTISTS_CRON_SCHEDULE },
+        schedule: { type: "crontab", value: libraryArtistsCron.schedule },
         checkinMargin: 10,
         maxRuntime: 25,
         timezone: "UTC",
