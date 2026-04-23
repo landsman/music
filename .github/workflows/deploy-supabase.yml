@@ -33,7 +33,6 @@ jobs:
         env:
           PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
         run: scripts/ci/supabase/upsert-vault-secret.sh
 
       - name: Remote connect + deploy
