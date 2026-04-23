@@ -1,0 +1,4 @@
+# CI scripts execute with production secrets on a self-hosted runner.
+# Any change to these paths must be reviewed by @landsman.
+/.github/workflows/  @landsman
+/scripts/ci/         @landsman
