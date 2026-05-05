@@ -1,0 +1,27 @@
+html,
+:host {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-blue);
+  text-decoration: inherit;
+
+  &:hover {
+    color: var(--color-text);
+    background: var(---color-blue-dark);
+    text-decoration: none;
+    padding: 2px;
+    border-radius: 4px;
+  }
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  background-color: var(--color-bg-dropdown);
+}

@@ -1,0 +1,26 @@
+button {
+  border-radius: 8px;
+  border: 1px solid
+    color-mix(in oklab, var(--color-neutral-700) 75%, transparent);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: inherit;
+  background-color: var(--color-btn-bg);
+  cursor: pointer;
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    border-color: var(--color-btn-hover-text);
+  }
+
+  &:active {
+    background-color: var(--color-btn-hover-bg);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+}
