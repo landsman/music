@@ -1,6 +1,4 @@
-/* global */
-@import "global/reset.css";
-@import "global/layout.css";
+@import "layout.css";
 
 /* components */
 @import "header/header.css";

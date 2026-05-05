@@ -1,3 +1,6 @@
+/* root, reset, typography, etc. */
+@import "global/_global.css";
+
 /* layout */
 @import "layout/_layout.css";
 

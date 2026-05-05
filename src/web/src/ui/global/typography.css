@@ -1,0 +1,16 @@
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+    color: var(--color-blue);
+}
+
+h2 {
+    color: var(--color-gray);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    svg {
+        padding-right: 10px;
+    }
+}
