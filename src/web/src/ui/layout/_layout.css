@@ -1,0 +1,7 @@
+/* global */
+@import "global/reset.css";
+@import "global/layout.css";
+
+/* components */
+@import "header/header.css";
+@import "footer/footer.css";

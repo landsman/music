@@ -1,5 +1,5 @@
 import { Disc3 } from "lucide-react";
-import { cs } from "../../lib/cs.ts";
+import { cs } from "../../../lib/cs.ts";
 
 type LoaderProps = {
   className?: string;

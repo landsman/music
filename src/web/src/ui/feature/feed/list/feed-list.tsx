@@ -1,10 +1,9 @@
 import { useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { FeedItem } from "../item/feed-item.tsx";
-import { ListenedTracks } from "../../../data/tracks-api.ts";
-import { MusicLoader } from "../../activity/loader.tsx";
+import { ListenedTracks } from "../../../../data/tracks-api.ts";
+import { MusicLoader } from "../../../activity/loader/loader.tsx";
 import { LoadMore } from "./load-more.tsx";
-import "./feed.module.css";
 
 interface FeedListProps {
   data: ListenedTracks[];

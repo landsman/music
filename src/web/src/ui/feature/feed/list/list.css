@@ -1,6 +1,3 @@
-@import "../item/feed-item.module.css";
-@import "../track/track.module.css";
-
 @keyframes fadeSlideIn {
   from {
     opacity: 0;
