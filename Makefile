@@ -146,6 +146,8 @@ update-types-linked:
 ##
 .PHONY: dev build preview extract compile
 dev:
+	@trap 'kill 0' INT TERM EXIT; \
+	deno fmt --watch --no-clear-screen & \
 	cd $(WEB) && deno task dev
 
 build:
