@@ -1,6 +1,4 @@
 select {
-  appearance: base-select;
-
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
   border: 1px solid
@@ -9,6 +7,15 @@ select {
   color: inherit;
   font-size: 14px;
   cursor: pointer;
+
+  appearance: base-select; /* not supported in firefox at them moment - may 2026 */
+
+  /** arrow */
+  &::picker-icon {
+    font-size: 0.5rem;
+    align-content: center;
+    transition: 150ms ease;
+  }
 
   &:focus {
     outline: none;
@@ -19,5 +26,9 @@ select {
   option {
     background-color: var(--color-bg-dropdown);
     color: var(--color-text-dropdown);
+
+      &:checked {
+          background-color: var(--color-primary);
+      }
   }
 }
