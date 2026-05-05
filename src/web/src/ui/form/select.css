@@ -27,8 +27,8 @@ select {
     background-color: var(--color-bg-dropdown);
     color: var(--color-text-dropdown);
 
-      &:checked {
-          background-color: var(--color-primary);
-      }
+    &:checked {
+      background-color: var(--color-primary);
+    }
   }
 }
