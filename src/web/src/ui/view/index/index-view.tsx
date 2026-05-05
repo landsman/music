@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useTracks } from "../data/use-tracks.ts";
-import { FeedList } from "../ui/feed/list/feed-list.tsx";
-import { MusicLoader } from "../ui/activity/loader.tsx";
-import { Header } from "../ui/header/header.tsx";
-import { UserFilter } from "../ui/header/user-filter.tsx";
-import { ErrorState } from "../ui/feed/state/error.tsx";
-import { EmptyState } from "../ui/feed/state/empty.tsx";
+import { useTracks } from "../../../data/use-tracks.ts";
+import { FeedList } from "../../feature/feed/list/feed-list.tsx";
+import { MusicLoader } from "../../activity/loader/loader.tsx";
+import { Header } from "../../layout/header/header.tsx";
+import { UserFilter } from "../../layout/header/user-filter.tsx";
+import { ErrorState } from "../../feature/feed/state/error.tsx";
+import { EmptyState } from "../../feature/feed/state/empty.tsx";
 
 export function IndexView() {
   const [selectedUserId, setSelectedUserId] = useState("");

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import PullToRefresh from "pulltorefreshjs";
-import "./pull-to-refresh.css";
 
 /**
  * https://github.com/BoxFactura/pulltorefresh.js

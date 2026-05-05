@@ -1,7 +1,6 @@
 import { Headphones } from "lucide-react";
 import { useLingui } from "@lingui/react/macro";
-import { usePullToRefresh } from "./pull-to-refresh.tsx";
-import "./header.css";
+import { usePullToRefresh } from "../../activity/pull-to-refresh/pull-to-refresh.tsx";
 
 interface HeaderProps {
   rightSlot?: React.ReactNode;
