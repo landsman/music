@@ -1,12 +1,33 @@
 version: 2
+enable-beta-ecosystems: true
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "weekly"
     labels:
       - "dependencies"
       - "github-actions"
     commit-message:
       prefix: "ci"
       include: "scope"
+
+  - package-ecosystem: "deno"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "deno"
+    directory: "/supabase/functions"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "deno"
+    directory: "/src/web"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "deno"
+    directory: "/src/shared"
+    schedule:
+      interval: "weekly"
