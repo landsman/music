@@ -18,7 +18,7 @@ updates:
       interval: "weekly"
 
   - package-ecosystem: "deno"
-    directory: "/src/supabase/functions"
+    directory: "/supabase/functions"
     schedule:
       interval: "weekly"
 
