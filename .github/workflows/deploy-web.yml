@@ -24,7 +24,7 @@ jobs:
     # Self-hosted runner on Raspberry Pi 5 — see .docs/_self-hosted-runner.md
     runs-on: [self-hosted, pi5]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
