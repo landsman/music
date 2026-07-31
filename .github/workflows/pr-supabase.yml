@@ -51,3 +51,14 @@ jobs:
         with:
           directory: ./supabase/functions
           title: "Deno Outdated - Supabase"
+
+  # The scan lives in landsman/config and is called, not copied — one place to
+  # change the scanner, the image or a default pack for every repo of mine.
+  # Its own job so a finding reads as a finding rather than as a broken build.
+  # p/typescript rather than a Deno pack: p/deno does not exist in the registry,
+  # and this is TypeScript whatever runs it.
+  security:
+    uses: landsman/config/.github/workflows/semgrep.yml@main
+    with:
+      packs: p/secrets p/typescript
+      path: supabase
