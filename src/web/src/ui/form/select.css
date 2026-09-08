@@ -8,7 +8,7 @@ select {
   font-size: 14px;
   cursor: pointer;
 
-  appearance: base-select; /* not supported in firefox at them moment - may 2026 */
+  appearance: base-select; /* not supported in firefox at the moment - may 2026 */
 
   /** arrow */
   &::picker-icon {
