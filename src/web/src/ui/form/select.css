@@ -8,6 +8,15 @@ select {
   font-size: 14px;
   cursor: pointer;
 
+  appearance: base-select; /* not supported in firefox at the moment - may 2026 */
+
+  /** arrow */
+  &::picker-icon {
+    font-size: 0.5rem;
+    align-content: center;
+    transition: 150ms ease;
+  }
+
   &:focus {
     outline: none;
     border-color: var(--color-primary);
@@ -16,6 +25,10 @@ select {
 
   option {
     background-color: var(--color-bg-dropdown);
-    color: var(--color-bg-dropdown);
+    color: var(--color-text-dropdown);
+
+    &:checked {
+      background-color: var(--color-primary);
+    }
   }
 }
