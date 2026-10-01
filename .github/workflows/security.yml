@@ -1,0 +1,19 @@
+name: Security
+
+# The scan lives in landsman/config and is called, not copied — one place to
+# change the scanner, the image or a default pack for every repo of mine.
+# The whole repo rather than one job per app: the baseline's p/ci only reads
+# .github/ when it is in scope, and nothing else here checks it.
+# p/typescript rather than a Deno pack: p/deno does not exist in the registry,
+# and this is TypeScript whatever runs it. p/secrets and p/ci are the baseline.
+#
+# No dependency scan: trivy reads no deno.lock, and none is committed.
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  semgrep:
+    uses: landsman/config/.github/workflows/semgrep.yml@main
+    with:
+      packs: p/typescript

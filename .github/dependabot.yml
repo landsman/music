@@ -5,29 +5,47 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # A week for a bad release to be caught upstream first; security updates skip it.
+    cooldown:
+      default-days: 7
     labels:
       - "dependencies"
       - "github-actions"
     commit-message:
-      prefix: "ci"
-      include: "scope"
+      prefix: "deps"
 
   - package-ecosystem: "deno"
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps"
 
   - package-ecosystem: "deno"
     directory: "/supabase/functions"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps"
 
   - package-ecosystem: "deno"
     directory: "/src/web"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps"
 
   - package-ecosystem: "deno"
     directory: "/src/shared"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps"
