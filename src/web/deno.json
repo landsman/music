@@ -38,6 +38,6 @@
     "usehooks-ts": "npm:usehooks-ts@^3.1.1",
     "vite": "npm:vite@^7.3.1",
     "@sentry/react": "npm:@sentry/react@^10.43.0",
-    "@sentry/vite-plugin": "npm:@sentry/vite-plugin@^5.1.1"
+    "@sentry/vite-plugin": "npm:@sentry/vite-plugin@^5.4.0"
   }
 }
