@@ -14,12 +14,22 @@ if [[ -z "${SUPABASE_DB_URL:-}" && -t 0 ]]; then
   echo >&2
 fi
 : "${SUPABASE_DB_URL:?set SUPABASE_DB_URL to the Session pooler URI from the Supabase dashboard}"
+
+# A terminal may wrap a paste in bracketed-paste markers, and pg_dump reads
+# anything that is not a URI as a local database name.
+url=${SUPABASE_DB_URL//$'\e[200~'/}
+url=${url//$'\e[201~'/}
+url=${url//[[:space:]]/}
+if [[ ! "$url" =~ ^postgres(ql)?:// ]]; then
+  printf 'Expected a postgresql:// URI, got one starting with %q\n' "${url:0:12}" >&2
+  exit 1
+fi
 out_dir=${1:-$HOME/backups/music}
 mkdir -p "$out_dir"
 file="$out_dir/music-$(date -u +%Y%m%dT%H%M%SZ).dump"
 
 # Written under another name first, so a dump that fails halfway never looks finished.
-pg_dump "$SUPABASE_DB_URL" --schema=public --no-owner --no-privileges \
+pg_dump "$url" --schema=public --no-owner --no-privileges \
   --format=custom --file="$file.partial"
 mv "$file.partial" "$file"
 echo "$file"
