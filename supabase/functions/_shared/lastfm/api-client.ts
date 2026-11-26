@@ -52,3 +52,32 @@ export class LastFmApiClient {
     return url;
   }
 }
+
+/**
+ * Throws when Last.fm answered with its error shape, `{ error, message }`.
+ * https://www.last.fm/api/errorcodes
+ */
+export function throwOnLastFmError(data: unknown): void {
+  const { error, message } = (data ?? {}) as {
+    error?: unknown;
+    message?: unknown;
+  };
+  if (typeof error === "number") {
+    throw new LastFmError(error, String(message));
+  }
+}
+
+export class LastFmError extends Error {
+  constructor(readonly code: number, message: string) {
+    super(`Last.fm error ${code}: ${message}`);
+    this.name = "LastFmError";
+  }
+
+  /** Last.fm's own "try again later": an outage on their side, not a bug here. */
+  get transient(): boolean {
+    return TRANSIENT_CODES.has(this.code);
+  }
+}
+
+// 8 backend failed, 11 service offline, 16 temporarily unavailable, 29 rate limit
+const TRANSIENT_CODES = new Set([8, 11, 16, 29]);

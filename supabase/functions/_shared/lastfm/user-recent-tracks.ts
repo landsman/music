@@ -1,4 +1,4 @@
-import { LastFmApiClient } from "./api-client.ts";
+import { LastFmApiClient, throwOnLastFmError } from "./api-client.ts";
 
 /**
  * see https://www.last.fm/api/show/user.getRecentTracks
@@ -30,22 +30,21 @@ export async function getRecentTracks(
     }),
   );
 
-  return await fetch(url)
+  const data = await fetch(url)
     .then((res) => res.json())
-    .then((data) => {
-      if (!data?.recenttracks) {
-        console.error(
-          "getRecentTracks - unexpected response:",
-          JSON.stringify(data),
-        );
-        return null;
-      }
-      return data as RecentTracks;
-    })
     .catch((err) => {
       console.error(err);
       return null;
     });
+  throwOnLastFmError(data);
+  if (!data?.recenttracks) {
+    console.error(
+      "getRecentTracks - unexpected response:",
+      JSON.stringify(data),
+    );
+    return null;
+  }
+  return data as RecentTracks;
 }
 
 type Image = {
