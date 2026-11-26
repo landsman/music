@@ -6,6 +6,8 @@
 #   the direct host is IPv6 only
 #   out-dir  defaults to ~/backups/music, outside the repo so a dump is never committed
 # Restore: pg_restore --no-owner --no-privileges -d <uri> <file>
+#   It exits 1 with two harmless errors on Postgres 16 or older, as on Supabase's 15:
+#   transaction_timeout is unknown there, and schema "public" already exists.
 set -euo pipefail
 
 # Asks only in a terminal: without one, a prompt would wait forever.
