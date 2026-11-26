@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
-# Dump the production database's public schema, tables and data, to a local file.
+# Back up the production database with the Supabase CLI: schema and data, as plain SQL.
 #
 # Usage: scripts/backup-db.sh [out-dir]
 #   asks for the Session pooler URI from the dashboard (Connect), unless SUPABASE_DB_URL holds it;
 #   the direct host is IPv6 only
-#   out-dir  defaults to ~/backups/music, outside the repo so a dump is never committed
-# Restore: pg_restore --no-owner --no-privileges -d <uri> <file>
-#   It exits 1 with two harmless errors on Postgres 16 or older, as on Supabase's 15:
-#   transaction_timeout is unknown there, and schema "public" already exists.
+#   out-dir  defaults to ~/backups/music, outside the repo so a dump is never committed;
+#            each run writes <out-dir>/<UTC time>/schema.sql and data.sql
+# Restore into an empty database:
+#   psql -v ON_ERROR_STOP=1 --single-transaction -d <uri> -f schema.sql -f data.sql
 set -euo pipefail
+
+# The deploy's CLI version (.github/workflows/deploy-supabase.yml). It runs pg_dump in
+# Docker at the server's Postgres version, so whatever pg_dump is installed here does not matter.
+supabase=(npx --yes supabase@2.24.3)
 
 # Asks only in a terminal: without one, a prompt would wait forever.
 if [[ -z "${SUPABASE_DB_URL:-}" && -t 0 ]]; then
@@ -17,8 +21,7 @@ if [[ -z "${SUPABASE_DB_URL:-}" && -t 0 ]]; then
 fi
 : "${SUPABASE_DB_URL:?set SUPABASE_DB_URL to the Session pooler URI from the Supabase dashboard}"
 
-# A terminal may wrap a paste in bracketed-paste markers, and pg_dump reads
-# anything that is not a URI as a local database name.
+# A terminal may wrap a paste in bracketed-paste markers, which no tool reads as a URI.
 url=${SUPABASE_DB_URL//$'\e[200~'/}
 url=${url//$'\e[201~'/}
 url=${url//[[:space:]]/}
@@ -26,12 +29,11 @@ if [[ ! "$url" =~ ^postgres(ql)?:// ]]; then
   printf 'Expected a postgresql:// URI, got one starting with %q\n' "${url:0:12}" >&2
   exit 1
 fi
-out_dir=${1:-$HOME/backups/music}
-mkdir -p "$out_dir"
-file="$out_dir/music-$(date -u +%Y%m%dT%H%M%SZ).dump"
 
+dir="${1:-$HOME/backups/music}/$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "$dir.partial"
 # Written under another name first, so a dump that fails halfway never looks finished.
-pg_dump "$url" --schema=public --no-owner --no-privileges \
-  --format=custom --file="$file.partial"
-mv "$file.partial" "$file"
-echo "$file"
+"${supabase[@]}" db dump --db-url "$url" -f "$dir.partial/schema.sql"
+"${supabase[@]}" db dump --db-url "$url" --data-only -f "$dir.partial/data.sql"
+mv "$dir.partial" "$dir"
+echo "$dir"
