@@ -16,6 +16,9 @@ Deno.serve(async (req) => {
         checkinMargin: 10,
         maxRuntime: 25,
         timezone: "UTC",
+        // runs every two hours: six hours of failures, as with recent tracks
+        failureIssueThreshold: 3,
+        recoveryThreshold: 1,
       },
       () => syncArtists(env, lastFmUser),
     );

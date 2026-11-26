@@ -1,4 +1,4 @@
-import { LastFmApiClient } from "./api-client.ts";
+import { LastFmApiClient, throwOnLastFmError } from "./api-client.ts";
 
 /**
  * https://www.last.fm/api/show/library.getArtists
@@ -20,22 +20,21 @@ export async function getLibraryArtists(
       },
     }),
   );
-  return await fetch(url)
+  const data = await fetch(url)
     .then((res) => res.json())
-    .then((data) => {
-      if (!data?.artists) {
-        console.error(
-          "getLibraryArtists - unexpected response:",
-          JSON.stringify(data),
-        );
-        return null;
-      }
-      return data as ArtistsResponse;
-    })
     .catch((err) => {
       console.error(err);
       return null;
     });
+  throwOnLastFmError(data);
+  if (!data?.artists) {
+    console.error(
+      "getLibraryArtists - unexpected response:",
+      JSON.stringify(data),
+    );
+    return null;
+  }
+  return data as ArtistsResponse;
 }
 
 interface ArtistsResponse {

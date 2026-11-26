@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/deno";
+import { LastFmError } from "./lastfm/api-client.ts";
 
 /**
  * Fatal error logging. Sentry will send an email about new errors.
@@ -42,6 +43,12 @@ export class SentryErrorHandler {
   }
 
   logFatalError(e: Error | unknown) {
+    // An outage at Last.fm fails every run until it ends; the cron monitor
+    // reports that once, an exception per run would mail every five minutes.
+    if (e instanceof LastFmError && e.transient) {
+      console.warn(e.message);
+      return;
+    }
     if (this.isProduction) {
       Sentry.captureException(e);
     }
@@ -55,7 +62,8 @@ export class SentryErrorHandler {
    */
   withCronMonitor<T>(
     monitorSlug: string,
-    monitorConfig: Sentry.MonitorConfig,
+    // @sentry/deno no longer re-exports MonitorConfig
+    monitorConfig: Parameters<typeof Sentry.withMonitor>[2],
     fn: () => Promise<T>,
   ): Promise<T> {
     if (!this.isProduction) {

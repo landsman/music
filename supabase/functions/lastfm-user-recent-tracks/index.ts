@@ -16,6 +16,9 @@ Deno.serve(async (req) => {
         checkinMargin: 5,
         maxRuntime: 4,
         timezone: "UTC",
+        // an hour of failed runs, so a short Last.fm outage stays quiet
+        failureIssueThreshold: 12,
+        recoveryThreshold: 1,
       },
       () => syncTracks(env, lastFmUser),
     );
